@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegistrationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:text="FIRST NAME">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/first_name_edit_text_register_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:hint="FIRST NAME"
+                        android:inputType="textPersonName" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:text="LAST NAME">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/last_name_edit_text_register_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:hint="LAST NAME"
+                        android:inputType="textPersonName" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+            </LinearLayout>
+
+            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="EMAIL">
+
+                <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:id="@+id/email_edit_text_register_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="EMAIL"
+                    android:inputType="textEmailAddress" />
+            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/country_code_picker_register_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:ccp_countryPreference="US" />
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:text="MOBILE NUMBER">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/contact_number_edit_text_register_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:hint="MOBILE NUMBER"
+                        android:inputType="number" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+            </LinearLayout>
+
+            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="PASSWORD">
+
+                <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:id="@+id/password_edit_text_register_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="PASSWORD"
+                    android:inputType="textPassword" />
+            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="CONFIRM PASSWORD">
+
+                <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:id="@+id/confirm_password_edit_text_register_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="CONFIRM PASSWORD"
+                    android:inputType="textPassword" />
+            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+            <Button
+                android:id="@+id/next_btn_register_activity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/custom_button_layout5"
+                android:text="Next"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:gravity="center"
+                android:text="OR" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/gmail_img_btn_register_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_button_layout6"
+                    android:padding="@dimen/_10sdp"
+                    android:src="@drawable/google_plus_icon2" />
+
+                <ImageView
+                    android:id="@+id/facebook_img_btn_register_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_button_layout7"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/facebook_icon2" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

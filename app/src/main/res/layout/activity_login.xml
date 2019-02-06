@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+
+            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:text="PHONE NUMBER OR EMAIL">
+
+                <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:id="@+id/email_edit_text_login_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="PHONE NUMBER OR EMAIL"
+                    android:inputType="textEmailAddress" />
+            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+            <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="PASSWORD">
+
+                <me.zhanghai.android.materialedittext.MaterialEditText
+                    android:id="@+id/password_edit_text_login_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:hint="PASSWORD"
+                    android:inputType="textPassword" />
+            </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+            <Button
+                android:id="@+id/login_btn_login_activity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/custom_button_layout5"
+                android:text="Login"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/forgot_password_btn_login_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="Forgot Password?"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:gravity="center"
+                android:text="OR" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/gmail_img_btn_login_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_button_layout3"
+                    android:padding="@dimen/_10sdp"
+                    android:src="@drawable/google_plus_icon" />
+
+                <ImageView
+                    android:id="@+id/facebook_img_btn_login_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_button_layout4"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/facebook_icon" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

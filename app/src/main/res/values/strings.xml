@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MoveItDriver</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Move It</string>
+    <string name="nav_header_subtitle">move.it@example.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="server_unreachable">Server Unreachable</string>
+    <string name="no_internet">Internet Connection Is Not Available</string>
+    <string name="timed_out">Connection Time Out</string>
+
+    <!-- String values of document info activity page -->
+    <string name="info_string_1">Your account profile must include personal and vehicle documents, sush as photos of your driver\'s license and vehicle insurance.</string>
+    <string name="info_string_2">If you\'ve been notified that one of your documents is rejectes or expired, this may be because:</string>
+    <string name="info_string_3">- the image is blurry or dark</string>
+    <string name="info_string_4">- the document will soon expire</string>
+    <string name="info_string_5">- the image does not include all 4 corners of the document</string>
+    <string name="info_string_6">- the document has already expired</string>
+    <string name="info_string_7">- the wrong document was uploaded</string>
+
+    <string name="select_vehicle_type_string">PLEASE CHOOSE HOW YOU WOULD LIKE TO PARTNER WITH CITYTRUCK.</string>
+</resources>

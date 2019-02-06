@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.OTPActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_16sdp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/image_2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="We have sent you an access code via SMS for Mobile number verifications"
+                android:textSize="@dimen/_15sdp"
+                android:textColor="@color/colorLightBlack"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="ENTER CODE"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="#999999"/>
+
+            <com.chaos.view.PinView
+                android:id="@+id/otp_code_pin_view"
+                style="@style/PinWidget.PinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cursorVisible="true"
+                android:inputType="number"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cursorColor="@color/colorPrimaryDark"
+                app:cursorWidth="2dp"
+                app:hideLineWhenFilled="true"
+                app:itemCount="4"
+                app:itemHeight="@dimen/_44sdp"
+                app:itemRadius="@dimen/_1sdp"
+                app:itemSpacing="@dimen/_10sdp"
+                app:itemWidth="@dimen/_44sdp"
+                app:lineColor="@color/colorPrimaryDark"
+                app:lineWidth="@dimen/_3sdp"
+                app:viewType="rectangle" />
+
+            <ImageView
+                android:id="@+id/opt_btn_otp_activity"
+                android:layout_width="@dimen/_75sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/custom_round_button_layout"
+                android:src="@mipmap/ic_arrow_next"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:background="@color/colorPrimaryDark"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/change_number_btn_otp_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="CHANGE NUMBER"
+                    android:textColor="@color/colorWhite"/>
+
+                <TextView
+                    android:id="@+id/resend_code_btn_otp_activity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:text="RESEND CODE"
+                    android:textColor="@color/colorWhite"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

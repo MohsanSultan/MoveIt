@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.moveitdriver">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/andriod_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/andriod_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="af2fdb2d630c604f86796afd09f24b139d4aa5bd" />
+
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.CoverScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.RegistrationActivity"
+            android:label="Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:label="Forgot Password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.OTPActivity"
+            android:label="Verify Mobile Number"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AccountActivity"
+            android:label="Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.RatingsActivity"
+            android:label="Ratings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.InvoiceActivity"
+            android:label="Collect Cash"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ReviewTripActivity"
+            android:label="Review your trip"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.UploadDocumentActivity"
+            android:label="Upload Documents"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".utils.LocationService" />
+
+    </application>
+
+</manifest>

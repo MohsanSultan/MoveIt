@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: me.zhanghai.android.materialedittext:library-1.0.5">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.5.aar/f458aaa4e4ce2dc6ff07efa2eda327d6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-1.0.5.aar/f458aaa4e4ce2dc6ff07efa2eda327d6/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.zhanghai.android.materialedittext/library/1.0.5/8b4b6334fbd7d7938c6a9365629406affb0965c4/library-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
