@@ -131,8 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void doUserLogin() {
         pDialog.show();
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).userLogin(emailStr, passwordStr, "Android",
-                ""/* Device Token Here*/, String.valueOf(Constants.mCurLat), String.valueOf(Constants.mCurLong),
-                "driver"), "Login");
+                "driver", String.valueOf(Constants.mCurLat), String.valueOf(Constants.mCurLong)), "Login");
     }
 
     // -------------------------       Override Functions         --------------------------------//
@@ -155,12 +154,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (method.equalsIgnoreCase("Login")) {
                 loginResponse = (LoginResponse) response.body();
 
-                SharedPrefManager.getInstance(this).driverLogin(loginResponse.getData().get(0).getId(), loginResponse.getData().get(0).getFirstname()+ " " +loginResponse.getData().get(0).getLastname(), loginResponse.getData().get(0).getEmail(), loginResponse.getData().get(0).getProfileImage());
-                if(SharedPrefManager.getInstance(this).isLoggedIn()) {
-                    startActivity(new Intent(this, MainActivity.class));
+                if(loginResponse.getData().get(0).getSmsVerify() || loginResponse.getData().get(0).getMailVerify() || loginResponse.getData().get(0).getCallVerify()){
+                    SharedPrefManager.getInstance(this).driverLogin(loginResponse.getData().get(0).getId(), loginResponse.getData().get(0).getFirstname()+ " " +loginResponse.getData().get(0).getLastname(), loginResponse.getData().get(0).getEmail(), loginResponse.getData().get(0).getProfileImage());
+
                     pDialog.dismiss();
+                    startActivity(new Intent(this, MainActivity.class));
                     finishAffinity();
                     Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                } else {
+                    pDialog.dismiss();
+                    Intent intent = new Intent(this, OTPActivity.class);
+                    intent.putExtra("id", loginResponse.getData().get(0).getId());
+                    intent.putExtra("firstName", loginResponse.getData().get(0).getFirstname());
+                    intent.putExtra("lastName", loginResponse.getData().get(0).getLastname());
+                    intent.putExtra("email", loginResponse.getData().get(0).getEmail());
+                    startActivity(intent);
+
+                    finishAffinity();
                 }
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {

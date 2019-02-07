@@ -60,15 +60,15 @@ public class RestHandler {
         @FormUrlEncoded
         @POST("login")
         Call<LoginResponse> userLogin(@Field("email") String email, @Field("password") String password,
-                                      @Field("device_type") String device_type, @Field("device_token") String device_token,
-                                      @Field("latitude") String latitude, @Field("longitude") String longitude,
-                                      @Field("role") String role);
+                                      @Field("device_type") String device_type, @Field("role") String role,
+                                      @Field("latitude") String latitude, @Field("longitude") String longitude);
 
-        @POST("registerDriver")
+        @POST("registerUser")
         @Multipart
         Call<RegisterResponse> userRegister(@Part("firstname") RequestBody firstName, @Part("lastname") RequestBody lastName,
-                                            @Part("email") RequestBody email, @Part("password") RequestBody password,
-                                            @Part("contact") RequestBody contactNumber, @Part("country") RequestBody country,
+                                            @Part("email") RequestBody email, @Part("password") RequestBody password, @Part("country") RequestBody country,
+                                            @Part("country_code") RequestBody countryCode, @Part("contact") RequestBody contactNumber,
+                                            @Part("device_type") RequestBody deviceType, @Part("reg_type") RequestBody regType,
                                             @Part("role") RequestBody role);
 
         @FormUrlEncoded

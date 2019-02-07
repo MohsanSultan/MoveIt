@@ -1,4 +1,3 @@
-
 package com.moveitdriver.models.loginResponse;
 
 import com.google.gson.annotations.Expose;
@@ -12,6 +11,9 @@ public class Datum {
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("device_type")
+    @Expose
+    private String deviceType;
     @SerializedName("contact")
     @Expose
     private String contact;
@@ -27,24 +29,18 @@ public class Datum {
     @SerializedName("__v")
     @Expose
     private Integer v;
+    @SerializedName("sms_otp")
+    @Expose
+    private String smsOtp;
     @SerializedName("device_token")
     @Expose
-    private String deviceToken;
-    @SerializedName("device_type")
-    @Expose
-    private String deviceType;
+    private Object deviceToken;
     @SerializedName("latitude")
     @Expose
     private String latitude;
     @SerializedName("longitude")
     @Expose
     private String longitude;
-    @SerializedName("mail_otp")
-    @Expose
-    private String mailOtp;
-    @SerializedName("sms_otp")
-    @Expose
-    private String smsOtp;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
@@ -54,6 +50,9 @@ public class Datum {
     @SerializedName("skip_sms_verify")
     @Expose
     private Boolean skipSmsVerify;
+    @SerializedName("call_verify")
+    @Expose
+    private Boolean callVerify;
     @SerializedName("sms_verify")
     @Expose
     private Boolean smsVerify;
@@ -98,6 +97,14 @@ public class Datum {
         this.role = role;
     }
 
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
     public String getContact() {
         return contact;
     }
@@ -138,20 +145,20 @@ public class Datum {
         this.v = v;
     }
 
-    public String getDeviceToken() {
+    public String getSmsOtp() {
+        return smsOtp;
+    }
+
+    public void setSmsOtp(String smsOtp) {
+        this.smsOtp = smsOtp;
+    }
+
+    public Object getDeviceToken() {
         return deviceToken;
     }
 
-    public void setDeviceToken(String deviceToken) {
+    public void setDeviceToken(Object deviceToken) {
         this.deviceToken = deviceToken;
-    }
-
-    public String getDeviceType() {
-        return deviceType;
-    }
-
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
     }
 
     public String getLatitude() {
@@ -168,22 +175,6 @@ public class Datum {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public String getMailOtp() {
-        return mailOtp;
-    }
-
-    public void setMailOtp(String mailOtp) {
-        this.mailOtp = mailOtp;
-    }
-
-    public String getSmsOtp() {
-        return smsOtp;
-    }
-
-    public void setSmsOtp(String smsOtp) {
-        this.smsOtp = smsOtp;
     }
 
     public String getTimestamp() {
@@ -208,6 +199,14 @@ public class Datum {
 
     public void setSkipSmsVerify(Boolean skipSmsVerify) {
         this.skipSmsVerify = skipSmsVerify;
+    }
+
+    public Boolean getCallVerify() {
+        return callVerify;
+    }
+
+    public void setCallVerify(Boolean callVerify) {
+        this.callVerify = callVerify;
     }
 
     public Boolean getSmsVerify() {
@@ -281,5 +280,4 @@ public class Datum {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

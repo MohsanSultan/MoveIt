@@ -1,4 +1,3 @@
-
 package com.moveitdriver.models.registerationResponse;
 
 import java.util.List;
@@ -10,6 +9,9 @@ public class RegisterResponse {
     @SerializedName("status")
     @Expose
     private Integer status;
+    @SerializedName("token")
+    @Expose
+    private String token;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
@@ -23,6 +25,14 @@ public class RegisterResponse {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public List<Datum> getData() {

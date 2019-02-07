@@ -3,9 +3,12 @@ package com.moveitdriver.activities;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
+
+    private String idStr, firstNameStr, lastNameStr, emailStr;
 
     private PinView codePinView;
     private ImageView otpBtn;
@@ -68,6 +73,19 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         otpBtn.setOnClickListener(this);
         changeNumberBtn.setOnClickListener(this);
         resendCodeBtn.setOnClickListener(this);
+
+        // Get User Detail From Intent
+        if (getIntent().hasExtra("id")) {
+            idStr = getIntent().getStringExtra("id");
+            firstNameStr = getIntent().getStringExtra("firstName");
+            lastNameStr = getIntent().getStringExtra("lastName");
+            emailStr = getIntent().getStringExtra("email");
+
+            Log.e("registerId", idStr);
+            Log.e("registerFirstName", firstNameStr);
+            Log.e("registerLastName", lastNameStr);
+            Log.e("registerEmail", emailStr);
+        }
     }
 
     // -----------------------------        Functions         ------------------------------------//
@@ -86,8 +104,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
-                Toast.makeText(OTPActivity.this, "OTP VOICE CALL...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OTPActivity.this, "Working On It...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -95,28 +112,32 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Toast.makeText(OTPActivity.this, "OTP SMS SEND SUCCESSFULLY...", Toast.LENGTH_SHORT).show();
+                resendOTP("sms");
             }
         });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                Toast.makeText(OTPActivity.this, "Working On It...", Toast.LENGTH_SHORT).show();
             }
         });
 
         dialog.show();
     }
 
-    private void resendOTP() {
+    private void resendOTP(String verifyType) {
         pDialog.show();
-        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).resendOTP("sms", "5c51b6fe82bee4702dcf7e73"), "ResendOTP");
+
+        Log.e("registerVerifyType", verifyType);
+        Log.e("registerId", idStr);
+
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).resendOTP(verifyType, idStr), "ResendOTP");
     }
 
     private void verifyOTP() {
         pDialog.show();
-        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).verifyOTP("sms", "5c51b6fe82bee4702dcf7e73", codePinView.getText().toString()), "VerifyOTP");
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).verifyOTP("sms", idStr, codePinView.getText().toString()), "VerifyOTP");
     }
     // -------------------------       Override Functions         ---------------------------------//
 
@@ -132,7 +153,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.resend_code_btn_otp_activity:
-                resendOTP();
+                customDialog();
                 break;
         }
     }
@@ -147,8 +168,16 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 OTPResponse otpResponse = (OTPResponse) response.body();
 
                 Toast.makeText(this, otpResponse.getMessage(), Toast.LENGTH_LONG).show();
+
             } else if (method.equalsIgnoreCase("VerifyOTP")) {
-                Toast.makeText(this, "eeee", Toast.LENGTH_SHORT).show();
+                OTPResponse otpResponse = (OTPResponse) response.body();
+
+                Toast.makeText(this, otpResponse.getMessage(), Toast.LENGTH_LONG).show();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr + " " + lastNameStr, emailStr, "");
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             if (pDialog != null && pDialog.isShowing()) {
@@ -183,5 +212,26 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(OTPActivity.this);
+        builder.setTitle("Caution");
+        builder.setMessage("Are You Sure To Exit???")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finishAffinity();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        AlertDialog alert=builder.create();
+        alert.show();
     }
 }

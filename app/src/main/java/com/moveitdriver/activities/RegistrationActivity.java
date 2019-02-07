@@ -165,7 +165,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         Log.e("registerLastName", lastNameStr);
         Log.e("registerEmail", emailStr);
         Log.e("registerCCP", countryCodePickerStr);
-        Log.e("registerCCPName", ccp.getSelectedCountryName());
         Log.e("registerContactNumber", contactNumberStr);
         Log.e("registerPassword", passwordStr);
 
@@ -175,8 +174,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 RequestBody.create(MediaType.parse("text/plain"), lastNameStr),
                 RequestBody.create(MediaType.parse("text/plain"), emailStr),
                 RequestBody.create(MediaType.parse("text/plain"), passwordStr),
-                RequestBody.create(MediaType.parse("text/plain"), contactNumberStr),
                 RequestBody.create(MediaType.parse("text/plain"), ccp.getSelectedCountryName()),
+                RequestBody.create(MediaType.parse("text/plain"), countryCodePickerStr),
+                RequestBody.create(MediaType.parse("text/plain"), contactNumberStr),
+                RequestBody.create(MediaType.parse("text/plain"), "android"),
+                RequestBody.create(MediaType.parse("text/plain"), "normal"),
                 RequestBody.create(MediaType.parse("text/plain"), "driver")),
                 "Registration");
     }
@@ -199,17 +201,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             if (method.equalsIgnoreCase("Registration")) {
                 registerResponse = (RegisterResponse) response.body();
 
-                pDialog.dismiss();
                 Toast.makeText(this, "Register Successfully...", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, registerResponse.getData().get(0).getId(), Toast.LENGTH_SHORT).show();
 
-                SharedPrefManager.getInstance(this).driverLogin(registerResponse.getData().get(0).getId(), firstNameStr+" "+lastNameStr, emailStr, "");
-                if(SharedPrefManager.getInstance(this).isLoggedIn()) {
-                    startActivity(new Intent(this, MainActivity.class));
-                    pDialog.dismiss();
-                    finishAffinity();
-                    Toast.makeText(this, registerResponse.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                pDialog.dismiss();
+                Intent intent = new Intent(this, OTPActivity.class);
+                intent.putExtra("id", registerResponse.getData().get(0).getId());
+                intent.putExtra("firstName", firstNameStr);
+                intent.putExtra("lastName", lastNameStr);
+                intent.putExtra("email", emailStr);
+                startActivity(intent);
+
+                finishAffinity();
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             if (pDialog != null && pDialog.isShowing()) {
