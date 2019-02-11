@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.moveitdriver.R;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
+import com.moveitdriver.models.carMakesResponse.MakesResponse;
+import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
 import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.registerationResponse.RegisterResponse;
@@ -24,9 +26,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public class RestHandler {
 
@@ -82,6 +86,12 @@ public class RestHandler {
         @FormUrlEncoded
         @POST("forgetPassword")
         Call<ForgotPassword> forgetPassword(@Field("email") String email);
+
+        @GET("makes")
+        Call<MakesResponse> getMakes();
+
+        @GET("get/model/{id}")
+        Call<ModelResponse> getModels(@Path("id") String id);
     }
 
     public void makeHttpRequest(Call call, String method) {

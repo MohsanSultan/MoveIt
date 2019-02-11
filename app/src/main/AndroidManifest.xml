@@ -73,6 +73,18 @@
             android:name=".activities.UploadDocumentActivity"
             android:label="Upload Documents"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.UploadDriverLicenseActivity"
+            android:label="Upload Driver License"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DriverLicenseInfoActivity"
+            android:label="Info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddVehicleActivity"
+            android:label="Add Vehicle Detail"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
 

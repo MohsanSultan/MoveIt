@@ -1,7 +1,6 @@
 package com.moveitdriver.activities;
 
 import android.app.Dialog;
-import android.app.KeyguardManager;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 import com.chaos.view.PinView;
 import com.moveitdriver.R;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
-import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -92,7 +89,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
     public void customDialog() {
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialoge);
+        dialog.setContentView(R.layout.custom_dialog);
         dialog.setCancelable(false);
 
         TextView callBtn, smsBtn, cancelBtn;
