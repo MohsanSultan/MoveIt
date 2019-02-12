@@ -187,6 +187,34 @@
                     android:layout_weight=".15"
                     android:src="@mipmap/ic_arrow_down" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_vehicle_btn_upload_document_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/card_view"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".85"
+                    android:paddingBottom="@dimen/_15sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_15sdp"
+                    android:text="Add Vehicle"
+                    android:textColor="@color/colorLightBlack"
+                    android:textSize="@dimen/_16ssp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_weight=".15" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

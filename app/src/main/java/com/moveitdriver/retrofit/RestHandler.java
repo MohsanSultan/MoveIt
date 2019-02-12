@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.moveitdriver.R;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
+import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
@@ -92,6 +93,25 @@ public class RestHandler {
 
         @GET("get/model/{id}")
         Call<ModelResponse> getModels(@Path("id") String id);
+
+        @POST("vehicle/add")
+        @Multipart
+        Call<AddVehicleModelResponse> addVehicleDetail(@Part("user_id") RequestBody userId,
+                                                       @Part("make") RequestBody make,
+                                                       @Part("model") RequestBody model,
+                                                       @Part("carYear") RequestBody year,
+                                                       @Part("carColor") RequestBody color);
+//        @FormUrlEncoded
+//        @POST("vehicle/add")
+//        Call<AddVehicleModelResponse> addVehicleDetail(@Field("user_id") String userId,
+//                                                       @Field("make") String make,
+//                                                       @Field("model") String model,
+//                                                       @Field("carYear") String year,
+//                                                       @Field("carColor") String color);
+
+//        @FormUrlEncoded
+//        @POST("resendOTP")
+//        Call<OTPResponse> resendOTP(@Field("verify_type") String type, @Field("id") String id);
     }
 
     public void makeHttpRequest(Call call, String method) {

@@ -13,7 +13,7 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
 
     private ImageView step1Btn, step2Btn, step3Btn, step4Btn;
     private LinearLayout menu1Layout, menu2Layout, menu3Layout, menu4Layout;
-    private LinearLayout uploadDriverLicenseBtn, uploadVehicleDocumentBtn;
+    private LinearLayout uploadDriverLicenseBtn, uploadVehicleDocumentBtn, addVehicleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +32,13 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         uploadDriverLicenseBtn = findViewById(R.id.upload_driver_license_btn_upload_document_activity);
         uploadVehicleDocumentBtn = findViewById(R.id.upload_vehicle_documents_btn_upload_document_activity);
 
+        addVehicleBtn = findViewById(R.id.add_vehicle_btn_upload_document_activity);
+
         step1Btn.setOnClickListener(this);
         step2Btn.setOnClickListener(this);
         step3Btn.setOnClickListener(this);
         step4Btn.setOnClickListener(this);
+        addVehicleBtn.setOnClickListener(this);
 
         uploadDriverLicenseBtn.setOnClickListener(this);
         uploadVehicleDocumentBtn.setOnClickListener(this);
@@ -60,7 +63,7 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
 
                 break;
             case R.id.vehicle_permit_btn_upload_document_activity:
-                startActivity(new Intent(this, AddVehicleActivity.class));
+
                 break;
             case R.id.vehicle_registration_btn_upload_document_activity:
 
@@ -70,6 +73,9 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.upload_vehicle_documents_btn_upload_document_activity:
 
+                break;
+            case R.id.add_vehicle_btn_upload_document_activity:
+                startActivity(new Intent(this, AddVehicleActivity.class));
                 break;
         }
     }

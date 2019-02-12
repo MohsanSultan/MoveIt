@@ -24,69 +24,154 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_10sdp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="MAKE"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
 
                 <Spinner
                     android:id="@+id/vehicle_make_spinner_add_vehicle_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:text="BRAND" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="MODEL"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
 
                 <Spinner
                     android:id="@+id/vehicle_model_spinner_add_vehicle_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_height="@dimen/_40sdp"
                     android:text="BRAND" />
 
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView3"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_height=".5dp"
+                    android:background="@color/colorAccent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="YEAR">
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="YEAR"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="YEAR" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView4"
+                <Spinner
+                    android:id="@+id/vehicle_year_spinner_add_vehicle_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="COLOR">
+                    android:layout_height="@dimen/_40sdp"
+                    android:text="BRAND" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="COLOR" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView5"
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="INTERIOR COLOR">
+                    android:layout_height=".5dp"
+                    android:background="@color/colorAccent" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="INTERIOR COLOR" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="COLOR"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
+
+                <Spinner
+                    android:id="@+id/vehicle_color_spinner_add_vehicle_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:text="BRAND" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:background="@color/colorAccent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Vehicle Front Pic"/>
+
+                        <ImageView
+                            android:id="@+id/vehicle_front_pic_add_vehicle_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/car_place_holder"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Vehicle Back Pic"/>
+
+                        <ImageView
+                            android:id="@+id/vehicle_back_pic_add_vehicle_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/car_place_holder"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <Button
+                android:id="@+id/add_vehicle_detail_btn_add_vehicle_activity"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
-                android:layout_margin="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/custom_button_layout5"
                 android:text="CONTINUE"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
