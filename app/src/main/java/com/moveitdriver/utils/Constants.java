@@ -16,8 +16,8 @@ import com.nabinbhandari.android.permissions.Permissions;
 import java.util.ArrayList;
 
 public class Constants {
-    public static String base_url = "http://52.77.205.86:1341/api/";
-    public static String MAIN_IMAGE_URL = "http://18.136.190.243:1340/uploads/user/";
+    public static String base_url = "http://3.17.240.63:1340/api/";
+    public static String MAIN_IMAGE_URL = "http://3.17.240.63:1340/uploads/user/";
 
     private final Context con;
     private final Activity activity;

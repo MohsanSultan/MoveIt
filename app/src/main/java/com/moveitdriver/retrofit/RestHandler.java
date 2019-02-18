@@ -8,8 +8,10 @@ import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
+import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.registerationResponse.RegisterResponse;
+import com.moveitdriver.models.updateUserDetailResponse.UpdateUserModelResponse;
 import com.moveitdriver.utils.Constants;
 
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -100,18 +103,45 @@ public class RestHandler {
                                                        @Part("make") RequestBody make,
                                                        @Part("model") RequestBody model,
                                                        @Part("carYear") RequestBody year,
-                                                       @Part("carColor") RequestBody color);
-//        @FormUrlEncoded
-//        @POST("vehicle/add")
-//        Call<AddVehicleModelResponse> addVehicleDetail(@Field("user_id") String userId,
-//                                                       @Field("make") String make,
-//                                                       @Field("model") String model,
-//                                                       @Field("carYear") String year,
-//                                                       @Field("carColor") String color);
+                                                       @Part("carColor") RequestBody color,
+                                                       @Part MultipartBody.Part fImage,
+                                                       @Part MultipartBody.Part bImage2);
 
-//        @FormUrlEncoded
-//        @POST("resendOTP")
-//        Call<OTPResponse> resendOTP(@Field("verify_type") String type, @Field("id") String id);
+        @POST("vehicle/edit")
+        @Multipart
+        Call<AddVehicleModelResponse> editInsuranceVehicleDetail(@Part("id") RequestBody vehicleId,
+                                                                 @Part("user_id") RequestBody userId,
+                                                                 @Part("vehicleInsuranceCompanyName") RequestBody companyName,
+                                                                 @Part("vehicleInsuranceType") RequestBody type,
+                                                                 @Part("vehicleInspectionReport") RequestBody report,
+                                                                 @Part("vehicleInsuranceCertificateExpires") RequestBody certificateExpires,
+                                                                 @Part("vehicleInsuranceEffectiveDate") RequestBody effectiveDate,
+                                                                 @Part MultipartBody.Part vehicleInsuranceCertificateImage);
+
+        @POST("vehicle/edit")
+        @Multipart
+        Call<AddVehicleModelResponse> editRegistrationVehicleDetail(@Part("id") RequestBody vehicleId,
+                                                                    @Part("user_id") RequestBody userId,
+                                                                    @Part("registrationNumber") RequestBody registrationNumber,
+                                                                    @Part("registrationDate") RequestBody type,
+                                                                    @Part("registrationExpiry") RequestBody report,
+                                                                    @Part("vehicleInsuranceCertificateExpires") RequestBody certificateExpires,
+                                                                    @Part("vehicleInsuranceEffectiveDate") RequestBody effectiveDate,
+                                                                    @Part MultipartBody.Part vehicleInsuranceCertificateImage);
+
+        @GET("allvehicle/{id}")
+        Call<GetAllVehicleModelResponse> getAllVehicles(@Path("id") String userId);
+
+        @POST("user/update")
+        @Multipart
+        Call<UpdateUserModelResponse> updateUserDriverLicence(@Part("id") RequestBody userId,
+                                                              @Part("driverLicenceNumber") RequestBody licenceNumber,
+                                                              @Part("driverLicenceExpires") RequestBody licenceExpires,
+                                                              @Part("driverLicenceState") RequestBody licenceState,
+                                                              @Part("validVehicleTypeLiscence") RequestBody licenceType,
+                                                              @Part("validLiscenseExpires") RequestBody validLicenceExpires,
+                                                              @Part MultipartBody.Part licenceFrontPic,
+                                                              @Part MultipartBody.Part licenceBackPic);
     }
 
     public void makeHttpRequest(Call call, String method) {

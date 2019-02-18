@@ -47,25 +47,43 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    android:text="BRAND">
+                    android:text="DRIVER LICENCE NUMBER">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:hint="BRAND" />
+                        android:inputType="number"
+                        android:hint="DRIVER LICENCE NUMBER" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="YEAR"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
+
+                <EditText
+                    android:id="@+id/Birthday2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:hint="" />
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="MODEL">
+                    android:text="DRIVER LICENCE STATE">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:hint="MODEL" />
+                        android:hint="DRIVER LICENCE STATE" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
@@ -73,39 +91,84 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="YEAR">
+                    android:text="VALID VEHICLE TYPE LICENCE">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:hint="YEAR" />
+                        android:hint="VALID VEHICLE TYPE LICENCE" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="COLOR">
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="YEAR"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="COLOR" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView5"
+                <EditText
+                    android:id="@+id/Birthday"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="INTERIOR COLOR">
+                    android:layout_height="@dimen/_40sdp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:hint="" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="INTERIOR COLOR" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Driver Licence Front Pic"/>
+
+                        <ImageView
+                            android:id="@+id/licence_front_pic_add_upload_driver_licence_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/image_6"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Driver Licence Back Pic"/>
+
+                        <ImageView
+                            android:id="@+id/licence_back_pic_add_upload_driver_licence_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/image_6"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <Button

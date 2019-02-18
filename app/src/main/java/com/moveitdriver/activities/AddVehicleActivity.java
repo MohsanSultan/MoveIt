@@ -2,6 +2,7 @@ package com.moveitdriver.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,10 +11,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
+import com.moveitdriver.utils.FileUtils;
 import com.moveitdriver.utils.ImagePicker;
 import com.moveitdriver.utils.SharedPrefManager;
 
@@ -37,11 +41,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -56,6 +62,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
     private Button addVehicleBtn;
 
     private String selectedCarMake, selectedCarModel, selectedCarYear, selectedCarColor;
+    private Uri carFrontImageUri, carBackImageUri;
 
     private RestHandler restHandler;
     private ProgressDialog pDialog;
@@ -103,13 +110,13 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         getCarMakes();
 
         // Declare Spinners Here...
-                /* ***************   Vehicle Years Spinner Adapter  *******************/
+        /* ***************   Vehicle Years Spinner Adapter  *******************/
         ArrayAdapter<CharSequence> carYearAdapter = ArrayAdapter.createFromResource(this,
                 R.array.vehicle_years_array, android.R.layout.simple_spinner_item);
         carYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vehicleYearSpinner.setAdapter(carYearAdapter);
 
-                /* ***************   Vehicle Colors Spinner Adapter  *******************/
+        /* ***************   Vehicle Colors Spinner Adapter  *******************/
         ArrayAdapter<CharSequence> carColorAdapter = ArrayAdapter.createFromResource(this,
                 R.array.vehicle_colors_array, android.R.layout.simple_spinner_item);
         carColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -118,6 +125,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
     // -------------------------       Override Functions         --------------------------------//
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -198,7 +206,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             } else if (method.equalsIgnoreCase("addVehicleDetail")) {
                 addVehicleModelResponse = (AddVehicleModelResponse) response.body();
 
-                Toast.makeText(this, ""+addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
@@ -248,13 +256,23 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getModels(makeId), "getModels");
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void addVehicleDetail() {
         pDialog.show();
+
+        MultipartBody.Part fImage = null; // Vehicle Front Image
+        MultipartBody.Part bImage = null; // Vehicle Back Image
+
+        fImage = prepareFilePart("carFrontPic", carFrontImageUri);
+        bImage = prepareFilePart("carBackPic", carBackImageUri);
+
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarMake),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarModel),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarYear),
-                RequestBody.create(MediaType.parse("text/plain"), selectedCarColor)),
+                RequestBody.create(MediaType.parse("text/plain"), selectedCarColor),
+                fImage,
+                bImage),
                 "addVehicleDetail");
     }
 
@@ -262,11 +280,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
     public void onPickImage(int code) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 proceedToImagePicking(code);
             } else {
                 imageCode = code;
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
             }
         } else {
             proceedToImagePicking(code);
@@ -295,13 +313,13 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 Bitmap fBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
                 if (fBitmap != null)
                     vehicleFrontImageView.setImageBitmap(fBitmap);
-//                Uri uri = getImageUri(this, bitmap);
-//                Log.e("Salman", uri.toString());
+                carFrontImageUri = getImageUri(this, fBitmap);
                 break;
             case 2:
                 Bitmap bBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
                 if (bBitmap != null)
                     vehicleBackImageView.setImageBitmap(bBitmap);
+                carBackImageUri = getImageUri(this, bBitmap);
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
@@ -309,9 +327,30 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        File file = FileUtils.getFile(this, fileUri);
+        MediaType type = MediaType.parse(getMimeType(fileUri));
+        RequestBody requestFile = RequestBody.create(type, file);
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getApplicationContext().getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension.toLowerCase());
+        }
+        return mimeType;
+    }
+
     private Uri getImageUri(Context context, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
