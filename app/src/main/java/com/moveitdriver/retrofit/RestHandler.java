@@ -124,10 +124,7 @@ public class RestHandler {
                                                                     @Part("user_id") RequestBody userId,
                                                                     @Part("registrationNumber") RequestBody registrationNumber,
                                                                     @Part("registrationDate") RequestBody type,
-                                                                    @Part("registrationExpiry") RequestBody report,
-                                                                    @Part("vehicleInsuranceCertificateExpires") RequestBody certificateExpires,
-                                                                    @Part("vehicleInsuranceEffectiveDate") RequestBody effectiveDate,
-                                                                    @Part MultipartBody.Part vehicleInsuranceCertificateImage);
+                                                                    @Part("registrationExpiry") RequestBody report);
 
         @GET("allvehicle/{id}")
         Call<GetAllVehicleModelResponse> getAllVehicles(@Path("id") String userId);

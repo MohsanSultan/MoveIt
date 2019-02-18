@@ -263,8 +263,12 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         MultipartBody.Part fImage = null; // Vehicle Front Image
         MultipartBody.Part bImage = null; // Vehicle Back Image
 
-        fImage = prepareFilePart("carFrontPic", carFrontImageUri);
-        bImage = prepareFilePart("carBackPic", carBackImageUri);
+        if (carFrontImageUri != null)
+            fImage = prepareFilePart("carFrontPic", carFrontImageUri);
+
+        if (carBackImageUri != null) {
+            bImage = prepareFilePart("carBackPic", carBackImageUri);
+        }
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarMake),
@@ -311,15 +315,17 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         switch (requestCode) {
             case 1:
                 Bitmap fBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
-                if (fBitmap != null)
+                if (fBitmap != null) {
                     vehicleFrontImageView.setImageBitmap(fBitmap);
-                carFrontImageUri = getImageUri(this, fBitmap);
+                    carFrontImageUri = getImageUri(this, fBitmap);
+                }
                 break;
             case 2:
                 Bitmap bBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
-                if (bBitmap != null)
+                if (bBitmap != null) {
                     vehicleBackImageView.setImageBitmap(bBitmap);
-                carBackImageUri = getImageUri(this, bBitmap);
+                    carBackImageUri = getImageUri(this, bBitmap);
+                }
                 break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);

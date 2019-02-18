@@ -89,5 +89,9 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
+
+        <activity android:name=".activities.VehicleInsuranceActivity" />
+        <activity android:name=".activities.VehicleRegisterActivity"></activity>
     </application>
+
 </manifest>

@@ -92,13 +92,15 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, UploadDriverLicenseActivity.class));
                 break;
             case R.id.vehicle_insurance_btn_upload_document_activity:
-                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+                startActivity(new Intent(this, VehicleInsuranceActivity.class));
                 break;
             case R.id.vehicle_permit_btn_upload_document_activity:
                 getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
                 break;
             case R.id.vehicle_registration_btn_upload_document_activity:
-                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+                startActivity(new Intent(this, VehicleRegisterActivity.class));
                 break;
             case R.id.upload_vehicle_documents_btn_upload_document_activity:
                 startActivity(new Intent(this, AddVehicleActivity.class));

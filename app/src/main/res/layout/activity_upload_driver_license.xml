@@ -72,7 +72,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:clickable="true"
                     android:editable="false"
-                    android:hint="" />
+                    android:text="-- SELECT DATE --" />
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/textView2"
@@ -117,7 +117,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:clickable="true"
                     android:editable="false"
-                    android:hint="" />
+                    android:text="-- SELECT DATE --" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,6 +175,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/submit_btn_upload_driver_licence_activity"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_margin="@dimen/_10sdp"
