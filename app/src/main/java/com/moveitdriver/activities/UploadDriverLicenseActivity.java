@@ -57,6 +57,8 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
     private EditText driverLicenceExpiresEditText, validDriverLicenceEditText;
     private Calendar myCalendar;
 
+    private Uri licenceFrontImageUri, licenceBackImageUri;
+
     private ProgressDialog pDialog;
     private RestHandler restHandler;
 
@@ -195,12 +197,12 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
     private void addVehicleDetail() {
         pDialog.show();
 
-        MultipartBody.Part fImage = null; // Vehicle Front Image
-        MultipartBody.Part bImage = null; // Vehicle Back Image
+        MultipartBody.Part fImage = null; // Licence Front Image
+        MultipartBody.Part bImage = null; // Licence Back Image
 
-//        fImage = prepareFilePart("carFrontPic", licenceFrontImageUri);
-//        bImage = prepareFilePart("carBackPic", licenceBackImageUri);
-//
+        fImage = prepareFilePart("licenceFrontPic", licenceFrontImageUri);
+        bImage = prepareFilePart("licenceBackPic", licenceBackImageUri);
+
 //        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
 //                RequestBody.create(MediaType.parse("text/plain"), selectedCarMake),
 //                RequestBody.create(MediaType.parse("text/plain"), selectedCarModel),
