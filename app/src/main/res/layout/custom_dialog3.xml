@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/_275sdp"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/_8sdp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp"
+        android:background="@color/colorPrimary"
+        android:text="Select Vehicle"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_16ssp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_allVehiclesDialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_8sdp">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

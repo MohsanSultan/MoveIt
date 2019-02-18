@@ -50,6 +50,7 @@
                     android:text="DRIVER LICENCE NUMBER">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/driver_licence_number_upload_document_activity"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
                         android:inputType="number"
@@ -61,12 +62,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingLeft="@dimen/_4sdp"
-                    android:text="YEAR"
+                    android:text="DRIVER LICENCE EXPIRES"
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
                 <EditText
-                    android:id="@+id/Birthday2"
+                    android:id="@+id/driver_licence_expires_date_upload_document_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:clickable="true"
@@ -81,6 +82,7 @@
                     android:text="DRIVER LICENCE STATE">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/driver_licence_state_upload_document_activity"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
                         android:hint="DRIVER LICENCE STATE" />
@@ -94,6 +96,7 @@
                     android:text="VALID VEHICLE TYPE LICENCE">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/driver_licence_type_upload_document_activity"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
                         android:hint="VALID VEHICLE TYPE LICENCE" />
@@ -104,12 +107,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingLeft="@dimen/_4sdp"
-                    android:text="YEAR"
+                    android:text="VALID LICENCE EXPIRES"
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
                 <EditText
-                    android:id="@+id/Birthday"
+                    android:id="@+id/valid_driver_licence_date_upload_document_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:clickable="true"
