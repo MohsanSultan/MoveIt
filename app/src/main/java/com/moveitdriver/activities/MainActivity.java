@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -16,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,6 +34,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.moveitdriver.R;
 import com.moveitdriver.utils.Constants;
 import com.moveitdriver.utils.SharedPrefManager;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,12 +46,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private static LatLng mLocation = new LatLng(22.5763566, 88.4164734);
+    String image;
+    ImageView profileImageDrawer;
+    View view;
+    TextView editProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Live Map");
 
         // Map Fragment Code
@@ -56,11 +65,38 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Navigation View Code
         navigationView = findViewById(R.id.nav_view);
-        View view = navigationView.getHeaderView(0);
+        view = navigationView.getHeaderView(0);
+
+        // ----------------------- Profile Image ---------------------------------------
+        profileImageDrawer = view.findViewById(R.id.profile_img_drawer);
+
+        image = Constants.MAIN_IMAGE_URL + SharedPrefManager.getInstance(this).getDriverPic();
+
+        Picasso.with(MainActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(profileImageDrawer, new Callback() {
+            @Override
+            public void onSuccess() {
+            }
+            @Override
+            public void onError() {
+                Picasso.with(MainActivity.this).load(image).into(profileImageDrawer);
+            }
+        });
+
+        // ----------------------------------------------------------------------------
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
-        tv.setText(SharedPrefManager.getInstance(this).getDriverName()
-        );
+        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+
+        editProfile = view.findViewById(R.id.edit_profile_txt_btn_drawer);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent toEditProtile = new Intent(MainActivity.this , EditProfileActivity.class);
+                startActivity(toEditProtile);
+
+            }
+        });
 
 //        View locationButton = ((View) findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
 //        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
@@ -69,19 +105,27 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 //        rlp.setMargins(0, 0, 30, 30);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
+        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+    }
+
+    @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -105,10 +149,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(new Intent(this, AccountActivity.class));
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

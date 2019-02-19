@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
@@ -60,7 +61,7 @@ import retrofit2.Response;
 public class UploadDriverLicenseActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
     private EditText driverLicenceNumberEditText, driverLicenceStateEditText, validVehicleTypeLicenceEditText;
-    private EditText driverLicenceExpiresEditText, validDriverLicenceEditText;
+    private TextView driverLicenceExpiresEditText, validDriverLicenceEditText;
     private Calendar myCalendar;
     private ImageView licenceFrontImageView, licenceBackImageView;
     private Button submitBtn;
@@ -366,12 +367,12 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
     // DatePicker Functions...
 
     public void DatePickerIns() {
-        String myFormat = "yyyy-mm-dd"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
 
-        driverLicenceExpiresEditText = (EditText) findViewById(R.id.driver_licence_expires_date_upload_document_activity);
-        validDriverLicenceEditText = (EditText) findViewById(R.id.valid_driver_licence_date_upload_document_activity);
+        driverLicenceExpiresEditText = findViewById(R.id.driver_licence_expires_date_upload_document_activity);
+        validDriverLicenceEditText = findViewById(R.id.valid_driver_licence_date_upload_document_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 

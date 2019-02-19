@@ -52,13 +52,20 @@
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/registration_date_vehicle_register_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:text="-- SELECT DATE --" />
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="-- SELECT DATE --"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLightGray" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,13 +76,20 @@
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/registration_expiry_date_vehicle_register_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:text="-- SELECT DATE --" />
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="-- SELECT DATE --"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLightGray" />
             </LinearLayout>
 
             <Button

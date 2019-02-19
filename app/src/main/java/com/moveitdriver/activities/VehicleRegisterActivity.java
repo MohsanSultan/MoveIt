@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 public class VehicleRegisterActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
     private EditText vehicleRegisterNumberEditText;
-    private EditText registrationDateEditText, registrationExpiryEditText; // DatePickers
+    private TextView registrationDateTextView, registrationExpiryTextView; // DatePickers
     private Calendar myCalendar;
     private Button submitBtn;
 
@@ -170,8 +171,8 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
 
     public void fieldInitialize() {
         registrationNumberStr = vehicleRegisterNumberEditText.getText().toString().trim();
-        registrationDateStr = registrationDateEditText.getText().toString();
-        registrationExpiryStr = registrationExpiryEditText.getText().toString().trim();
+        registrationDateStr = registrationDateTextView.getText().toString();
+        registrationExpiryStr = registrationExpiryTextView.getText().toString().trim();
     }
 
     public boolean fieldValidation() {
@@ -181,10 +182,10 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
             vehicleRegisterNumberEditText.setError("Please enter valid data");
             valid = false;
         } else if (registrationDateStr.equals("-- SELECT DATE --")) {
-            registrationDateEditText.setError("Please select valid date");
+            registrationDateTextView.setError("Please select valid date");
             valid = false;
         } else if (registrationExpiryStr.equals("-- SELECT DATE --")) {
-            registrationExpiryEditText.setError("Please select valid date");
+            registrationExpiryTextView.setError("Please select valid date");
             valid = false;
         }
 
@@ -207,12 +208,12 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
     // DatePicker Functions...
 
     public void DatePickerIns() {
-        String myFormat = "yyyy-mm-dd"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
 
-        registrationDateEditText = (EditText) findViewById(R.id.registration_date_vehicle_register_activity);
-        registrationExpiryEditText = (EditText) findViewById(R.id.registration_expiry_date_vehicle_register_activity);
+        registrationDateTextView = findViewById(R.id.registration_date_vehicle_register_activity);
+        registrationExpiryTextView = findViewById(R.id.registration_expiry_date_vehicle_register_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
@@ -224,12 +225,12 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                registrationDateEditText.setText("");
-                registrationDateEditText.setText(sdf.format(myCalendar.getTime()));
+                registrationDateTextView.setText("");
+                registrationDateTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        registrationDateEditText.setOnClickListener(new View.OnClickListener() {
+        registrationDateTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -250,12 +251,11 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                registrationExpiryEditText.setText("");
-                registrationExpiryEditText.setText(sdf.format(myCalendar.getTime()));
+                registrationExpiryTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        registrationExpiryEditText.setOnClickListener(new View.OnClickListener() {
+        registrationExpiryTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

@@ -209,6 +209,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 intent.putExtra("firstName", firstNameStr);
                 intent.putExtra("lastName", lastNameStr);
                 intent.putExtra("email", emailStr);
+                intent.putExtra("profileImage", "");
+                intent.putExtra("contact", contactNumberStr);
                 startActivity(intent);
 
                 finishAffinity();

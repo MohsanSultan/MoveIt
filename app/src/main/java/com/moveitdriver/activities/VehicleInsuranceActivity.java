@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
@@ -36,6 +37,7 @@ import com.moveitdriver.utils.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -54,7 +56,7 @@ import retrofit2.Response;
 public class VehicleInsuranceActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
     private EditText insuranceCompanyNameEditText, insuranceTypeEditText, inspectionReportEditText;
-    private EditText insuranceCertificateExpiresEditText, insuranceEffectiveEditText;
+    private TextView insuranceCertificateExpiresTextView, insuranceEffectiveTextView;
     private Calendar myCalendar;
     private ImageView insuranceCertificateImageView;
     private Button submitBtn;
@@ -224,8 +226,8 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         insuranceCompanyNameStr = insuranceCompanyNameEditText.getText().toString();
         insuranceTypeStr = insuranceTypeEditText.getText().toString();
         inspectionReportStr = inspectionReportEditText.getText().toString();
-        insuranceCertificateExpiresStr = insuranceCertificateExpiresEditText.getText().toString();
-        insuranceEffectiveStr = insuranceEffectiveEditText.getText().toString();
+        insuranceCertificateExpiresStr = insuranceCertificateExpiresTextView.getText().toString();
+        insuranceEffectiveStr = insuranceEffectiveTextView.getText().toString();
     }
 
     public boolean fieldValidation() {
@@ -241,10 +243,10 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
             inspectionReportEditText.setError("Please enter valid data");
             valid = false;
         } else if (insuranceCertificateExpiresStr.equals("-- SELECT DATE --")) {
-            insuranceCertificateExpiresEditText.setError("Please select valid date");
+            insuranceCertificateExpiresTextView.setError("Please select valid date");
             valid = false;
         } else if (insuranceEffectiveStr.equals("-- SELECT DATE --")) {
-            insuranceEffectiveEditText.setError("Please select valid date");
+            insuranceEffectiveTextView.setError("Please select valid date");
             valid = false;
         }
 
@@ -323,12 +325,12 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
     // DatePicker Functions...
 
     public void DatePickerIns() {
-        String myFormat = "yyyy-mm-dd"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
 
-        insuranceCertificateExpiresEditText = (EditText) findViewById(R.id.certificate_expires_vehicle_insurance_activity);
-        insuranceEffectiveEditText = (EditText) findViewById(R.id.effective_date_vehicle_insurance_activity);
+        insuranceCertificateExpiresTextView = findViewById(R.id.certificate_expires_vehicle_insurance_activity);
+        insuranceEffectiveTextView = findViewById(R.id.effective_date_vehicle_insurance_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
@@ -340,12 +342,12 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                insuranceCertificateExpiresEditText.setText("");
-                insuranceCertificateExpiresEditText.setText(sdf.format(myCalendar.getTime()));
+                insuranceCertificateExpiresTextView.setText("");
+                insuranceCertificateExpiresTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        insuranceCertificateExpiresEditText.setOnClickListener(new View.OnClickListener() {
+        insuranceCertificateExpiresTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -366,12 +368,11 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                insuranceEffectiveEditText.setText("");
-                insuranceEffectiveEditText.setText(sdf.format(myCalendar.getTime()));
+                insuranceEffectiveTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        insuranceEffectiveEditText.setOnClickListener(new View.OnClickListener() {
+        insuranceEffectiveTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

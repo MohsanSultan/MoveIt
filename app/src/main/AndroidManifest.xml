@@ -87,11 +87,18 @@
             android:name=".activities.AddVehicleActivity"
             android:label="Add Vehicle Detail"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.VehicleInsuranceActivity"
+            android:label="Vehicle Insurance Detail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.VehicleRegisterActivity"
+            android:label="Vehicle Registration Detail"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
 
-        <activity android:name=".activities.VehicleInsuranceActivity" />
-        <activity android:name=".activities.VehicleRegisterActivity"></activity>
+        <activity android:name=".activities.EditProfileActivity"></activity>
     </application>
 
 </manifest>

@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginResponse = (LoginResponse) response.body();
 
                 if(loginResponse.getData().get(0).getSmsVerify() || loginResponse.getData().get(0).getMailVerify() || loginResponse.getData().get(0).getCallVerify()){
-                    SharedPrefManager.getInstance(this).driverLogin(loginResponse.getData().get(0).getId(), loginResponse.getData().get(0).getFirstname()+ " " +loginResponse.getData().get(0).getLastname(), loginResponse.getData().get(0).getEmail(), loginResponse.getData().get(0).getProfileImage());
+                    SharedPrefManager.getInstance(this).driverLogin(loginResponse.getData().get(0).getId(), loginResponse.getData().get(0).getFirstname(), loginResponse.getData().get(0).getLastname(), loginResponse.getData().get(0).getEmail(), loginResponse.getData().get(0).getProfileImage(), loginResponse.getData().get(0).getContact());
 
                     pDialog.dismiss();
                     startActivity(new Intent(this, MainActivity.class));
@@ -169,7 +169,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("firstName", loginResponse.getData().get(0).getFirstname());
                     intent.putExtra("lastName", loginResponse.getData().get(0).getLastname());
                     intent.putExtra("email", loginResponse.getData().get(0).getEmail());
-                    startActivity(intent);
+                    intent.putExtra("profileImage", loginResponse.getData().get(0).getProfileImage());
+                    intent.putExtra("contact", loginResponse.getData().get(0).getContact());
 
                     finishAffinity();
                 }

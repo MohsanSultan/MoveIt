@@ -10,9 +10,11 @@ public class SharedPrefManager {
 
     private static final String SHARED_PREF_NAME = "loginSharedPref";
     private static final String KEY_DRIVER_ID = "driverId";
-    private static final String KEY_DRIVER_NAME = "driverName";
+    private static final String KEY_DRIVER_FIRST_NAME = "driverFirstName";
+    private static final String KEY_DRIVER_LAST_NAME = "driverLastName";
     private static final String KEY_DRIVER_EMAIL = "driverEmail";
     private static final String KEY_DRIVER_PIC = "driverPic";
+    private static final String KEY_DRIVER_CONTACT = "driverContact";
 
     private SharedPrefManager(Context context) {
         mCtx = context;
@@ -25,14 +27,16 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean driverLogin(String driver_id, String driver_name, String driver_email, String driver_pic){
+    public boolean driverLogin(String driver_id, String driver_first_name, String driver_last_name, String driver_email, String driver_pic, String driver_contact){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putString(KEY_DRIVER_ID, driver_id);
-        editor.putString(KEY_DRIVER_NAME, driver_name);
+        editor.putString(KEY_DRIVER_FIRST_NAME, driver_first_name);
+        editor.putString(KEY_DRIVER_LAST_NAME, driver_last_name);
         editor.putString(KEY_DRIVER_EMAIL, driver_email);
         editor.putString(KEY_DRIVER_PIC, driver_pic);
+        editor.putString(KEY_DRIVER_CONTACT, driver_contact);
 
         editor.apply();
         return true;
@@ -59,9 +63,14 @@ public class SharedPrefManager {
         return sharedPreferences.getString(KEY_DRIVER_ID, null);
     }
 
-    public String getDriverName(){
+    public String getDriverFirstName(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(KEY_DRIVER_NAME, null);
+        return sharedPreferences.getString(KEY_DRIVER_FIRST_NAME, null);
+    }
+
+    public String getDriverLastName(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_DRIVER_LAST_NAME, null);
     }
 
     public String getDriverEmail(){
@@ -72,5 +81,10 @@ public class SharedPrefManager {
     public String getDriverPic(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_DRIVER_PIC, null);
+    }
+
+    public String getDriverContact(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_DRIVER_CONTACT, null);
     }
 }

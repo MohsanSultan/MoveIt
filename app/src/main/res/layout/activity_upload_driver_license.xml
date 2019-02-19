@@ -19,14 +19,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_176sdp"
+                android:background="#f1f5f8"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:background="#f1f5f8">
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="@dimen/_250sdp"
                     android:layout_height="@dimen/_136sdp"
-                    android:src="@drawable/image_6"/>
+                    android:src="@drawable/image_6" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,14 +34,14 @@
                     android:padding="@dimen/_5sdp"
                     android:text="TAKE A PHOTO"
                     android:textColor="@color/colorLightGray"
-                    android:textSize="@dimen/_13ssp"/>
+                    android:textSize="@dimen/_13ssp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_10sdp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/textView"
@@ -53,8 +53,8 @@
                         android:id="@+id/driver_licence_number_upload_document_activity"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:inputType="number"
-                        android:hint="DRIVER LICENCE NUMBER" />
+                        android:hint="DRIVER LICENCE NUMBER"
+                        android:inputType="number" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                 <TextView
@@ -66,13 +66,20 @@
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/driver_licence_expires_date_upload_document_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:text="-- SELECT DATE --" />
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="-- SELECT DATE --"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLightGray" />
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/textView2"
@@ -111,13 +118,20 @@
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/valid_driver_licence_date_upload_document_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:text="-- SELECT DATE --" />
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/_8sdp"
+                    android:text="-- SELECT DATE --"
+                    android:textColor="#000"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLightGray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -138,15 +152,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:gravity="center"
-                            android:text="Add Driver Licence Front Pic"/>
+                            android:text="Add Driver Licence Front Pic" />
 
                         <ImageView
                             android:id="@+id/licence_front_pic_add_upload_driver_licence_activity"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_80sdp"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/image_6"
-                            android:scaleType="fitXY"/>
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_6" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -161,15 +175,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:gravity="center"
-                            android:text="Add Driver Licence Back Pic"/>
+                            android:text="Add Driver Licence Back Pic" />
 
                         <ImageView
                             android:id="@+id/licence_back_pic_add_upload_driver_licence_activity"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_80sdp"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/image_6"
-                            android:scaleType="fitXY"/>
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_6" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -181,7 +195,7 @@
                 android:layout_margin="@dimen/_10sdp"
                 android:background="@drawable/custom_button_layout5"
                 android:text="CONTINUE"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

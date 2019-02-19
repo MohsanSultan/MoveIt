@@ -18,10 +18,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb7b7ea-6dce-467b-97df-96de87ae3ffa" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_edit.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
@@ -30,15 +29,27 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -73,12 +84,116 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="UploadDriverLicenseActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="OTPActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="210" column="69" lean-forward="true" selection-start-line="210" selection-start-column="69" selection-end-line="210" selection-end-column="69" />
+            <state relative-caret-position="1479">
+              <caret line="175" column="136" lean-forward="false" selection-start-line="175" selection-start-column="136" selection-end-line="175" selection-end-column="136" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="89" column="54" lean-forward="false" selection-start-line="89" selection-start-column="54" selection-end-line="89" selection-end-column="54" />
+              <folding>
+                <element signature="e#3618#3880#0" expanded="true" />
+                <element signature="e#3879#3880#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nav_header_main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+              <folding>
+                <element signature="e#792#807#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccountActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_account.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="146">
+              <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RestHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="147" column="101" lean-forward="false" selection-start-line="147" selection-start-column="101" selection-end-line="147" selection-end-column="101" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_edit_profile.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="248">
+              <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditProfileActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="89" column="65" lean-forward="false" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SharedPrefManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -2177,39 +2292,27 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_otp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/CoverSreenActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cover_sreen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cover_screen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/CoverScreenActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/OTPResponse/OTPResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/registerationResponse/RegisterResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/registerationResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/driver_license_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/DriverLicenseInfoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_driver_license_info.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/carMakes/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/carMakesResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_spinner_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/custom_spinner_layout1.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/addVehicleDetailResponse/AddVehicleModelResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_vehicle.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/ImageUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/ImagePicker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_item_view_layout.xml" />
@@ -2219,15 +2322,27 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/adapters/GetAllVehiclesAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/updateUserDetailResponse/Data.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
       </list>
     </option>
   </component>
@@ -2252,6 +2367,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2287,49 +2427,25 @@
             <path>
               <item name="MoveItDriver" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="moveitdriver" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MoveItDriver" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoveItDriver" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MoveItDriver" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
-    <property name="device.picker.selection" value="9TKBB18510205876" />
+    <property name="settings.editor.selected.configurable" value="gradle.compiler" />
+    <property name="device.picker.selection" value="TA38502RY4" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/InstagramFollower-master" />
   </component>
@@ -2589,7 +2705,14 @@
       <option name="project" value="LOCAL" />
       <updated>1550488414788</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Latest Commit...">
+      <created>1550505472609</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1550505472609</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2607,7 +2730,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51797384" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2908497" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2677,44 +2800,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/DriverLicenseInfoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="22" column="5" lean-forward="false" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout3.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout4.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog2.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2729,13 +2814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="52" column="31" lean-forward="true" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="56" column="31" lean-forward="false" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -2797,35 +2875,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" column="57" lean-forward="true" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/addVehicleDetailResponse/AddVehicleModelResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="173" column="16" lean-forward="false" selection-start-line="173" selection-start-column="16" selection-end-line="173" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="191" column="73" lean-forward="false" selection-start-line="191" selection-start-column="33" selection-end-line="191" selection-end-column="73" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-27/android/widget/LinearLayout.java">
@@ -2840,20 +2894,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2295">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="80" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="80" />
-          <folding>
-            <element signature="e#569#587#0" expanded="false" />
-            <element signature="e#818#843#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2913,13 +2953,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="19" column="66" lean-forward="false" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -2942,16 +2975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_vehicle.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="69" column="16" lean-forward="false" selection-start-line="69" selection-start-column="16" selection-end-line="87" selection-end-column="62" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/LocationService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
@@ -2960,26 +2983,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="71" column="4" lean-forward="false" selection-start-line="71" selection-start-column="4" selection-end-line="128" selection-end-column="5" />
+        <state relative-caret-position="1955">
+          <caret line="197" column="56" lean-forward="false" selection-start-line="197" selection-start-column="56" selection-end-line="197" selection-end-column="56" />
+          <folding>
+            <element signature="e#2014#4607#0" expanded="false" />
+            <element signature="e#6011#7409#0" expanded="false" />
+            <element signature="e#6785#6800#0" expanded="false" />
+            <element signature="e#6847#6862#0" expanded="false" />
+            <element signature="e#7064#7079#0" expanded="false" />
+            <element signature="e#7123#7138#0" expanded="false" />
+            <element signature="e#7331#7346#0" expanded="false" />
+            <element signature="e#9599#9614#0" expanded="false" />
+            <element signature="e#9661#9676#0" expanded="false" />
+            <element signature="e#9878#9893#0" expanded="false" />
+            <element signature="e#9937#9952#0" expanded="false" />
+            <element signature="e#10145#10160#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="95" column="27" lean-forward="false" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="598">
+          <caret line="131" column="52" lean-forward="false" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_vehicle.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="59" column="50" lean-forward="true" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="55" column="80" lean-forward="false" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="80" />
+        <state relative-caret-position="946">
+          <caret line="64" column="21" lean-forward="true" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -2987,18 +3037,21 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="111" column="38" lean-forward="false" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
+        <state relative-caret-position="177">
+          <caret line="68" column="16" lean-forward="false" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="186" column="15" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="186" selection-end-column="15" />
+        <state relative-caret-position="313">
+          <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="67" selection-end-column="65" />
           <folding />
         </state>
       </provider>
@@ -3008,34 +3061,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-893">
-          <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+        <state relative-caret-position="347">
+          <caret line="94" column="65" lean-forward="false" selection-start-line="94" selection-start-column="65" selection-end-line="94" selection-end-column="65" />
           <folding>
-            <element signature="e#778#794#0" expanded="false" />
-            <element signature="e#1144#1159#0" expanded="false" />
-            <element signature="e#1385#1400#0" expanded="false" />
-            <element signature="e#1724#1739#0" expanded="false" />
-            <element signature="e#2110#2125#0" expanded="false" />
-            <element signature="e#2171#2186#0" expanded="false" />
-            <element signature="e#2504#2519#0" expanded="false" />
-            <element signature="e#2882#2897#0" expanded="false" />
-            <element signature="e#2943#2958#0" expanded="false" />
-            <element signature="e#3282#3297#0" expanded="false" />
-            <element signature="e#3623#3638#0" expanded="false" />
-            <element signature="e#3679#3693#0" expanded="false" />
-            <element signature="e#3841#3856#0" expanded="false" />
-            <element signature="e#4070#4085#0" expanded="false" />
-            <element signature="e#4417#4432#0" expanded="false" />
-            <element signature="e#4473#4487#0" expanded="false" />
-            <element signature="e#4630#4645#0" expanded="false" />
-            <element signature="e#4854#4869#0" expanded="false" />
-            <element signature="e#5205#5220#0" expanded="false" />
-            <element signature="e#5477#5491#0" expanded="false" />
-            <element signature="e#5726#5742#0" expanded="false" />
-            <element signature="e#5789#5804#0" expanded="false" />
-            <element signature="e#5851#5865#0" expanded="false" />
-            <element signature="e#6283#6298#0" expanded="false" />
-            <element signature="e#6337#6352#0" expanded="false" />
+            <element signature="e#4326#4341#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3043,43 +3072,145 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-116">
-          <caret line="318" column="43" lean-forward="false" selection-start-line="318" selection-start-column="43" selection-end-line="318" selection-end-column="43" />
+        <state relative-caret-position="629">
+          <caret line="214" column="57" lean-forward="false" selection-start-line="214" selection-start-column="57" selection-end-line="214" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="171" column="17" lean-forward="false" selection-start-line="171" selection-start-column="17" selection-end-line="171" selection-end-column="17" />
+        <state relative-caret-position="180">
+          <caret line="260" column="0" lean-forward="true" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="198" column="91" lean-forward="false" selection-start-line="198" selection-start-column="67" selection-end-line="198" selection-end-column="91" />
+        <state relative-caret-position="-2873">
+          <caret line="82" column="47" lean-forward="false" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="210" column="69" lean-forward="true" selection-start-line="210" selection-start-column="69" selection-end-line="210" selection-end-column="69" />
+        <state relative-caret-position="1397">
+          <caret line="373" column="74" lean-forward="false" selection-start-line="373" selection-start-column="74" selection-end-line="373" selection-end-column="74" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="191" column="55" lean-forward="false" selection-start-line="191" selection-start-column="55" selection-end-line="191" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="147" column="101" lean-forward="false" selection-start-line="147" selection-start-column="101" selection-end-line="147" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="175" column="136" lean-forward="false" selection-start-line="175" selection-start-column="136" selection-end-line="175" selection-end-column="136" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="89" column="65" lean-forward="false" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+          <folding>
+            <element signature="e#792#807#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="89" column="54" lean-forward="false" selection-start-line="89" selection-start-column="54" selection-end-line="89" selection-end-column="54" />
+          <folding>
+            <element signature="e#3618#3880#0" expanded="true" />
+            <element signature="e#3879#3880#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

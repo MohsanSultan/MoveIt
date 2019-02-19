@@ -36,6 +36,7 @@
                     android:src="@drawable/image_profile" />
 
                 <TextView
+                    android:id="@+id/edit_profile_account_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

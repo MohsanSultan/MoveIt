@@ -34,9 +34,9 @@ import retrofit2.Response;
 
 public class UploadDocumentActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    private ImageView step1Btn, step2Btn, step3Btn, step4Btn;
-    private LinearLayout menu1Layout;
-    private LinearLayout uploadDriverLicenseBtn, uploadVehicleDocumentBtn, addVehicleBtn;
+    private LinearLayout step1Btn, step2Btn, step3Btn;
+    private LinearLayout menu1Layout, menu2Layout, menu3Layout;
+    private LinearLayout uploadDriverLicenseBtn, uploadVehicleDocumentBtn, vehicleInsuranceBtn, vehicleRegistrationBtn;
 
     private RestHandler restHandler;
     private ProgressDialog pDialog;
@@ -58,55 +58,63 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         // Declare RestHandler Object Here...
         restHandler = new RestHandler(this, this);
 
-        step1Btn = findViewById(R.id.driver_license_btn_upload_document_activity);
-        step2Btn = findViewById(R.id.vehicle_insurance_btn_upload_document_activity);
-        step3Btn = findViewById(R.id.vehicle_permit_btn_upload_document_activity);
-        step4Btn = findViewById(R.id.vehicle_registration_btn_upload_document_activity);
+        step1Btn = findViewById(R.id.step1_btn_upload_document_activity);
+        step2Btn = findViewById(R.id.step2_btn_upload_document_activity);
+        step3Btn = findViewById(R.id.step3_btn_upload_document_activity);
 
         menu1Layout = findViewById(R.id.driver_license_menu_layout_upload_document_activity);
+        menu2Layout = findViewById(R.id.vehicle_insurance_menu_layout_upload_document_activity);
+        menu3Layout = findViewById(R.id.vehicle_registration_menu_layout_upload_document_activity);
+
         uploadDriverLicenseBtn = findViewById(R.id.upload_driver_license_btn_upload_document_activity);
         uploadVehicleDocumentBtn = findViewById(R.id.upload_vehicle_documents_btn_upload_document_activity);
-
-        addVehicleBtn = findViewById(R.id.add_vehicle_btn_upload_document_activity);
+        vehicleInsuranceBtn = findViewById(R.id.vehicle_insurance_menu_btn_upload_document_activity);
+        vehicleRegistrationBtn = findViewById(R.id.vehicle_registration_menu_btn_upload_document_activity);
 
         step1Btn.setOnClickListener(this);
         step2Btn.setOnClickListener(this);
         step3Btn.setOnClickListener(this);
-        step4Btn.setOnClickListener(this);
-        addVehicleBtn.setOnClickListener(this);
 
         uploadDriverLicenseBtn.setOnClickListener(this);
         uploadVehicleDocumentBtn.setOnClickListener(this);
+        vehicleInsuranceBtn.setOnClickListener(this);
+        vehicleRegistrationBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.driver_license_btn_upload_document_activity:
+            case R.id.step1_btn_upload_document_activity:
                 if (menu1Layout.getVisibility() == View.GONE)
                     menu1Layout.setVisibility(View.VISIBLE);
                 else
                     menu1Layout.setVisibility(View.GONE);
                 break;
+            case R.id.step2_btn_upload_document_activity:
+                if (menu2Layout.getVisibility() == View.GONE)
+                    menu2Layout.setVisibility(View.VISIBLE);
+                else
+                    menu2Layout.setVisibility(View.GONE);
+                break;
+            case R.id.step3_btn_upload_document_activity:
+                if (menu3Layout.getVisibility() == View.GONE)
+                    menu3Layout.setVisibility(View.VISIBLE);
+                else
+                    menu3Layout.setVisibility(View.GONE);
+                break;
             case R.id.upload_driver_license_btn_upload_document_activity:
                 startActivity(new Intent(this, UploadDriverLicenseActivity.class));
-                break;
-            case R.id.vehicle_insurance_btn_upload_document_activity:
-//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
-                startActivity(new Intent(this, VehicleInsuranceActivity.class));
-                break;
-            case R.id.vehicle_permit_btn_upload_document_activity:
-                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
-                break;
-            case R.id.vehicle_registration_btn_upload_document_activity:
-//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
-                startActivity(new Intent(this, VehicleRegisterActivity.class));
                 break;
             case R.id.upload_vehicle_documents_btn_upload_document_activity:
                 startActivity(new Intent(this, AddVehicleActivity.class));
                 break;
-            case R.id.add_vehicle_btn_upload_document_activity:
-
+            case R.id.vehicle_insurance_menu_btn_upload_document_activity:
+//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+                startActivity(new Intent(this, VehicleInsuranceActivity.class));
+                break;
+            case R.id.vehicle_registration_menu_btn_upload_document_activity:
+//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+                startActivity(new Intent(this, VehicleRegisterActivity.class));
                 break;
         }
     }

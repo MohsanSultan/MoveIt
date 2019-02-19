@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView driverNameTextView;
+    private TextView driverNameTextView , editProfile;
     private CircleImageView driverProfileImage;
     private LinearLayout waybillBtn, documentsBtn, logoutBtn;
 
@@ -29,7 +29,10 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         driverNameTextView = findViewById(R.id.driver_name_text_view_account_activity);
-        driverNameTextView.setText(SharedPrefManager.getInstance(this).getDriverName());
+        driverNameTextView.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+
+        editProfile = findViewById(R.id.edit_profile_account_activity);
+        editProfile.setOnClickListener(this);
 
         driverProfileImage = findViewById(R.id.driver_profile_image_account_activity);
         Picasso.with(this)
@@ -62,6 +65,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(new Intent(AccountActivity.this, CoverScreenActivity.class));
                 finishAffinity();
                 break;
+
+            case R.id.edit_profile_account_activity:
+                Intent toEditProfile = new Intent(AccountActivity.this , EditProfileActivity.class);
+                startActivity(toEditProfile);
+                finish();
         }
     }
 

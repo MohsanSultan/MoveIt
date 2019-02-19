@@ -139,6 +139,13 @@ public class RestHandler {
                                                               @Part("validLiscenseExpires") RequestBody validLicenceExpires,
                                                               @Part MultipartBody.Part licenceFrontPic,
                                                               @Part MultipartBody.Part licenceBackPic);
+
+        @POST("user/update")
+        @Multipart
+        Call<UpdateUserModelResponse> updateUserProfile(@Part("id") RequestBody userId,
+                                                        @Part("firstname") RequestBody firstName,
+                                                        @Part("lastname") RequestBody lastName,
+                                                        @Part MultipartBody.Part driverProfileImage);
     }
 
     public void makeHttpRequest(Call call, String method) {

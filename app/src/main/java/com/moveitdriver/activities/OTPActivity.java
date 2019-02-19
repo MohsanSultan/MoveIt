@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    private String idStr, firstNameStr, lastNameStr, emailStr;
+    private String idStr, firstNameStr, lastNameStr, emailStr, profileImgStr, contactStr;
 
     private PinView codePinView;
     private ImageView otpBtn;
@@ -77,6 +77,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             firstNameStr = getIntent().getStringExtra("firstName");
             lastNameStr = getIntent().getStringExtra("lastName");
             emailStr = getIntent().getStringExtra("email");
+            profileImgStr = getIntent().getStringExtra("profileImage");
+            contactStr = getIntent().getStringExtra("contact");
 
             Log.e("registerId", idStr);
             Log.e("registerFirstName", firstNameStr);
@@ -171,7 +173,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                 Toast.makeText(this, otpResponse.getMessage(), Toast.LENGTH_LONG).show();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr + " " + lastNameStr, emailStr, "");
+                SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr , lastNameStr, emailStr, profileImgStr, contactStr);
 
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
