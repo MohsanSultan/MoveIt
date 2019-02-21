@@ -4,7 +4,9 @@ package com.moveitdriver.models.getAllVehicleResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CarManufacturer {
+import java.io.Serializable;
+
+public class CarManufacturer implements Serializable {
 
     @SerializedName("_id")
     @Expose

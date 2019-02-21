@@ -18,38 +18,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb7b7ea-6dce-467b-97df-96de87ae3ffa" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_edit.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_location_16_0_0.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_places_placereport_16_0_0.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MessageActivity.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/UserDetailResponse/Datum.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/UserDetailResponse/UserDetailModelResponse.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_check_circle.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_message.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarModel.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -85,115 +98,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="OTPActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java">
+      <file leaf-file-name="UploadDocumentActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="175" column="136" lean-forward="false" selection-start-line="175" selection-start-column="136" selection-end-line="175" selection-end-column="136" />
+            <state relative-caret-position="2567">
+              <caret line="226" column="18" lean-forward="false" selection-start-line="226" selection-start-column="18" selection-end-line="226" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
+      <file leaf-file-name="VehicleInsuranceActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="89" column="54" lean-forward="false" selection-start-line="89" selection-start-column="54" selection-end-line="89" selection-end-column="54" />
+            <state relative-caret-position="476">
+              <caret line="121" column="83" lean-forward="false" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="83" />
               <folding>
-                <element signature="e#3618#3880#0" expanded="true" />
-                <element signature="e#3879#3880#0" expanded="true" />
+                <element signature="e#16604#17006#0" expanded="true" />
+                <element signature="e#17005#17006#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nav_header_main.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+      <file leaf-file-name="VehicleRegisterActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
-              <folding>
-                <element signature="e#792#807#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="92" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccountActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
+      <file leaf-file-name="AddVehicleActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_account.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RestHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="147" column="101" lean-forward="false" selection-start-line="147" selection-start-column="101" selection-end-line="147" selection-end-column="101" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_edit_profile.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EditProfileActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="89" column="65" lean-forward="false" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SharedPrefManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+            <state relative-caret-position="98">
+              <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -2292,14 +2234,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cover_screen.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/CoverScreenActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/OTPResponse/OTPResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/registerationResponse/RegisterResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/registerationResponse/Datum.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/driver_license_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/DriverLicenseInfoActivity.java" />
@@ -2313,36 +2248,43 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_vehicle.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/ImageUtil.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/ImagePicker.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_item_view_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_dialog3.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/FileUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/adapters/GetAllVehiclesAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/updateUserDetailResponse/Data.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MessageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/adapters/GetAllVehiclesAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_message.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/UserDetailResponse/Datum.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
       </list>
     </option>
   </component>
@@ -2367,6 +2309,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2389,9 +2332,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2424,28 +2364,18 @@
               <item name="moveitdriver" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="retrofit" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MoveItDriver" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="moveitdriver" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoveItDriver" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="settings.editor.selected.configurable" value="gradle.compiler" />
-    <property name="device.picker.selection" value="TA38502RY4" />
+    <property name="device.picker.selection" value="9TKBB18510205876" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/InstagramFollower-master" />
   </component>
@@ -2460,11 +2390,11 @@
       <recent name="com.moveitdriver.utils" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\models\updateUserDetailResponse" />
+      <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\models\UserDetailResponse" />
       <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\models\getAllVehicleResponse" />
+      <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\models\updateUserDetailResponse" />
       <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\utils" />
       <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\java\com\moveitdriver\adapters" />
-      <recent name="G:\OfficeProjects\MoveItDriver\app\src\main\res\drawable" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -2712,7 +2642,14 @@
       <option name="project" value="LOCAL" />
       <updated>1550505472609</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Latest Commit...">
+      <created>1550582617466</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1550582617466</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2730,12 +2667,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2908497" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6013072" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18154311" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23366013" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1762481" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16830066" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -2752,40 +2689,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25816995" sideWeight="0.5030257" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51797384" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25816995" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18683812" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -2800,53 +2703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/CoverScreenActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="52" column="31" lean-forward="true" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/carMakesResponse/Datum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout1.xml" />
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/moveitdriver/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="5781" column="28" lean-forward="false" selection-start-line="5781" selection-start-column="28" selection-end-line="5781" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/andriod_logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/profile_image_placeholder.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/image_6.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2859,19 +2715,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/custom_spinner_layout1.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_spinner_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="34" column="44" lean-forward="false" selection-start-line="34" selection-start-column="44" selection-end-line="34" selection-end-column="44" />
+        <state relative-caret-position="102">
+          <caret line="6" column="40" lean-forward="false" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -2897,38 +2746,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_item_view_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="39" lean-forward="false" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog3.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_dialog3.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="15" lean-forward="true" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/FileUtils.java">
@@ -2946,28 +2781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="45" column="32" lean-forward="false" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/adapters/GetAllVehiclesAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="57" column="1" lean-forward="true" selection-start-line="57" selection-start-column="1" selection-end-line="57" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/updateUserDetailResponse/Data.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2979,238 +2792,416 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
           <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1955">
-          <caret line="197" column="56" lean-forward="false" selection-start-line="197" selection-start-column="56" selection-end-line="197" selection-end-column="56" />
-          <folding>
-            <element signature="e#2014#4607#0" expanded="false" />
-            <element signature="e#6011#7409#0" expanded="false" />
-            <element signature="e#6785#6800#0" expanded="false" />
-            <element signature="e#6847#6862#0" expanded="false" />
-            <element signature="e#7064#7079#0" expanded="false" />
-            <element signature="e#7123#7138#0" expanded="false" />
-            <element signature="e#7331#7346#0" expanded="false" />
-            <element signature="e#9599#9614#0" expanded="false" />
-            <element signature="e#9661#9676#0" expanded="false" />
-            <element signature="e#9878#9893#0" expanded="false" />
-            <element signature="e#9937#9952#0" expanded="false" />
-            <element signature="e#10145#10160#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="95" column="27" lean-forward="false" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="131" column="52" lean-forward="false" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_vehicle.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="946">
           <caret line="64" column="21" lean-forward="true" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_driver_license.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
           <caret line="68" column="16" lean-forward="false" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_register.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
           <caret line="64" column="16" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="67" selection-end-column="65" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vehicle_insurance.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="94" column="65" lean-forward="false" selection-start-line="94" selection-start-column="65" selection-end-line="94" selection-end-column="65" />
-          <folding>
-            <element signature="e#4326#4341#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="214" column="57" lean-forward="false" selection-start-line="214" selection-start-column="57" selection-end-line="214" selection-end-column="57" />
+        <state relative-caret-position="347">
+          <caret line="94" column="65" lean-forward="false" selection-start-line="94" selection-start-column="65" selection-end-line="94" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="260" column="0" lean-forward="true" selection-start-line="260" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
+        <state relative-caret-position="221">
+          <caret line="25" column="40" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="80" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="253" column="5" lean-forward="false" selection-start-line="253" selection-start-column="5" selection-end-line="253" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/loginResponse/Datum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5355">
+          <caret line="316" column="1" lean-forward="false" selection-start-line="316" selection-start-column="1" selection-end-line="316" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="196" column="0" lean-forward="false" selection-start-line="196" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="28" column="38" lean-forward="false" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/DriverLicenseInfoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2873">
-          <caret line="82" column="47" lean-forward="false" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDriverLicenseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1397">
-          <caret line="373" column="74" lean-forward="false" selection-start-line="373" selection-start-column="74" selection-end-line="373" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-          <folding />
+        <state relative-caret-position="-14">
+          <caret line="155" column="90" lean-forward="false" selection-start-line="155" selection-start-column="90" selection-end-line="155" selection-end-column="90" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/RegistrationActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2635">
-          <caret line="191" column="55" lean-forward="false" selection-start-line="191" selection-start-column="55" selection-end-line="191" selection-end-column="55" />
+        <state relative-caret-position="391">
+          <caret line="203" column="0" lean-forward="false" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_message.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="46" lean-forward="true" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+          <folding>
+            <element signature="e#481#496#0" expanded="false" />
+            <element signature="e#1188#1203#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MessageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="4" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/adapters/GetAllVehiclesAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="147" column="101" lean-forward="false" selection-start-line="147" selection-start-column="101" selection-end-line="147" selection-end-column="101" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="175" column="136" lean-forward="false" selection-start-line="175" selection-start-column="136" selection-end-line="175" selection-end-column="136" />
+        <state relative-caret-position="340">
+          <caret line="31" column="28" lean-forward="false" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_profile.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="44" column="38" lean-forward="false" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/EditProfileActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="89" column="65" lean-forward="false" selection-start-line="89" selection-start-column="65" selection-end-line="89" selection-end-column="65" />
+        <state relative-caret-position="272">
+          <caret line="130" column="55" lean-forward="true" selection-start-line="130" selection-start-column="55" selection-end-line="130" selection-end-column="55" />
+          <folding>
+            <element signature="e#743#759#0" expanded="false" />
+            <element signature="e#946#962#0" expanded="false" />
+            <element signature="e#1249#1265#0" expanded="false" />
+            <element signature="e#1308#1324#0" expanded="false" />
+            <element signature="e#1431#1446#0" expanded="false" />
+            <element signature="e#1900#1915#0" expanded="false" />
+            <element signature="e#2299#2314#0" expanded="false" />
+            <element signature="e#2356#2370#0" expanded="false" />
+            <element signature="e#2502#2516#0" expanded="false" />
+            <element signature="e#2587#2602#0" expanded="false" />
+            <element signature="e#2706#2720#0" expanded="false" />
+            <element signature="e#3025#3039#0" expanded="false" />
+            <element signature="e#3123#3138#0" expanded="false" />
+            <element signature="e#3287#3302#0" expanded="false" />
+            <element signature="e#3434#3448#0" expanded="false" />
+            <element signature="e#3519#3534#0" expanded="false" />
+            <element signature="e#3638#3652#0" expanded="false" />
+            <element signature="e#3957#3971#0" expanded="false" />
+            <element signature="e#4054#4069#0" expanded="false" />
+            <element signature="e#4218#4233#0" expanded="false" />
+            <element signature="e#4365#4379#0" expanded="false" />
+            <element signature="e#4450#4465#0" expanded="false" />
+            <element signature="e#4569#4583#0" expanded="false" />
+            <element signature="e#4892#4906#0" expanded="false" />
+            <element signature="e#4987#5002#0" expanded="false" />
+            <element signature="e#5151#5166#0" expanded="false" />
+            <element signature="e#5298#5312#0" expanded="false" />
+            <element signature="e#5383#5398#0" expanded="false" />
+            <element signature="e#5502#5516#0" expanded="false" />
+            <element signature="e#5820#5834#0" expanded="false" />
+            <element signature="e#5970#5985#0" expanded="false" />
+            <element signature="e#6185#6200#0" expanded="false" />
+            <element signature="e#6239#6254#0" expanded="false" />
+            <element signature="e#6287#6301#0" expanded="false" />
+            <element signature="e#6494#6509#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/UserDetailResponse/Datum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/UserDetailResponse/UserDetailModelResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="38" column="66" lean-forward="false" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+        <state relative-caret-position="204">
+          <caret line="14" column="20" lean-forward="true" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/SplashScreenActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="91" column="88" lean-forward="false" selection-start-line="91" selection-start-column="88" selection-end-line="91" selection-end-column="88" />
+          <folding>
+            <element signature="e#2185#2426#0" expanded="false" />
+            <element signature="e#2425#2426#0" expanded="false" />
+            <element signature="e#2800#3937#0" expanded="false" />
+            <element signature="e#3936#3937#0" expanded="false" />
+            <element signature="e#4771#4772#0" expanded="false" />
+            <element signature="e#4826#4827#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarManufacturer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/CarModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="45" lean-forward="false" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/Datum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="56" column="16" lean-forward="false" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/models/getAllVehicleResponse/GetAllVehicleModelResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="63" lean-forward="false" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_upload_document.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AccountActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="25" column="40" lean-forward="false" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
-          <folding />
+        <state relative-caret-position="-26">
+          <caret line="224" column="54" lean-forward="false" selection-start-line="224" selection-start-column="54" selection-end-line="224" selection-end-column="54" />
+          <folding>
+            <element signature="e#656#671#0" expanded="false" />
+            <element signature="e#1290#1305#0" expanded="false" />
+            <element signature="e#1346#1361#0" expanded="false" />
+            <element signature="e#1403#1418#0" expanded="false" />
+            <element signature="e#1458#1473#0" expanded="false" />
+            <element signature="e#1632#1647#0" expanded="false" />
+            <element signature="e#1850#1865#0" expanded="false" />
+            <element signature="e#2842#2857#0" expanded="false" />
+            <element signature="e#2904#2919#0" expanded="false" />
+            <element signature="e#2960#2974#0" expanded="false" />
+            <element signature="e#3295#3310#0" expanded="false" />
+            <element signature="e#3354#3369#0" expanded="false" />
+            <element signature="e#3554#3569#0" expanded="false" />
+            <element signature="e#4278#4293#0" expanded="false" />
+            <element signature="e#4340#4355#0" expanded="false" />
+            <element signature="e#4396#4410#0" expanded="false" />
+            <element signature="e#4731#4746#0" expanded="false" />
+            <element signature="e#4790#4805#0" expanded="false" />
+            <element signature="e#4993#5008#0" expanded="false" />
+            <element signature="e#5314#5328#0" expanded="false" />
+            <element signature="e#5745#5760#0" expanded="false" />
+            <element signature="e#5801#5816#0" expanded="false" />
+            <element signature="e#5858#5873#0" expanded="false" />
+            <element signature="e#5913#5928#0" expanded="false" />
+            <element signature="e#6090#6105#0" expanded="false" />
+            <element signature="e#6311#6326#0" expanded="false" />
+            <element signature="e#7307#7322#0" expanded="false" />
+            <element signature="e#7369#7384#0" expanded="false" />
+            <element signature="e#7425#7439#0" expanded="false" />
+            <element signature="e#7760#7775#0" expanded="false" />
+            <element signature="e#7819#7834#0" expanded="false" />
+            <element signature="e#8027#8042#0" expanded="false" />
+            <element signature="e#8348#8362#0" expanded="false" />
+            <element signature="e#8779#8794#0" expanded="false" />
+            <element signature="e#8835#8850#0" expanded="false" />
+            <element signature="e#8892#8907#0" expanded="false" />
+            <element signature="e#8947#8962#0" expanded="false" />
+            <element signature="e#9127#9142#0" expanded="false" />
+            <element signature="e#9351#9366#0" expanded="false" />
+            <element signature="e#10353#10368#0" expanded="false" />
+            <element signature="e#10415#10430#0" expanded="false" />
+            <element signature="e#10471#10485#0" expanded="false" />
+            <element signature="e#10805#10820#0" expanded="false" />
+            <element signature="e#10864#10879#0" expanded="false" />
+            <element signature="e#11072#11087#0" expanded="false" />
+            <element signature="e#11344#11359#0" expanded="false" />
+            <element signature="e#11438#11453#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/utils/SharedPrefManager.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/retrofit/RestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+        <state relative-caret-position="187">
+          <caret line="156" column="36" lean-forward="false" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/LoginActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state relative-caret-position="173">
+          <caret line="130" column="4" lean-forward="false" selection-start-line="130" selection-start-column="4" selection-end-line="134" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/OTPActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="39" column="11" lean-forward="false" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
+        <state relative-caret-position="323">
+          <caret line="181" column="20" lean-forward="false" selection-start-line="181" selection-start-column="20" selection-end-line="181" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/UploadDocumentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2567">
+          <caret line="226" column="18" lean-forward="false" selection-start-line="226" selection-start-column="18" selection-end-line="226" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleInsuranceActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="121" column="83" lean-forward="false" selection-start-line="121" selection-start-column="47" selection-end-line="121" selection-end-column="83" />
           <folding>
-            <element signature="e#792#807#0" expanded="true" />
+            <element signature="e#16604#17006#0" expanded="true" />
+            <element signature="e#17005#17006#0" expanded="true" />
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/VehicleRegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="82" column="8" lean-forward="false" selection-start-line="82" selection-start-column="8" selection-end-line="92" selection-end-column="9" />
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/moveitdriver/activities/AddVehicleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="89" column="54" lean-forward="false" selection-start-line="89" selection-start-column="54" selection-end-line="89" selection-end-column="54" />
-          <folding>
-            <element signature="e#3618#3880#0" expanded="true" />
-            <element signature="e#3879#3880#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="98">
+          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

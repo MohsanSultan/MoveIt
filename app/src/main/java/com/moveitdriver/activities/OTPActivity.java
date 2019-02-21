@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class OTPActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    private String idStr, firstNameStr, lastNameStr, emailStr, profileImgStr, contactStr;
+    private String idStr, firstNameStr, lastNameStr, emailStr, profileImgStr, contactStr, nextStr, pathStr;
 
     private PinView codePinView;
     private ImageView otpBtn;
@@ -79,6 +79,8 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
             emailStr = getIntent().getStringExtra("email");
             profileImgStr = getIntent().getStringExtra("profileImage");
             contactStr = getIntent().getStringExtra("contact");
+            nextStr = getIntent().getStringExtra("step");
+            pathStr = getIntent().getStringExtra("path");
 
             Log.e("registerId", idStr);
             Log.e("registerFirstName", firstNameStr);
@@ -173,10 +175,21 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
 
                 Toast.makeText(this, otpResponse.getMessage(), Toast.LENGTH_LONG).show();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr , lastNameStr, emailStr, profileImgStr, contactStr);
+                SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr , lastNameStr, emailStr, profileImgStr, contactStr, nextStr);
 
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                if(pathStr.equals("Login")) {
+                    Intent intent = new Intent(this, UploadDocumentActivity.class);
+                    intent.putExtra("path","newRegister");
+                    intent.putExtra("step", nextStr);
+                    startActivity(intent);
+                    finishAffinity();
+                } else if(pathStr.equals("Register")) {
+                    Intent intent = new Intent(this, UploadDocumentActivity.class);
+                    intent.putExtra("path","newRegister");
+                    intent.putExtra("step", nextStr);
+                    startActivity(intent);
+                    finishAffinity();
+                }
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             if (pDialog != null && pDialog.isShowing()) {

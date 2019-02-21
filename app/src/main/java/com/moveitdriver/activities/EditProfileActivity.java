@@ -31,95 +31,89 @@ import com.moveitdriver.utils.FileUtils;
 import com.moveitdriver.utils.ImagePicker;
 import com.moveitdriver.utils.SharedPrefManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener{
+public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    CircleImageView circleImageView;
-    FloatingActionButton floatingActionButton;
-    EditText driverFirstName, driverLastname, driverContact, driverEmail, driverPassword;
-    Button saveButton;
-    TextView driverNameView;
+    private CircleImageView circleImageView;
+    private FloatingActionButton floatingActionButton;
+    private EditText driverFirstName, driverLastName, driverContact, driverEmail;
+    private Button saveButton;
     private Uri profileImageUri;
 
     private UpdateUserModelResponse updateUserModelResponse;
 
+    private ProgressDialog pDialog;
+    private RestHandler restHandler;
 
     private static final int REQUEST_READ_STORAGE = 3;
-
-    private ProgressDialog pDialog;
-
-    private RestHandler restHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        restHandler = new RestHandler(this,  this);
+        restHandler = new RestHandler(this, this);
 
         initFields();
     }
 
     private void initFields() {
-
         // Declare Progress Dialog...
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
-        pDialog.show();
 
         circleImageView = findViewById(R.id.driver_profile_image_edit_activity);
         driverFirstName = findViewById(R.id.first_name_edit_profile);
-        driverLastname = findViewById(R.id.last_name_edit_profile);
+        driverLastName = findViewById(R.id.last_name_edit_profile);
         driverContact = findViewById(R.id.driver_contact_edit_profile);
         driverEmail = findViewById(R.id.driver_email_edit_profile);
-        driverPassword = findViewById(R.id.driver_password_edit_profile);
-        driverNameView = findViewById(R.id.driver_name_text_view_edit_profile);
 
         driverFirstName.setText(SharedPrefManager.getInstance(this).getDriverFirstName());
-        driverLastname.setText(SharedPrefManager.getInstance(this).getDriverLastName());
+        driverLastName.setText(SharedPrefManager.getInstance(this).getDriverLastName());
         driverContact.setText(SharedPrefManager.getInstance(this).getDriverContact());
         driverEmail.setText(SharedPrefManager.getInstance(this).getDriverEmail());
-        driverNameView.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
 
-        pDialog.dismiss();
-
-        driverPassword.setOnClickListener(this);
+        driverEmail.setClickable(false);
+        driverContact.setClickable(false);
 
         floatingActionButton = findViewById(R.id.edit_profile_btn_edit_profile);
         floatingActionButton.setOnClickListener(this);
 
         saveButton = findViewById(R.id.save_btn_edit_activity);
         saveButton.setOnClickListener(this);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
-            case  R.id.edit_profile_btn_edit_profile:
+            case R.id.edit_profile_btn_edit_profile:
                 onPickImage(1);
                 break;
             case R.id.save_btn_edit_activity:
-                udpateUserDetails();
+                updateUserDetail();
                 break;
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void udpateUserDetails() {
-
+    private void updateUserDetail() {
         pDialog.show();
 
         MultipartBody.Part profileImage = null; // Vehicle Front Image
@@ -131,12 +125,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).updateUserProfile
                         (RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                                 RequestBody.create(MediaType.parse("text/plain"), driverFirstName.getText().toString()),
-                                RequestBody.create(MediaType.parse("text/plain"), driverLastname.getText().toString()),
+                                RequestBody.create(MediaType.parse("text/plain"), driverLastName.getText().toString()),
                                 profileImage),
                 "updateUserProfile");
     }
 
     private int imageCode;
+
     private void onPickImage(int code) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -187,17 +182,32 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         if (response != null && response.code() == 200) {
             if (method.equalsIgnoreCase("updateUserProfile")) {
                 updateUserModelResponse = (UpdateUserModelResponse) response.body();
-                if (updateUserModelResponse.getMessage().equalsIgnoreCase("UpdatedSuccessfully"))
-                {
+                if (updateUserModelResponse.getMessage().equalsIgnoreCase("UpdatedSuccessfully")) {
                     pDialog.dismiss();
 
-                    SharedPrefManager.getInstance(this).driverLogin(updateUserModelResponse.getData().getId(), updateUserModelResponse.getData().getFirstname(), updateUserModelResponse.getData().getLastname(), updateUserModelResponse.getData().getEmail(), updateUserModelResponse.getData().getProfileImage(), updateUserModelResponse.getData().getContact());
+                    SharedPrefManager.getInstance(this).driverLogin(updateUserModelResponse.getData().getId(), updateUserModelResponse.getData().getFirstname(), updateUserModelResponse.getData().getLastname(), updateUserModelResponse.getData().getEmail(), updateUserModelResponse.getData().getProfileImage(), updateUserModelResponse.getData().getContact(), "Complete");
                     Toast.makeText(this, "Profile Saved Successfully ", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }
+        } else if (response != null && (response.code() == 403 || response.code() == 500)) {
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
 
-
+            try {
+                ResponseBody body = response.errorBody();
+                JSONObject jObj = new JSONObject(body.string());
+                if (jObj.optString("status").equals("403"))
+                    Constants.showAlert(this, jObj.optString("message"));
+                else
+                    Constants.showAlert(this, jObj.optString("message"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                Constants.showAlert(this, "Oops! API returned invalid response. Try again later.");
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -207,7 +217,6 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
             pDialog.dismiss();
         }
         Constants.showAlert(this, errorMessage);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

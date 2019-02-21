@@ -29,8 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
-import com.moveitdriver.models.getAllVehicleResponse.Datum;
-import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.models.updateUserDetailResponse.UpdateUserModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
@@ -46,9 +44,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 import okhttp3.MediaType;
@@ -152,6 +148,17 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
             if (method.equalsIgnoreCase("addDriverLicenceDetail")) {
                 pDialog.dismiss();
                 object = (UpdateUserModelResponse) response.body();
+
+                Constants.NEXT_STEP = "2";
+
+                String idStr = SharedPrefManager.getInstance(this).getDriverId();
+                String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
+                String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
+                String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
+                String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"2");
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
@@ -311,6 +318,7 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 RequestBody.create(MediaType.parse("text/plain"), driverLicenceStateStr),
                 RequestBody.create(MediaType.parse("text/plain"), validVehicleTypeLicenceStr),
                 RequestBody.create(MediaType.parse("text/plain"), validDriverLicenceStr),
+                RequestBody.create(MediaType.parse("text/plain"),"2"),
                 fImage,
                 bImage),
                 "addDriverLicenceDetail");

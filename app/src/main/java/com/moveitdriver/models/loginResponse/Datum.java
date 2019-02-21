@@ -11,6 +11,9 @@ public class Datum {
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("country")
+    @Expose
+    private String country;
     @SerializedName("device_type")
     @Expose
     private String deviceType;
@@ -26,6 +29,9 @@ public class Datum {
     @SerializedName("password")
     @Expose
     private String password;
+    @SerializedName("country_code")
+    @Expose
+    private String countryCode;
     @SerializedName("__v")
     @Expose
     private Integer v;
@@ -41,6 +47,9 @@ public class Datum {
     @SerializedName("longitude")
     @Expose
     private String longitude;
+    @SerializedName("next_step")
+    @Expose
+    private String nextStep;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
@@ -97,6 +106,14 @@ public class Datum {
         this.role = role;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getDeviceType() {
         return deviceType;
     }
@@ -137,6 +154,14 @@ public class Datum {
         this.password = password;
     }
 
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
     public Integer getV() {
         return v;
     }
@@ -175,6 +200,14 @@ public class Datum {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getNextStep() {
+        return nextStep;
+    }
+
+    public void setNextStep(String nextStep) {
+        this.nextStep = nextStep;
     }
 
     public String getTimestamp() {
@@ -280,4 +313,5 @@ public class Datum {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

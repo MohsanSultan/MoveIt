@@ -30,6 +30,7 @@ import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.Datum;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
+import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -75,6 +76,8 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
     private ArrayAdapter<String> arrayAdapter;
 
+    private GetAllVehicleModelResponse getAllVehicleModelResponse;
+
     private static final int REQUEST_READ_STORAGE = 3;
 
     @Override
@@ -84,6 +87,8 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        getAllVehicleModelResponse = (GetAllVehicleModelResponse) getIntent().getSerializableExtra("vehicleDetail");
 
         // Declare RestHandler...
         restHandler = new RestHandler(this, this);
@@ -206,6 +211,17 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             } else if (method.equalsIgnoreCase("addVehicleDetail")) {
                 addVehicleModelResponse = (AddVehicleModelResponse) response.body();
 
+                Constants.NEXT_STEP = "3";
+
+                String idStr = SharedPrefManager.getInstance(this).getDriverId();
+                String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
+                String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
+                String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
+                String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"3");
+
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -270,11 +286,13 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             bImage = prepareFilePart("carBackPic", carBackImageUri);
         }
 
-        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(
+                RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarMake),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarModel),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarYear),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarColor),
+                RequestBody.create(MediaType.parse("text/plain"), "3"),
                 fImage,
                 bImage),
                 "addVehicleDetail");

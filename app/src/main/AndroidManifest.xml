@@ -95,10 +95,14 @@
             android:name=".activities.VehicleRegisterActivity"
             android:label="Vehicle Registration Detail"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditProfileActivity"
+            android:label="Edit Profile"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
 
-        <activity android:name=".activities.EditProfileActivity"></activity>
+        <activity android:name=".activities.MessageActivity"></activity>
     </application>
 
 </manifest>

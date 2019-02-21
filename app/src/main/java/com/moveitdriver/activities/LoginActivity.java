@@ -155,13 +155,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginResponse = (LoginResponse) response.body();
 
                 if(loginResponse.getData().get(0).getSmsVerify() || loginResponse.getData().get(0).getMailVerify() || loginResponse.getData().get(0).getCallVerify()){
-                    SharedPrefManager.getInstance(this).driverLogin(loginResponse.getData().get(0).getId(), loginResponse.getData().get(0).getFirstname(), loginResponse.getData().get(0).getLastname(), loginResponse.getData().get(0).getEmail(), loginResponse.getData().get(0).getProfileImage(), loginResponse.getData().get(0).getContact());
+                    SharedPrefManager.getInstance(this).driverLogin(
+                            loginResponse.getData().get(0).getId(),
+                            loginResponse.getData().get(0).getFirstname(),
+                            loginResponse.getData().get(0).getLastname(),
+                            loginResponse.getData().get(0).getEmail(),
+                            loginResponse.getData().get(0).getProfileImage(),
+                            loginResponse.getData().get(0).getContact(),
+                            loginResponse.getData().get(0).getNextStep()
+                    );
 
                     pDialog.dismiss();
-                    startActivity(new Intent(this, MainActivity.class));
-                    finishAffinity();
-                    Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
-
+                    if(loginResponse.getData().get(0).getIsActive() && loginResponse.getData().get(0).getNextStep().equals("Complete")) {
+                        startActivity(new Intent(this, MainActivity.class));
+                        finishAffinity();
+                        Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    } else if(!loginResponse.getData().get(0).getIsActive() && loginResponse.getData().get(0).getNextStep().equals("Complete")) {
+                        startActivity(new Intent(this, MessageActivity.class));
+                        finishAffinity();
+                        Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    } if(!loginResponse.getData().get(0).getNextStep().equals("Complete")) {
+                        Intent intent = new Intent(this, UploadDocumentActivity.class);
+                        intent.putExtra("path", "newRegister");
+                        intent.putExtra("step", loginResponse.getData().get(0).getNextStep());
+                        startActivity(intent);
+                        finishAffinity();
+                        Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     pDialog.dismiss();
                     Intent intent = new Intent(this, OTPActivity.class);
@@ -171,6 +191,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("email", loginResponse.getData().get(0).getEmail());
                     intent.putExtra("profileImage", loginResponse.getData().get(0).getProfileImage());
                     intent.putExtra("contact", loginResponse.getData().get(0).getContact());
+                    intent.putExtra("step", loginResponse.getData().get(0).getNextStep());
+                    intent.putExtra("path", "Login");
 
                     finishAffinity();
                 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.moveitdriver.R;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
+import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
@@ -35,6 +36,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class RestHandler {
 
@@ -77,7 +79,7 @@ public class RestHandler {
                                             @Part("email") RequestBody email, @Part("password") RequestBody password, @Part("country") RequestBody country,
                                             @Part("country_code") RequestBody countryCode, @Part("contact") RequestBody contactNumber,
                                             @Part("device_type") RequestBody deviceType, @Part("reg_type") RequestBody regType,
-                                            @Part("role") RequestBody role);
+                                            @Part("role") RequestBody role, @Part("next_step") RequestBody nextStep);
 
         @FormUrlEncoded
         @POST("verifyOTP")
@@ -104,6 +106,7 @@ public class RestHandler {
                                                        @Part("model") RequestBody model,
                                                        @Part("carYear") RequestBody year,
                                                        @Part("carColor") RequestBody color,
+                                                       @Part("next_step") RequestBody nextStep,
                                                        @Part MultipartBody.Part fImage,
                                                        @Part MultipartBody.Part bImage2);
 
@@ -116,6 +119,7 @@ public class RestHandler {
                                                                  @Part("vehicleInspectionReport") RequestBody report,
                                                                  @Part("vehicleInsuranceCertificateExpires") RequestBody certificateExpires,
                                                                  @Part("vehicleInsuranceEffectiveDate") RequestBody effectiveDate,
+                                                                 @Part("next_step") RequestBody nextStep,
                                                                  @Part MultipartBody.Part vehicleInsuranceCertificateImage);
 
         @POST("vehicle/edit")
@@ -124,7 +128,8 @@ public class RestHandler {
                                                                     @Part("user_id") RequestBody userId,
                                                                     @Part("registrationNumber") RequestBody registrationNumber,
                                                                     @Part("registrationDate") RequestBody type,
-                                                                    @Part("registrationExpiry") RequestBody report);
+                                                                    @Part("registrationExpiry") RequestBody report,
+                                                                    @Part("next_step") RequestBody nextStep);
 
         @GET("allvehicle/{id}")
         Call<GetAllVehicleModelResponse> getAllVehicles(@Path("id") String userId);
@@ -137,6 +142,7 @@ public class RestHandler {
                                                               @Part("driverLicenceState") RequestBody licenceState,
                                                               @Part("validVehicleTypeLiscence") RequestBody licenceType,
                                                               @Part("validLiscenseExpires") RequestBody validLicenceExpires,
+                                                              @Part("next_step") RequestBody nextStep,
                                                               @Part MultipartBody.Part licenceFrontPic,
                                                               @Part MultipartBody.Part licenceBackPic);
 
@@ -146,6 +152,9 @@ public class RestHandler {
                                                         @Part("firstname") RequestBody firstName,
                                                         @Part("lastname") RequestBody lastName,
                                                         @Part MultipartBody.Part driverProfileImage);
+
+        @GET("user/profile/{id}")
+        Call<UserDetailModelResponse> getUserStatus(@Path("id") String userId);
     }
 
     public void makeHttpRequest(Call call, String method) {

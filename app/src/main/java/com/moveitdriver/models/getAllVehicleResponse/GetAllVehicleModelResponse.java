@@ -1,11 +1,11 @@
-
 package com.moveitdriver.models.getAllVehicleResponse;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetAllVehicleModelResponse {
+public class GetAllVehicleModelResponse implements Serializable {
 
     @SerializedName("status")
     @Expose
@@ -13,6 +13,9 @@ public class GetAllVehicleModelResponse {
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
+    @SerializedName("user")
+    @Expose
+    private Object user;
     @SerializedName("message")
     @Expose
     private String message;
@@ -31,6 +34,14 @@ public class GetAllVehicleModelResponse {
 
     public void setData(List<Datum> data) {
         this.data = data;
+    }
+
+    public Object getUser() {
+        return user;
+    }
+
+    public void setUser(Object user) {
+        this.user = user;
     }
 
     public String getMessage() {

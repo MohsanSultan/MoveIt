@@ -50,8 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_view"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/upload_driver_license_btn_upload_document_activity"
@@ -61,8 +61,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/menu_step1_icon"
                         android:layout_width="@dimen/_26sdp"
-                        android:layout_height="@dimen/_36sdp" />
+                        android:layout_height="@dimen/_36sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_check_circle" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -87,8 +91,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/menu_step2_icon"
                         android:layout_width="@dimen/_26sdp"
-                        android:layout_height="@dimen/_36sdp" />
+                        android:layout_height="@dimen/_36sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_check_circle" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -136,8 +144,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_view"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/vehicle_insurance_menu_btn_upload_document_activity"
@@ -147,8 +155,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/menu_step3_icon"
                         android:layout_width="@dimen/_26sdp"
-                        android:layout_height="@dimen/_36sdp" />
+                        android:layout_height="@dimen/_36sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_check_circle" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -196,8 +208,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_view"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/vehicle_registration_menu_btn_upload_document_activity"
@@ -207,8 +219,12 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/menu_step4_icon"
                         android:layout_width="@dimen/_26sdp"
-                        android:layout_height="@dimen/_36sdp" />
+                        android:layout_height="@dimen/_36sdp"
+                        android:padding="@dimen/_2sdp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_check_circle"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -224,6 +240,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/continue_btn_document_upload_activity"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_alignParentBottom="true"

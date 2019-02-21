@@ -179,7 +179,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 RequestBody.create(MediaType.parse("text/plain"), contactNumberStr),
                 RequestBody.create(MediaType.parse("text/plain"), "android"),
                 RequestBody.create(MediaType.parse("text/plain"), "normal"),
-                RequestBody.create(MediaType.parse("text/plain"), "driver")),
+                RequestBody.create(MediaType.parse("text/plain"), "driver"),
+                RequestBody.create(MediaType.parse("text/plain"), "1")),
                 "Registration");
     }
 
@@ -211,6 +212,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 intent.putExtra("email", emailStr);
                 intent.putExtra("profileImage", "");
                 intent.putExtra("contact", contactNumberStr);
+                intent.putExtra("step", "1");
+                intent.putExtra("path", "Register");
                 startActivity(intent);
 
                 finishAffinity();

@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.moveitdriver.R;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
+import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -68,6 +69,7 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
     private RestHandler restHandler;
 
     private AddVehicleModelResponse object;
+    private GetAllVehicleModelResponse getAllVehicleModelResponse;
 
     private static final int REQUEST_READ_STORAGE = 3;
 
@@ -79,6 +81,8 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        getAllVehicleModelResponse = (GetAllVehicleModelResponse) getIntent().getSerializableExtra("vehicleDetail");
+
         // Declare RestHandler...
         restHandler = new RestHandler(this, this);
 
@@ -87,16 +91,36 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
 
-        DatePickerIns();
-
         insuranceCompanyNameEditText = findViewById(R.id.compnay_name_vehicle_insurance_activity);
         insuranceTypeEditText = findViewById(R.id.insurance_type_vehicle_insurance_activity);
         inspectionReportEditText = findViewById(R.id.inspection_report_vehicle_insurance_activity);
+        insuranceCertificateExpiresTextView = findViewById(R.id.certificate_expires_vehicle_insurance_activity);
+        insuranceEffectiveTextView = findViewById(R.id.effective_date_vehicle_insurance_activity);
         insuranceCertificateImageView = findViewById(R.id.certificate_image_vehicle_insurance_activity);
         submitBtn = findViewById(R.id.submit_btn_vehicle_insurance_activity);
 
         insuranceCertificateImageView.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
+
+        DatePickerIns();
+
+        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName().equals("")){
+            insuranceCompanyNameEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName());
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType().equals("")){
+            insuranceTypeEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType());
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport().equals("")){
+            inspectionReportEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport());
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires().equals("")){
+            String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires();
+            insuranceCertificateExpiresTextView.setText(date.substring(0, date.indexOf("T")));
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate().equals("")){
+            String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate();
+            insuranceEffectiveTextView.setText(date.substring(0, date.indexOf("T")));
+        }
     }
 
     // ------------------------------ Override Functions  --------------------------------------- //
@@ -120,6 +144,17 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
             if (method.equalsIgnoreCase("addDriverLicenceDetail")) {
                 pDialog.dismiss();
                 object = (AddVehicleModelResponse) response.body();
+
+                Constants.NEXT_STEP = "4";
+
+                String idStr = SharedPrefManager.getInstance(this).getDriverId();
+                String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
+                String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
+                String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
+                String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"4");
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
@@ -263,13 +298,14 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
             cerImage = prepareFilePart("vehicleInsuranceCertificatePic", insuranceCertificateImageUri);
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).editInsuranceVehicleDetail(
-                RequestBody.create(MediaType.parse("text/plain"), "5c6188061f332025b741171d"),
+                RequestBody.create(MediaType.parse("text/plain"), getAllVehicleModelResponse.getData().get(0).getId()),
                 RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceCompanyNameStr),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceTypeStr),
                 RequestBody.create(MediaType.parse("text/plain"), inspectionReportStr),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceCertificateExpiresStr),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceEffectiveStr),
+                RequestBody.create(MediaType.parse("text/plain"), "4"),
                 cerImage),
                 "addDriverLicenceDetail");
     }
@@ -328,9 +364,6 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
-
-        insuranceCertificateExpiresTextView = findViewById(R.id.certificate_expires_vehicle_insurance_activity);
-        insuranceEffectiveTextView = findViewById(R.id.effective_date_vehicle_insurance_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 

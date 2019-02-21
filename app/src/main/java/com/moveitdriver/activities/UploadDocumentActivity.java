@@ -9,13 +9,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.moveitdriver.R;
 import com.moveitdriver.adapters.GetAllVehiclesAdapter;
-import com.moveitdriver.models.getAllVehicleResponse.Datum;
 import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
+import com.moveitdriver.models.getAllVehicleResponse.Datum;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -25,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +40,11 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
     private LinearLayout step1Btn, step2Btn, step3Btn;
     private LinearLayout menu1Layout, menu2Layout, menu3Layout;
     private LinearLayout uploadDriverLicenseBtn, uploadVehicleDocumentBtn, vehicleInsuranceBtn, vehicleRegistrationBtn;
+    private ImageView menuStep1ImgBtn, menuStep2ImgBtn, menuStep3ImgBtn, menuStep4ImgBtn;
+    private Button continueBtn;
+
+    private String stepStr = "";
+    private String flag = "";
 
     private RestHandler restHandler;
     private ProgressDialog pDialog;
@@ -47,8 +55,16 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_document);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getIntent().hasExtra("path")){
+            if(getIntent().getStringExtra("path").equals("newRegister")){
+                stepStr = getIntent().getStringExtra("step");
+            }
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        Toast.makeText(this, ""+SharedPrefManager.getInstance(this).getNextStep(), Toast.LENGTH_SHORT).show();
 
         // Progress Dialog Declare...
         pDialog = new ProgressDialog(this);
@@ -66,10 +82,18 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         menu2Layout = findViewById(R.id.vehicle_insurance_menu_layout_upload_document_activity);
         menu3Layout = findViewById(R.id.vehicle_registration_menu_layout_upload_document_activity);
 
+        menuStep1ImgBtn = findViewById(R.id.menu_step1_icon);
+        menuStep2ImgBtn = findViewById(R.id.menu_step2_icon);
+        menuStep3ImgBtn = findViewById(R.id.menu_step3_icon);
+        menuStep4ImgBtn = findViewById(R.id.menu_step4_icon);
+
         uploadDriverLicenseBtn = findViewById(R.id.upload_driver_license_btn_upload_document_activity);
         uploadVehicleDocumentBtn = findViewById(R.id.upload_vehicle_documents_btn_upload_document_activity);
         vehicleInsuranceBtn = findViewById(R.id.vehicle_insurance_menu_btn_upload_document_activity);
         vehicleRegistrationBtn = findViewById(R.id.vehicle_registration_menu_btn_upload_document_activity);
+
+        continueBtn = findViewById(R.id.continue_btn_document_upload_activity);
+        continueBtn.setOnClickListener(this);
 
         step1Btn.setOnClickListener(this);
         step2Btn.setOnClickListener(this);
@@ -79,6 +103,9 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         uploadVehicleDocumentBtn.setOnClickListener(this);
         vehicleInsuranceBtn.setOnClickListener(this);
         vehicleRegistrationBtn.setOnClickListener(this);
+
+
+        flow(stepStr);
     }
 
     @Override
@@ -106,15 +133,25 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 startActivity(new Intent(this, UploadDriverLicenseActivity.class));
                 break;
             case R.id.upload_vehicle_documents_btn_upload_document_activity:
-                startActivity(new Intent(this, AddVehicleActivity.class));
+                flag = "1";
+                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
                 break;
             case R.id.vehicle_insurance_menu_btn_upload_document_activity:
-//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
-                startActivity(new Intent(this, VehicleInsuranceActivity.class));
+                flag = "2";
+                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+//                startActivity(new Intent(this, VehicleInsuranceActivity.class));
                 break;
             case R.id.vehicle_registration_menu_btn_upload_document_activity:
-//                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
-                startActivity(new Intent(this, VehicleRegisterActivity.class));
+                flag = "3";
+                getAllVehicles(SharedPrefManager.getInstance(this).getDriverId());
+//                startActivity(new Intent(this, VehicleRegisterActivity.class));
+                break;
+            case R.id.continue_btn_document_upload_activity:
+                if(SharedPrefManager.getInstance(this).getNextStep().equals("Complete")) {
+                    startActivity(new Intent(this, MessageActivity.class));
+                } else {
+                    Toast.makeText(this, "Complete Your Document First...", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -126,10 +163,28 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 pDialog.dismiss();
                 allVehicleModelResponse = (GetAllVehicleModelResponse) response.body();
 
-                List<Datum> vehiclesList = new ArrayList<>();
-                vehiclesList = allVehicleModelResponse.getData();
-
-                showAllVehiclesDialog(vehiclesList);
+                if(allVehicleModelResponse.getData().size() == 0){
+                    if(flag == "2" || flag == "3") {
+                        Toast.makeText(this, "Please Upload Vehicle Documents First...", Toast.LENGTH_SHORT).show();
+                    } else if(flag == "1") {
+                        startActivity(new Intent(this, AddVehicleActivity.class));
+                    }
+                } else {
+                    if(flag == "1") {
+                        Intent intent = new Intent(this, AddVehicleActivity.class);
+                        intent.putExtra("vehicleDetail", allVehicleModelResponse);
+                        startActivity(intent);
+                    } else if (flag == "2") {
+                        Intent intent = new Intent(this, VehicleInsuranceActivity.class);
+                        intent.putExtra("vehicleDetail", allVehicleModelResponse);
+                        startActivity(intent);
+                    } else if (flag == "3") {
+                        Intent intent = new Intent(this, VehicleRegisterActivity.class);
+                        intent.putExtra("vehicleDetail", allVehicleModelResponse);
+                        startActivity(intent);
+                    }
+                }
+//                showAllVehiclesDialog(vehiclesList);
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             if (pDialog != null && pDialog.isShowing()) {
@@ -166,6 +221,13 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        flag = "0";
+        flow(Constants.NEXT_STEP);
+    }
+
     /* ---------------------------------------  Functions  -------------------------------------- */
 
     private void getAllVehicles(String userId) {
@@ -188,5 +250,45 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         recyclerView.setAdapter(adapter);
 
         dialog.show();
+    }
+
+    private void flow(String x) {
+
+        if(x.equals("1")) {
+            uploadDriverLicenseBtn.setClickable(true);
+            uploadVehicleDocumentBtn.setClickable(false);
+            vehicleInsuranceBtn.setClickable(false);
+            vehicleRegistrationBtn.setClickable(false);
+        } else if(x.equals("2")) {
+            uploadDriverLicenseBtn.setClickable(true);
+            uploadVehicleDocumentBtn.setClickable(true);
+            vehicleInsuranceBtn.setClickable(false);
+            vehicleRegistrationBtn.setClickable(false);
+            menu1Layout.setVisibility(View.VISIBLE);
+        } else if(x.equals("3")) {
+            uploadDriverLicenseBtn.setClickable(true);
+            uploadVehicleDocumentBtn.setClickable(true);
+            vehicleInsuranceBtn.setClickable(true);
+            vehicleRegistrationBtn.setClickable(false);
+            menuStep1ImgBtn.setVisibility(View.VISIBLE);
+            menuStep2ImgBtn.setVisibility(View.VISIBLE);
+        } else if(x.equals("4")) {
+            uploadDriverLicenseBtn.setClickable(true);
+            uploadVehicleDocumentBtn.setClickable(true);
+            vehicleInsuranceBtn.setClickable(true);
+            vehicleRegistrationBtn.setClickable(true);
+            menuStep1ImgBtn.setVisibility(View.VISIBLE);
+            menuStep2ImgBtn.setVisibility(View.VISIBLE);
+            menuStep3ImgBtn.setVisibility(View.VISIBLE);
+        } else if(x.equals("Complete")) {
+            uploadDriverLicenseBtn.setClickable(true);
+            uploadVehicleDocumentBtn.setClickable(true);
+            vehicleInsuranceBtn.setClickable(true);
+            vehicleRegistrationBtn.setClickable(true);
+            menuStep1ImgBtn.setVisibility(View.VISIBLE);
+            menuStep2ImgBtn.setVisibility(View.VISIBLE);
+            menuStep3ImgBtn.setVisibility(View.VISIBLE);
+            menuStep4ImgBtn.setVisibility(View.VISIBLE);
+        }
     }
 }

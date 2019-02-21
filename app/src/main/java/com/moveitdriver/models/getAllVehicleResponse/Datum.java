@@ -1,10 +1,11 @@
-
 package com.moveitdriver.models.getAllVehicleResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+import java.io.Serializable;
+
+public class Datum implements Serializable {
 
     @SerializedName("_id")
     @Expose

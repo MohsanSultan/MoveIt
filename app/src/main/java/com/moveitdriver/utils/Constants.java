@@ -26,6 +26,8 @@ public class Constants {
     public static double mCurLong = 0.0;
     public static String country;
 
+    public static String NEXT_STEP = "";
+
     public Constants(Context con, Activity activity) {
         this.con = con;
         this.activity = activity;

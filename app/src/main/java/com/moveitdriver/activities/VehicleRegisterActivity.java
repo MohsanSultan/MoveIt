@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.moveitdriver.R;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
+import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -50,6 +51,7 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
     private RestHandler restHandler;
 
     private AddVehicleModelResponse object;
+    private GetAllVehicleModelResponse getAllVehicleModelResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        getAllVehicleModelResponse = (GetAllVehicleModelResponse) getIntent().getSerializableExtra("vehicleDetail");
+
         // Declare RestHandler...
         restHandler = new RestHandler(this, this);
 
@@ -67,12 +71,26 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
 
-        DatePickerIns();
-
         vehicleRegisterNumberEditText = findViewById(R.id.registration_number_vehicle_register_activity);
+        registrationDateTextView = findViewById(R.id.registration_date_vehicle_register_activity);
+        registrationExpiryTextView = findViewById(R.id.registration_expiry_date_vehicle_register_activity);
         submitBtn = findViewById(R.id.submit_btn_register_vehicle_activity);
 
         submitBtn.setOnClickListener(this);
+
+        DatePickerIns();
+
+        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationNumber().equals("")){
+            vehicleRegisterNumberEditText.setText(getAllVehicleModelResponse.getData().get(0).getRegistrationNumber());
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationDate().equals("")){
+            String date = getAllVehicleModelResponse.getData().get(0).getRegistrationDate();
+            registrationDateTextView.setText(date.substring(0, date.indexOf("T")));
+        }
+        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry().equals("")){
+            String date = getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry();
+            registrationExpiryTextView.setText(date.substring(0, date.indexOf("T")));
+        }
     }
 
     // ------------------------------ Override Functions  --------------------------------------- //
@@ -93,6 +111,17 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
             if (method.equalsIgnoreCase("addVehicleRegistrationDetail")) {
                 pDialog.dismiss();
                 object = (AddVehicleModelResponse) response.body();
+
+                Constants.NEXT_STEP = "Complete";
+
+                String idStr = SharedPrefManager.getInstance(this).getDriverId();
+                String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
+                String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
+                String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
+                String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"Complete");
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
@@ -197,23 +226,21 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
         pDialog.show();
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).editRegistrationVehicleDetail(
-                RequestBody.create(MediaType.parse("text/plain"), "5c6188061f332025b741171d"),
+                RequestBody.create(MediaType.parse("text/plain"), getAllVehicleModelResponse.getData().get(0).getId()),
                 RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), registrationNumberStr),
                 RequestBody.create(MediaType.parse("text/plain"), registrationDateStr),
-                RequestBody.create(MediaType.parse("text/plain"), registrationExpiryStr)),
+                RequestBody.create(MediaType.parse("text/plain"), registrationExpiryStr),
+                RequestBody.create(MediaType.parse("text/plain"), "Complete")),
                 "addVehicleRegistrationDetail");
     }
 
     // DatePicker Functions...
-
     public void DatePickerIns() {
+
         String myFormat = "yyyy-MM-dd"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
-
-        registrationDateTextView = findViewById(R.id.registration_date_vehicle_register_activity);
-        registrationExpiryTextView = findViewById(R.id.registration_expiry_date_vehicle_register_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
