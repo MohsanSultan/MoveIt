@@ -104,22 +104,26 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
 
         DatePickerIns();
 
-        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName().equals("")){
-            insuranceCompanyNameEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName());
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType().equals("")){
-            insuranceTypeEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType());
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport().equals("")){
-            inspectionReportEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport());
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires().equals("")){
-            String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires();
-            insuranceCertificateExpiresTextView.setText(date.substring(0, date.indexOf("T")));
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate().equals("")){
-            String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate();
-            insuranceEffectiveTextView.setText(date.substring(0, date.indexOf("T")));
+        try {
+            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName().equals("")) {
+                insuranceCompanyNameEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName());
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType().equals("")) {
+                insuranceTypeEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType());
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport().equals("")) {
+                inspectionReportEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport());
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires().equals("")) {
+                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires();
+                insuranceCertificateExpiresTextView.setText(date.substring(0, date.indexOf("T")));
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate().equals("")) {
+                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate();
+                insuranceEffectiveTextView.setText(date.substring(0, date.indexOf("T")));
+            }
+        } catch (Exception e){
+
         }
     }
 

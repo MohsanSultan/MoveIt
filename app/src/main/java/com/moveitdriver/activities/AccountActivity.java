@@ -57,7 +57,10 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.documents_btn_account_activity:
-                startActivity(new Intent(AccountActivity.this, UploadDocumentActivity.class));
+                Intent intent = new Intent(AccountActivity.this, UploadDocumentActivity.class);
+                intent.putExtra("account", "1");
+                intent.putExtra("step", "Complete");
+                startActivity(intent);
                 break;
 
             case R.id.logout_btn_account_activity:

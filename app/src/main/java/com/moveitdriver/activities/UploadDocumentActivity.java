@@ -3,6 +3,7 @@ package com.moveitdriver.activities;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -62,9 +63,11 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         } else {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
-        Toast.makeText(this, ""+SharedPrefManager.getInstance(this).getNextStep(), Toast.LENGTH_SHORT).show();
+            if(getIntent().hasExtra("account")) {
+                stepStr = getIntent().getStringExtra("step");
+            }
+        }
 
         // Progress Dialog Declare...
         pDialog = new ProgressDialog(this);
@@ -103,7 +106,6 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         uploadVehicleDocumentBtn.setOnClickListener(this);
         vehicleInsuranceBtn.setOnClickListener(this);
         vehicleRegistrationBtn.setOnClickListener(this);
-
 
         flow(stepStr);
     }
@@ -148,7 +150,12 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.continue_btn_document_upload_activity:
                 if(SharedPrefManager.getInstance(this).getNextStep().equals("Complete")) {
-                    startActivity(new Intent(this, MessageActivity.class));
+                    if(getIntent().hasExtra("account")) {
+                        finish();
+                    } else {
+                        finish();
+                        startActivity(new Intent(this, MessageActivity.class));
+                    }
                 } else {
                     Toast.makeText(this, "Complete Your Document First...", Toast.LENGTH_SHORT).show();
                 }
@@ -167,12 +174,16 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
                     if(flag == "2" || flag == "3") {
                         Toast.makeText(this, "Please Upload Vehicle Documents First...", Toast.LENGTH_SHORT).show();
                     } else if(flag == "1") {
-                        startActivity(new Intent(this, AddVehicleActivity.class));
+                        Intent intent = new Intent(this, AddVehicleActivity.class);
+                        intent.putExtra("vehicleDetail", allVehicleModelResponse);
+                        intent.putExtra("path", "new");
+                        startActivity(intent);
                     }
                 } else {
                     if(flag == "1") {
                         Intent intent = new Intent(this, AddVehicleActivity.class);
                         intent.putExtra("vehicleDetail", allVehicleModelResponse);
+                        intent.putExtra("path", "old");
                         startActivity(intent);
                     } else if (flag == "2") {
                         Intent intent = new Intent(this, VehicleInsuranceActivity.class);
@@ -259,17 +270,25 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
             uploadVehicleDocumentBtn.setClickable(false);
             vehicleInsuranceBtn.setClickable(false);
             vehicleRegistrationBtn.setClickable(false);
+            uploadVehicleDocumentBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
+            vehicleInsuranceBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
+            vehicleRegistrationBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
         } else if(x.equals("2")) {
             uploadDriverLicenseBtn.setClickable(true);
             uploadVehicleDocumentBtn.setClickable(true);
             vehicleInsuranceBtn.setClickable(false);
             vehicleRegistrationBtn.setClickable(false);
-            menu1Layout.setVisibility(View.VISIBLE);
+            uploadVehicleDocumentBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            vehicleInsuranceBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
+            vehicleRegistrationBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
+            menuStep1ImgBtn.setVisibility(View.VISIBLE);
         } else if(x.equals("3")) {
             uploadDriverLicenseBtn.setClickable(true);
             uploadVehicleDocumentBtn.setClickable(true);
             vehicleInsuranceBtn.setClickable(true);
             vehicleRegistrationBtn.setClickable(false);
+            vehicleInsuranceBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            vehicleRegistrationBtn.setBackgroundColor(Color.parseColor("#DDDDDD"));
             menuStep1ImgBtn.setVisibility(View.VISIBLE);
             menuStep2ImgBtn.setVisibility(View.VISIBLE);
         } else if(x.equals("4")) {
@@ -277,6 +296,7 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
             uploadVehicleDocumentBtn.setClickable(true);
             vehicleInsuranceBtn.setClickable(true);
             vehicleRegistrationBtn.setClickable(true);
+            vehicleRegistrationBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             menuStep1ImgBtn.setVisibility(View.VISIBLE);
             menuStep2ImgBtn.setVisibility(View.VISIBLE);
             menuStep3ImgBtn.setVisibility(View.VISIBLE);

@@ -11,6 +11,9 @@ public class Datum {
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("next_step")
+    @Expose
+    private String nextStep;
     @SerializedName("country")
     @Expose
     private String country;
@@ -35,9 +38,6 @@ public class Datum {
     @SerializedName("__v")
     @Expose
     private Integer v;
-    @SerializedName("sms_otp")
-    @Expose
-    private String smsOtp;
     @SerializedName("device_token")
     @Expose
     private Object deviceToken;
@@ -47,9 +47,6 @@ public class Datum {
     @SerializedName("longitude")
     @Expose
     private String longitude;
-    @SerializedName("next_step")
-    @Expose
-    private String nextStep;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
@@ -104,6 +101,14 @@ public class Datum {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getNextStep() {
+        return nextStep;
+    }
+
+    public void setNextStep(String nextStep) {
+        this.nextStep = nextStep;
     }
 
     public String getCountry() {
@@ -170,14 +175,6 @@ public class Datum {
         this.v = v;
     }
 
-    public String getSmsOtp() {
-        return smsOtp;
-    }
-
-    public void setSmsOtp(String smsOtp) {
-        this.smsOtp = smsOtp;
-    }
-
     public Object getDeviceToken() {
         return deviceToken;
     }
@@ -200,14 +197,6 @@ public class Datum {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public String getNextStep() {
-        return nextStep;
-    }
-
-    public void setNextStep(String nextStep) {
-        this.nextStep = nextStep;
     }
 
     public String getTimestamp() {

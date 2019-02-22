@@ -112,6 +112,18 @@ public class RestHandler {
 
         @POST("vehicle/edit")
         @Multipart
+        Call<AddVehicleModelResponse> editVehicleDetail(@Part("id") RequestBody vehicleId,
+                                                        @Part("user_id") RequestBody userId,
+                                                        @Part("make") RequestBody make,
+                                                        @Part("model") RequestBody model,
+                                                        @Part("carYear") RequestBody year,
+                                                        @Part("carColor") RequestBody color,
+                                                        @Part("next_step") RequestBody nextStep,
+                                                        @Part MultipartBody.Part fImage,
+                                                        @Part MultipartBody.Part bImage2);
+
+        @POST("vehicle/edit")
+        @Multipart
         Call<AddVehicleModelResponse> editInsuranceVehicleDetail(@Part("id") RequestBody vehicleId,
                                                                  @Part("user_id") RequestBody userId,
                                                                  @Part("vehicleInsuranceCompanyName") RequestBody companyName,

@@ -193,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("contact", loginResponse.getData().get(0).getContact());
                     intent.putExtra("step", loginResponse.getData().get(0).getNextStep());
                     intent.putExtra("path", "Login");
+                    startActivity(intent);
 
                     finishAffinity();
                 }

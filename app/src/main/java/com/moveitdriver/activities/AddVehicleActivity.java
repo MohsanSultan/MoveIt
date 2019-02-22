@@ -94,6 +94,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         restHandler = new RestHandler(this, this);
 
         // Declare Progress Dialog...
+
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
@@ -138,7 +139,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 selectedCarYear = vehicleYearSpinner.getSelectedItem().toString();
                 selectedCarColor = vehicleColorSpinner.getSelectedItem().toString();
 
-                addVehicleDetail();
+                if(getIntent().getStringExtra("path").equals("new")){
+                    addVehicleDetail();
+                } else if(getIntent().getStringExtra("path").equals("old")) {
+                    updateVehicleDetail();
+                }
                 break;
             case R.id.vehicle_front_pic_add_vehicle_activity:
                 onPickImage(1);
@@ -210,6 +215,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 }
             } else if (method.equalsIgnoreCase("addVehicleDetail")) {
                 addVehicleModelResponse = (AddVehicleModelResponse) response.body();
+                pDialog.dismiss();
 
                 Constants.NEXT_STEP = "3";
 
@@ -221,6 +227,12 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
                 SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"3");
+
+                Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                finish();
+            } else if (method.equalsIgnoreCase("editVehicleDetail")) {
+                addVehicleModelResponse = (AddVehicleModelResponse) response.body();
+                pDialog.dismiss();
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
@@ -296,6 +308,33 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 fImage,
                 bImage),
                 "addVehicleDetail");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void updateVehicleDetail() {
+        pDialog.show();
+
+        MultipartBody.Part fImage = null; // Vehicle Front Image
+        MultipartBody.Part bImage = null; // Vehicle Back Image
+
+        if (carFrontImageUri != null)
+            fImage = prepareFilePart("carFrontPic", carFrontImageUri);
+
+        if (carBackImageUri != null) {
+            bImage = prepareFilePart("carBackPic", carBackImageUri);
+        }
+
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).editVehicleDetail(
+                RequestBody.create(MediaType.parse("text/plain"), getAllVehicleModelResponse.getData().get(0).getId()),
+                RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
+                RequestBody.create(MediaType.parse("text/plain"), selectedCarMake),
+                RequestBody.create(MediaType.parse("text/plain"), selectedCarModel),
+                RequestBody.create(MediaType.parse("text/plain"), selectedCarYear),
+                RequestBody.create(MediaType.parse("text/plain"), selectedCarColor),
+                RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getNextStep()),
+                fImage,
+                bImage),
+                "editVehicleDetail");
     }
 
     private int imageCode;

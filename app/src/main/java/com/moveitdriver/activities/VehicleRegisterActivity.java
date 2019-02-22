@@ -80,16 +80,20 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
 
         DatePickerIns();
 
-        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationNumber().equals("")){
-            vehicleRegisterNumberEditText.setText(getAllVehicleModelResponse.getData().get(0).getRegistrationNumber());
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationDate().equals("")){
-            String date = getAllVehicleModelResponse.getData().get(0).getRegistrationDate();
-            registrationDateTextView.setText(date.substring(0, date.indexOf("T")));
-        }
-        if(!getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry().equals("")){
-            String date = getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry();
-            registrationExpiryTextView.setText(date.substring(0, date.indexOf("T")));
+        try {
+            if (!getAllVehicleModelResponse.getData().get(0).getRegistrationNumber().equals("")) {
+                vehicleRegisterNumberEditText.setText(getAllVehicleModelResponse.getData().get(0).getRegistrationNumber());
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getRegistrationDate().equals("")) {
+                String date = getAllVehicleModelResponse.getData().get(0).getRegistrationDate();
+                registrationDateTextView.setText(date.substring(0, date.indexOf("T")));
+            }
+            if (!getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry().equals("")) {
+                String date = getAllVehicleModelResponse.getData().get(0).getRegistrationExpiry();
+                registrationExpiryTextView.setText(date.substring(0, date.indexOf("T")));
+            }
+        } catch (Exception e) {
+
         }
     }
 
