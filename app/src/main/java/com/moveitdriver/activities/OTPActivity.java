@@ -150,7 +150,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.change_number_btn_otp_activity:
-                startActivity(new Intent(this, MainActivity.class));
+//                startActivity(new Intent(this, MainActivity.class));
                 break;
 
             case R.id.resend_code_btn_otp_activity:

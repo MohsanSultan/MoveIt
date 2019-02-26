@@ -11,6 +11,7 @@
         android:allowBackup="true"
         android:icon="@drawable/andriod_logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/andriod_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
