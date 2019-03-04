@@ -16,9 +16,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView driverNameTextView , editProfile;
+    private TextView driverNameTextView, editProfile;
     private CircleImageView driverProfileImage;
-    private LinearLayout waybillBtn, documentsBtn, logoutBtn;
+    private LinearLayout waybillBtn, documentsBtn, settingBtn, logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         driverNameTextView = findViewById(R.id.driver_name_text_view_account_activity);
-        driverNameTextView.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+        driverNameTextView.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
 
         editProfile = findViewById(R.id.edit_profile_account_activity);
         editProfile.setOnClickListener(this);
@@ -45,6 +45,9 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         documentsBtn = findViewById(R.id.documents_btn_account_activity);
         documentsBtn.setOnClickListener(this);
 
+        settingBtn = findViewById(R.id.setting_btn_account_activity);
+        settingBtn.setOnClickListener(this);
+
         logoutBtn = findViewById(R.id.logout_btn_account_activity);
         logoutBtn.setOnClickListener(this);
     }
@@ -52,6 +55,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.edit_profile_account_activity:
+                Intent toEditProfile = new Intent(AccountActivity.this, EditProfileActivity.class);
+                startActivity(toEditProfile);
+                finish();
+
             case R.id.waybill_btn_account_activity:
                 startActivity(new Intent(AccountActivity.this, ReviewTripActivity.class));
                 break;
@@ -63,16 +71,15 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 break;
 
+            case R.id.setting_btn_account_activity:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
+
             case R.id.logout_btn_account_activity:
                 SharedPrefManager.getInstance(this).logout();
                 startActivity(new Intent(AccountActivity.this, CoverScreenActivity.class));
                 finishAffinity();
                 break;
-
-            case R.id.edit_profile_account_activity:
-                Intent toEditProfile = new Intent(AccountActivity.this , EditProfileActivity.class);
-                startActivity(toEditProfile);
-                finish();
         }
     }
 

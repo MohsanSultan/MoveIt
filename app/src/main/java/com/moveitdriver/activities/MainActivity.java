@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.IO;
+import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -41,6 +45,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.JsonObject;
 import com.moveitdriver.R;
 import com.moveitdriver.utils.Constants;
 import com.moveitdriver.utils.SharedPrefManager;
@@ -48,6 +53,10 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
@@ -64,6 +73,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
     final static int REQUEST_LOCATION = 199;
 
+    private Socket mSocket;
+
+    {
+        try {
+            mSocket = IO.socket(Constants.socket_base_url);
+        } catch (URISyntaxException e) {
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +90,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         toolbar.setTitle("Live Map");
 
         checkLocation();
+
+        // SOCKET CODE...
+//        mSocket.on("heartbeat", onNewMessage);
+        mSocket.connect();
+        attemptSend();
 
         // Map Fragment Code
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -91,6 +114,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onSuccess() {
             }
+
             @Override
             public void onError() {
                 Picasso.with(MainActivity.this).load(image).into(profileImageDrawer);
@@ -100,14 +124,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         // ----------------------------------------------------------------------------
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
-        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
 
         editProfile = view.findViewById(R.id.edit_profile_txt_btn_drawer);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent toEditProtile = new Intent(MainActivity.this , EditProfileActivity.class);
+                Intent toEditProtile = new Intent(MainActivity.this, EditProfileActivity.class);
                 startActivity(toEditProtile);
 
             }
@@ -219,7 +243,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onResume();
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
-        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName()+" "+(SharedPrefManager.getInstance(this).getDriverLastName()));
+        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
     }
 
     @Override
@@ -248,7 +272,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(new Intent(this, AccountActivity.class));
         }
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -280,5 +304,57 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         }
+    }
+
+    // ------------ >> SOCKET FUNCTIONS
+
+    public Emitter.Listener onNewMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e("StringSalman", args[0].toString());
+//                    JSONObject data = (JSONObject) args[0];
+//                    String username;
+//                    String message;
+//                    try {
+//                        username = data.getString("username");
+//                        message = data.getString("message");
+//                    } catch (JSONException e) {
+//                        return;
+//                    }
+//
+//                    // add the message to view
+//                    addMessage(username, message);
+                }
+            });
+        }
+    };
+
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//
+//        mSocket.disconnect();
+//        Log.e("Salman", "jsdkjsksjd");
+//        mSocket.off("new message", onNewMessage);
+//    }
+
+    private void attemptSend() {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("email", SharedPrefManager.getInstance(this).getDriverEmail());
+            object.put("role", "driver");
+            object.put("contact", SharedPrefManager.getInstance(this).getDriverContact());
+            object.put("long", Constants.mCurLong);
+            object.put("lat", Constants.mCurLat);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mSocket.emit("info", object);
     }
 }

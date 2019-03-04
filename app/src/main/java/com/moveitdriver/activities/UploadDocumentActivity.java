@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -246,22 +243,22 @@ public class UploadDocumentActivity extends AppCompatActivity implements View.On
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getAllVehicles(userId), "getAllVehicles");
     }
 
-    private void showAllVehiclesDialog(List<Datum> list) {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog3);
-
-        RecyclerView recyclerView = dialog.findViewById(R.id.recycler_allVehiclesDialog);
-        LinearLayoutManager mLayoutManager;
-        GetAllVehiclesAdapter adapter;
-
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        adapter = new GetAllVehiclesAdapter(this, list);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-        dialog.show();
-    }
+//    private void showAllVehiclesDialog(List<Datum> list) {
+//        final Dialog dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.custom_dialog3);
+//
+//        RecyclerView recyclerView = dialog.findViewById(R.id.recycler_allVehiclesDialog);
+//        LinearLayoutManager mLayoutManager;
+//        GetAllVehiclesAdapter adapter;
+//
+//        mLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        adapter = new GetAllVehiclesAdapter(this, list);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(adapter);
+//
+//        dialog.show();
+//    }
 
     private void flow(String x) {
 

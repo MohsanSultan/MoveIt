@@ -80,16 +80,16 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(obj.getData().get(0).getIsActive() && obj.getData().get(0).getNextStep().equals("Complete")) {
+                        if(obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
                             startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                             finish();
-                        } else if(!obj.getData().get(0).getIsActive() && obj.getData().get(0).getNextStep().equals("Complete")) {
+                        } else if(!obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
                             startActivity(new Intent(SplashScreenActivity.this, MessageActivity.class));
                             finish();
-                        } else if(!obj.getData().get(0).getNextStep().equals("Complete")) {
+                        } else if(!obj.getData().getNextStep().equals("Complete")) {
                             Intent intent = new Intent(SplashScreenActivity.this, UploadDocumentActivity.class);
                             intent.putExtra("path","newRegister");
-                            intent.putExtra("step", obj.getData().get(0).getNextStep());
+                            intent.putExtra("step", obj.getData().getNextStep());
                             startActivity(intent);
                             finish();
                         }

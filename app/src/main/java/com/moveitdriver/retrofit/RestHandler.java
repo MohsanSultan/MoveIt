@@ -167,6 +167,12 @@ public class RestHandler {
 
         @GET("user/profile/{id}")
         Call<UserDetailModelResponse> getUserStatus(@Path("id") String userId);
+
+        @FormUrlEncoded
+        @POST("user/changepass")
+        Call<UpdateUserModelResponse> changePassword(@Field("id") String userId,
+                                                     @Field("password") String oldPassword,
+                                                     @Field("new_password") String newPassword);
     }
 
     public void makeHttpRequest(Call call, String method) {

@@ -103,7 +103,9 @@
 
         <service android:name=".utils.LocationService" />
 
-        <activity android:name=".activities.MessageActivity"></activity>
+        <activity android:name=".activities.MessageActivity" />
+        <activity android:name=".activities.SettingActivity" />
+        <activity android:name=".activities.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

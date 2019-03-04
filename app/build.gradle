@@ -66,9 +66,12 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.5'
     implementation 'com.intuit.ssp:ssp-android:1.0.4'
 
-    //Retrofit Dependencies
+    // Retrofit Dependencies
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    // Socket Dependencies
+    implementation 'com.github.nkzawa:socket.io-client:0.3.0'
 
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {

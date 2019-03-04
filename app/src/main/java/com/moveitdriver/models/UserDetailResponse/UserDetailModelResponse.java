@@ -12,7 +12,7 @@ public class UserDetailModelResponse {
     private Integer status;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private Datum data = null;
     @SerializedName("message")
     @Expose
     private String message;
@@ -25,11 +25,11 @@ public class UserDetailModelResponse {
         this.status = status;
     }
 
-    public List<Datum> getData() {
+    public Datum getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(Datum data) {
         this.data = data;
     }
 

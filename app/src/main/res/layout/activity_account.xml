@@ -103,6 +103,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/setting_btn_account_activity"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:gravity="center_vertical"
