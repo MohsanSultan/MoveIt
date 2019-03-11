@@ -33,6 +33,7 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
+                    android:visibility="gone"
                     android:text="REGISTRATION NUMBER">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
@@ -40,7 +41,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
                         android:inputType="number"
-                        android:hint="REGISTRATION NUMBER" />
+                        android:hint="REGISTRATION NUMBER"
+                        android:text="null"/>
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
                 <LinearLayout

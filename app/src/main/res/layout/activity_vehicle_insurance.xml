@@ -102,14 +102,14 @@
                         <!--android:hint="INSPECTION REPORT" />-->
                 <!--</me.zhanghai.android.materialedittext.MaterialTextInputLayout>-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:text="INSURANCE CERTIFICATE EFFECTIVE FROM"
-                    android:textColor="#aaa"
-                    android:textSize="@dimen/_10ssp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:paddingLeft="@dimen/_4sdp"-->
+                    <!--android:text="INSURANCE CERTIFICATE EFFECTIVE FROM"-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="@dimen/_10ssp" />-->
 
                 <TextView
                     android:id="@+id/insurance_certificate_effective_from_vehicle_insurance_activity"
@@ -117,23 +117,24 @@
                     android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_8sdp"
-                    android:text="-- SELECT DATE --"
+                    android:visibility="gone"
+                    android:text="03-11-2019"
                     android:textColor="#000"
                     android:textSize="@dimen/_14ssp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGray" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorLightGray" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:text="INSURANCE CERTIFICATE EFFECTIVE TILL"
-                    android:textColor="#aaa"
-                    android:textSize="@dimen/_10ssp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:paddingLeft="@dimen/_4sdp"-->
+                    <!--android:text="INSURANCE CERTIFICATE EFFECTIVE TILL"-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="@dimen/_10ssp" />-->
 
                 <TextView
                     android:id="@+id/insurance_certificate_effective_till_vehicle_insurance_activity"
@@ -141,14 +142,15 @@
                     android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_8sdp"
-                    android:text="-- SELECT DATE --"
+                    android:visibility="gone"
+                    android:text="03-11-2019"
                     android:textColor="#000"
                     android:textSize="@dimen/_14ssp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGray" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorLightGray" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -50,7 +50,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:gravity="center"
-                            android:text="Add Driver Licence Front Pic" />
+                            android:text="Add Driver Licence Front Picture" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -73,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:gravity="center"
-                            android:text="Add Driver Licence Back Pic" />
+                            android:text="Add Driver Licence Back Picture" />
                     </LinearLayout>
                 </LinearLayout>
                 <!--<ImageView-->
@@ -100,24 +100,24 @@
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    android:text="DRIVER LICENCE NUMBER">
+                    android:text="DRIVER LICENCE LETTERS AND NUMBERS">
 
                     <me.zhanghai.android.materialedittext.MaterialEditText
                         android:id="@+id/driver_licence_number_upload_document_activity"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        android:hint="DRIVER LICENCE NUMBER"
-                        android:inputType="number" />
+                        android:hint="DRIVER LICENCE LETTERS AND NUMBERS"
+                        android:inputType="text" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:text="DRIVER LICENCE FROM"
-                    android:textColor="#aaa"
-                    android:textSize="@dimen/_10ssp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:paddingLeft="@dimen/_4sdp"-->
+                    <!--android:text="DRIVER LICENCE FROM"-->
+                    <!--android:textColor="#aaa"-->
+                    <!--android:textSize="@dimen/_10ssp" />-->
 
                 <TextView
                     android:id="@+id/driver_licence_from_date_upload_document_activity"
@@ -125,21 +125,22 @@
                     android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"
                     android:padding="@dimen/_8sdp"
-                    android:text="-- SELECT DATE --"
+                    android:visibility="gone"
+                    android:text="11-03-2019"
                     android:textColor="#000"
                     android:textSize="@dimen/_14ssp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGray" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:background="@color/colorLightGray" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingLeft="@dimen/_4sdp"
-                    android:text="DRIVER LICENCE TILL"
+                    android:text="DRIVER LICENCE EXPIRATION DATE"
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 

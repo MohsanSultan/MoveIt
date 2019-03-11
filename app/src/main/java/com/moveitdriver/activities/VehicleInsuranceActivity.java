@@ -381,7 +381,7 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
     // DatePicker Functions...
 
     public void DatePickerIns() {
-        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        String myFormat = "MM-dd-yyyy"; //In which you need put here
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
 
