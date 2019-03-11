@@ -15,7 +15,7 @@ public class GetAllVehicleModelResponse implements Serializable {
     private List<Datum> data = null;
     @SerializedName("user")
     @Expose
-    private Object user;
+    private User user;
     @SerializedName("message")
     @Expose
     private String message;
@@ -36,11 +36,11 @@ public class GetAllVehicleModelResponse implements Serializable {
         this.data = data;
     }
 
-    public Object getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Object user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

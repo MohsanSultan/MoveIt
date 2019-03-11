@@ -178,12 +178,14 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
                 SharedPrefManager.getInstance(this).driverLogin(idStr, firstNameStr , lastNameStr, emailStr, profileImgStr, contactStr, nextStr);
 
                 if(pathStr.equals("Login")) {
+                    Constants.NEXT_STEP = "1";
                     Intent intent = new Intent(this, UploadDocumentActivity.class);
                     intent.putExtra("path","newRegister");
                     intent.putExtra("step", nextStr);
                     startActivity(intent);
                     finishAffinity();
                 } else if(pathStr.equals("Register")) {
+                    Constants.NEXT_STEP = "1";
                     Intent intent = new Intent(this, UploadDocumentActivity.class);
                     intent.putExtra("path","newRegister");
                     intent.putExtra("step", nextStr);

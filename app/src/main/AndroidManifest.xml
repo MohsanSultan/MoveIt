@@ -100,12 +100,23 @@
             android:name=".activities.EditProfileActivity"
             android:label="Edit Profile"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MessageActivity"
+            android:label="Info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SettingActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:label="Change Password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PaymentCardActivity"
+            android:label="Add Card Detail"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
-
-        <activity android:name=".activities.MessageActivity" />
-        <activity android:name=".activities.SettingActivity" />
-        <activity android:name=".activities.ChangePasswordActivity"></activity>
     </application>
-
 </manifest>

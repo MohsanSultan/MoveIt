@@ -30,6 +30,19 @@
                 android:padding="@dimen/_10sdp">
 
                 <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+                    android:id="@+id/textView12"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:text="INSURE NAME">
+
+                    <me.zhanghai.android.materialedittext.MaterialEditText
+                        android:id="@+id/insure_name_vehicle_insurance_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:hint="INSURE NAME" />
+                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
@@ -42,45 +55,64 @@
                         android:hint="INSURANCE COMPANY NAME" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:text="INSURANCE TYPE">
+                    android:paddingLeft="@dimen/_4sdp"
+                    android:text="INSURANCE TYPE"
+                    android:textColor="#aaa"
+                    android:textSize="@dimen/_10ssp" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:id="@+id/insurance_type_vehicle_insurance_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="INSURANCE TYPE" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
-
-                <me.zhanghai.android.materialedittext.MaterialTextInputLayout
-                    android:id="@+id/textView3"
+                <Spinner
+                    android:id="@+id/insurance_type_spinner_vehicle_insurance_activity"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:text="INSPECTION REPORT">
+                    android:layout_height="@dimen/_40sdp" />
 
-                    <me.zhanghai.android.materialedittext.MaterialEditText
-                        android:id="@+id/inspection_report_vehicle_insurance_activity"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_45sdp"
-                        android:hint="INSPECTION REPORT" />
-                </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height=".5dp"
+                    android:background="@color/colorAccent" />
+
+                <!--<me.zhanghai.android.materialedittext.MaterialTextInputLayout-->
+                    <!--android:id="@+id/textView2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/_50sdp"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:text="INSURANCE TYPE">-->
+
+                    <!--<me.zhanghai.android.materialedittext.MaterialEditText-->
+                        <!--android:id="@+id/insurance_type_vehicle_insurance_activity"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/_45sdp"-->
+                        <!--android:hint="INSURANCE TYPE" />-->
+                <!--</me.zhanghai.android.materialedittext.MaterialTextInputLayout>-->
+
+                <!--<me.zhanghai.android.materialedittext.MaterialTextInputLayout-->
+                    <!--android:id="@+id/textView3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/_50sdp"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:text="INSPECTION REPORT">-->
+
+                    <!--<me.zhanghai.android.materialedittext.MaterialEditText-->
+                        <!--android:id="@+id/inspection_report_vehicle_insurance_activity"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/_45sdp"-->
+                        <!--android:hint="INSPECTION REPORT" />-->
+                <!--</me.zhanghai.android.materialedittext.MaterialTextInputLayout>-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingLeft="@dimen/_4sdp"
-                    android:text="INSURANCE CERTIFICATE EXPIRES"
+                    android:text="INSURANCE CERTIFICATE EFFECTIVE FROM"
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/certificate_expires_vehicle_insurance_activity"
+                    android:id="@+id/insurance_certificate_effective_from_vehicle_insurance_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"
@@ -99,12 +131,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:paddingLeft="@dimen/_4sdp"
-                    android:text="INSURANCE EFFECTIVE DATE"
+                    android:text="INSURANCE CERTIFICATE EFFECTIVE TILL"
                     android:textColor="#aaa"
                     android:textSize="@dimen/_10ssp" />
 
                 <TextView
-                    android:id="@+id/effective_date_vehicle_insurance_activity"
+                    android:id="@+id/insurance_certificate_effective_till_vehicle_insurance_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:gravity="center_vertical"

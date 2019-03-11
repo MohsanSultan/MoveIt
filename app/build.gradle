@@ -73,6 +73,9 @@ dependencies {
     // Socket Dependencies
     implementation 'com.github.nkzawa:socket.io-client:0.3.0'
 
+    // Stripe Payment Method Dependency
+    implementation 'com.stripe:stripe-android:6.1.2'
+
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {
         transitive = true;

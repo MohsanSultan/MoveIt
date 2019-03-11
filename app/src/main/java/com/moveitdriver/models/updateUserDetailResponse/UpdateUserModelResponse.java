@@ -1,17 +1,21 @@
-
 package com.moveitdriver.models.updateUserDetailResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class UpdateUserModelResponse {
 
     @SerializedName("status")
     @Expose
     private Integer status;
+    @SerializedName("token")
+    @Expose
+    private String token;
     @SerializedName("data")
     @Expose
-    private Data data;
+    private Data data = null;
     @SerializedName("message")
     @Expose
     private String message;
@@ -22,6 +26,14 @@ public class UpdateUserModelResponse {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Data getData() {
@@ -39,5 +51,4 @@ public class UpdateUserModelResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

@@ -13,6 +13,9 @@ public class AddVehicleModelResponse {
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
+    @SerializedName("user")
+    @Expose
+    private User user;
     @SerializedName("message")
     @Expose
     private String message;
@@ -33,6 +36,14 @@ public class AddVehicleModelResponse {
         this.data = data;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -40,5 +51,4 @@ public class AddVehicleModelResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

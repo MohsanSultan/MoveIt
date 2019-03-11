@@ -3,6 +3,7 @@ package com.moveitdriver.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,6 +77,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.logout_btn_account_activity:
+
+                Constants.NEXT_STEP = "";
                 SharedPrefManager.getInstance(this).logout();
                 startActivity(new Intent(AccountActivity.this, CoverScreenActivity.class));
                 finishAffinity();

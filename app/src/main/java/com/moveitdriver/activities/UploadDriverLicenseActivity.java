@@ -17,6 +17,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,26 +57,30 @@ import retrofit2.Response;
 
 public class UploadDriverLicenseActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    private EditText driverLicenceNumberEditText, driverLicenceStateEditText, validVehicleTypeLicenceEditText;
-    private TextView driverLicenceExpiresEditText, validDriverLicenceEditText;
+    private EditText driverLicenceNumberEditText;
+    private TextView driverLicenceFromDateTextView, driverLicenceTillDateTextView;
     private Calendar myCalendar;
     private ImageView licenceFrontImageView, licenceBackImageView;
     private Button submitBtn;
 
     private Uri licenceFrontImageUri = null, licenceBackImageUri = null;
-    private String driverLicenceNumberStr, driverLicenceExpiresStr, driverLicenceStateStr, validDriverLicenceStr, validVehicleTypeLicenceStr;
+    private String driverLicenceNumberStr, driverLicenceFromDateStr, driverLicenceTillDateStr;
 
     private ProgressDialog pDialog;
     private RestHandler restHandler;
 
     private UpdateUserModelResponse object;
 
+    private String nextStep;
     private static final int REQUEST_READ_STORAGE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_driver_license);
+
+        Log.e("SalmanNS", Constants.NEXT_STEP);
+        Log.e("SalmanSP", SharedPrefManager.getInstance(this).getNextStep());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -91,8 +96,6 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
         DatePickerIns();
 
         driverLicenceNumberEditText = findViewById(R.id.driver_licence_number_upload_document_activity);
-        driverLicenceStateEditText = findViewById(R.id.driver_licence_state_upload_document_activity);
-        validVehicleTypeLicenceEditText = findViewById(R.id.driver_licence_type_upload_document_activity);
         licenceFrontImageView = findViewById(R.id.licence_front_pic_add_upload_driver_licence_activity);
         licenceBackImageView = findViewById(R.id.licence_back_pic_add_upload_driver_licence_activity);
         submitBtn = findViewById(R.id.submit_btn_upload_driver_licence_activity);
@@ -137,6 +140,12 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 onPickImage(2);
                 break;
             case R.id.submit_btn_upload_driver_licence_activity:
+                if(Constants.NEXT_STEP.equals("Complete"))
+                    nextStep = "Complete";
+                else if(Constants.NEXT_STEP.equals("1"))
+                    nextStep = "2";
+                else
+                    nextStep = Constants.NEXT_STEP;
                 addDriverLicence();
                 break;
         }
@@ -149,7 +158,7 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 pDialog.dismiss();
                 object = (UpdateUserModelResponse) response.body();
 
-                Constants.NEXT_STEP = "2";
+                Constants.NEXT_STEP = object.getData().getNextStep();
 
                 String idStr = SharedPrefManager.getInstance(this).getDriverId();
                 String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
@@ -158,7 +167,7 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"2");
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, object.getData().getNextStep());
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
@@ -270,10 +279,8 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
 
     public void fieldInitialize() {
         driverLicenceNumberStr = driverLicenceNumberEditText.getText().toString().trim();
-        driverLicenceExpiresStr = driverLicenceExpiresEditText.getText().toString();
-        driverLicenceStateStr = driverLicenceStateEditText.getText().toString().trim();
-        validDriverLicenceStr = validDriverLicenceEditText.getText().toString();
-        validVehicleTypeLicenceStr = validVehicleTypeLicenceEditText.getText().toString().trim();
+        driverLicenceFromDateStr = driverLicenceFromDateTextView.getText().toString();
+        driverLicenceTillDateStr = driverLicenceTillDateTextView.getText().toString().trim();
     }
 
     public boolean fieldValidation() {
@@ -282,17 +289,11 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
         if (driverLicenceNumberStr.isEmpty()) {
             driverLicenceNumberEditText.setError("Please enter valid data");
             valid = false;
-        } else if (driverLicenceExpiresStr.equals("-- SELECT DATE --")) {
-            driverLicenceExpiresEditText.setError("Please select valid date");
+        } else if (driverLicenceFromDateStr.equals("-- SELECT DATE --")) {
+            driverLicenceFromDateTextView.setError("Please select valid date");
             valid = false;
-        } else if (driverLicenceStateStr.isEmpty()) {
-            driverLicenceStateEditText.setError("Please enter valid data");
-            valid = false;
-        } else if (validDriverLicenceStr.equals("-- SELECT DATE --")) {
-            validDriverLicenceEditText.setError("Please select valid date");
-            valid = false;
-        } else if (validVehicleTypeLicenceStr.isEmpty()) {
-            validVehicleTypeLicenceEditText.setError("Please enter valid data");
+        } else if (driverLicenceTillDateStr.equals("-- SELECT DATE --")) {
+            driverLicenceTillDateTextView.setError("Please select valid date");
             valid = false;
         }
 
@@ -314,11 +315,9 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).updateUserDriverLicence(RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
                 RequestBody.create(MediaType.parse("text/plain"), driverLicenceNumberStr),
-                RequestBody.create(MediaType.parse("text/plain"), driverLicenceExpiresStr),
-                RequestBody.create(MediaType.parse("text/plain"), driverLicenceStateStr),
-                RequestBody.create(MediaType.parse("text/plain"), validVehicleTypeLicenceStr),
-                RequestBody.create(MediaType.parse("text/plain"), validDriverLicenceStr),
-                RequestBody.create(MediaType.parse("text/plain"),"2"),
+                RequestBody.create(MediaType.parse("text/plain"), driverLicenceFromDateStr),
+                RequestBody.create(MediaType.parse("text/plain"), driverLicenceTillDateStr),
+                RequestBody.create(MediaType.parse("text/plain"), nextStep),
                 fImage,
                 bImage),
                 "addDriverLicenceDetail");
@@ -379,8 +378,8 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
         final SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         myCalendar = Calendar.getInstance();
 
-        driverLicenceExpiresEditText = findViewById(R.id.driver_licence_expires_date_upload_document_activity);
-        validDriverLicenceEditText = findViewById(R.id.valid_driver_licence_date_upload_document_activity);
+        driverLicenceFromDateTextView = findViewById(R.id.driver_licence_from_date_upload_document_activity);
+        driverLicenceTillDateTextView = findViewById(R.id.driver_licence_till_date_upload_document_activity);
 
         final DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
 
@@ -392,12 +391,12 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                driverLicenceExpiresEditText.setText("");
-                driverLicenceExpiresEditText.setText(sdf.format(myCalendar.getTime()));
+                driverLicenceFromDateTextView.setText("");
+                driverLicenceFromDateTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        driverLicenceExpiresEditText.setOnClickListener(new View.OnClickListener() {
+        driverLicenceFromDateTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -418,12 +417,12 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                validDriverLicenceEditText.setText("");
-                validDriverLicenceEditText.setText(sdf.format(myCalendar.getTime()));
+                driverLicenceTillDateTextView.setText("");
+                driverLicenceTillDateTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        validDriverLicenceEditText.setOnClickListener(new View.OnClickListener() {
+        driverLicenceTillDateTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

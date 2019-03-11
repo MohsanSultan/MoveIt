@@ -59,11 +59,11 @@ import static com.moveitdriver.R.layout.custom_spinner_item;
 public class AddVehicleActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
     private Spinner vehicleMakeSpinner, vehicleModelSpinner, vehicleYearSpinner, vehicleColorSpinner;
-    private ImageView vehicleFrontImageView, vehicleBackImageView;
+    private ImageView vehicleFrontImageView, vehicleBackImageView, vehicleLeftImageView, vehicleRightImageView;
     private Button addVehicleBtn;
 
     private String selectedCarMake, selectedCarModel, selectedCarYear, selectedCarColor;
-    private Uri carFrontImageUri, carBackImageUri;
+    private Uri carFrontImageUri, carBackImageUri, carLeftImageUri, carRightImageUri;
 
     private RestHandler restHandler;
     private ProgressDialog pDialog;
@@ -78,6 +78,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
     private GetAllVehicleModelResponse getAllVehicleModelResponse;
 
+    private String nextStep;
     private static final int REQUEST_READ_STORAGE = 3;
 
     @Override
@@ -89,6 +90,13 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getAllVehicleModelResponse = (GetAllVehicleModelResponse) getIntent().getSerializableExtra("vehicleDetail");
+
+        if(getAllVehicleModelResponse.getUser().getNextStep().equals("Complete"))
+            nextStep = "Complete";
+        else if(getAllVehicleModelResponse.getUser().getNextStep().equals("2"))
+            nextStep = "3";
+        else
+            nextStep = getAllVehicleModelResponse.getUser().getNextStep();
 
         // Declare RestHandler...
         restHandler = new RestHandler(this, this);
@@ -105,11 +113,15 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         vehicleColorSpinner = findViewById(R.id.vehicle_color_spinner_add_vehicle_activity);
         vehicleFrontImageView = findViewById(R.id.vehicle_front_pic_add_vehicle_activity);
         vehicleBackImageView = findViewById(R.id.vehicle_back_pic_add_vehicle_activity);
+        vehicleLeftImageView = findViewById(R.id.vehicle_left_pic_add_vehicle_activity);
+        vehicleRightImageView = findViewById(R.id.vehicle_right_pic_add_vehicle_activity);
         addVehicleBtn = findViewById(R.id.add_vehicle_detail_btn_add_vehicle_activity);
 
         // Button Listener...
         vehicleFrontImageView.setOnClickListener(this);
         vehicleBackImageView.setOnClickListener(this);
+        vehicleLeftImageView.setOnClickListener(this);
+        vehicleRightImageView.setOnClickListener(this);
         addVehicleBtn.setOnClickListener(this);
 
         // Load Makes And Models Of Vehicles...
@@ -150,6 +162,12 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.vehicle_back_pic_add_vehicle_activity:
                 onPickImage(2);
+                break;
+            case R.id.vehicle_left_pic_add_vehicle_activity:
+                onPickImage(3);
+                break;
+            case R.id.vehicle_right_pic_add_vehicle_activity:
+                onPickImage(4);
                 break;
         }
     }
@@ -217,7 +235,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 addVehicleModelResponse = (AddVehicleModelResponse) response.body();
                 pDialog.dismiss();
 
-                Constants.NEXT_STEP = "3";
+                Constants.NEXT_STEP = nextStep;
 
                 String idStr = SharedPrefManager.getInstance(this).getDriverId();
                 String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
@@ -226,7 +244,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"3");
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, nextStep);
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
@@ -290,13 +308,20 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
         MultipartBody.Part fImage = null; // Vehicle Front Image
         MultipartBody.Part bImage = null; // Vehicle Back Image
+        MultipartBody.Part lImage = null; // Vehicle Left Image
+        MultipartBody.Part rImage = null; // Vehicle Right Image
 
         if (carFrontImageUri != null)
             fImage = prepareFilePart("carFrontPic", carFrontImageUri);
 
-        if (carBackImageUri != null) {
+        if (carBackImageUri != null)
             bImage = prepareFilePart("carBackPic", carBackImageUri);
-        }
+
+        if (carLeftImageUri != null)
+            lImage = prepareFilePart("carLeftPic", carLeftImageUri);
+
+        if (carRightImageUri != null)
+            rImage = prepareFilePart("carRightPic", carRightImageUri);
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).addVehicleDetail(
                 RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
@@ -304,9 +329,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarModel),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarYear),
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarColor),
-                RequestBody.create(MediaType.parse("text/plain"), "3"),
+                RequestBody.create(MediaType.parse("text/plain"), nextStep),
                 fImage,
-                bImage),
+                bImage,
+                lImage,
+                rImage),
                 "addVehicleDetail");
     }
 
@@ -316,13 +343,20 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
         MultipartBody.Part fImage = null; // Vehicle Front Image
         MultipartBody.Part bImage = null; // Vehicle Back Image
+        MultipartBody.Part lImage = null; // Vehicle Left Image
+        MultipartBody.Part rImage = null; // Vehicle Right Image
 
         if (carFrontImageUri != null)
             fImage = prepareFilePart("carFrontPic", carFrontImageUri);
 
-        if (carBackImageUri != null) {
+        if (carBackImageUri != null)
             bImage = prepareFilePart("carBackPic", carBackImageUri);
-        }
+
+        if (carLeftImageUri != null)
+            lImage = prepareFilePart("carLeftPic", carLeftImageUri);
+
+        if (carRightImageUri != null)
+            rImage = prepareFilePart("carRightPic", carRightImageUri);
 
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).editVehicleDetail(
                 RequestBody.create(MediaType.parse("text/plain"), getAllVehicleModelResponse.getData().get(0).getId()),
@@ -333,7 +367,9 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 RequestBody.create(MediaType.parse("text/plain"), selectedCarColor),
                 RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getNextStep()),
                 fImage,
-                bImage),
+                bImage,
+                lImage,
+                rImage),
                 "editVehicleDetail");
     }
 
@@ -382,6 +418,20 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 if (bBitmap != null) {
                     vehicleBackImageView.setImageBitmap(bBitmap);
                     carBackImageUri = getImageUri(this, bBitmap);
+                }
+                break;
+            case 3:
+                Bitmap lBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+                if (lBitmap != null) {
+                    vehicleLeftImageView.setImageBitmap(lBitmap);
+                    carLeftImageUri = getImageUri(this, lBitmap);
+                }
+                break;
+            case 4:
+                Bitmap rBitmap = ImagePicker.getImageFromResult(this, resultCode, data);
+                if (rBitmap != null) {
+                    vehicleRightImageView.setImageBitmap(rBitmap);
+                    carRightImageUri = getImageUri(this, rBitmap);
                 }
                 break;
             default:

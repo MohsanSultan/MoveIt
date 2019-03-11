@@ -160,6 +160,60 @@
                             android:scaleType="fitXY"/>
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Vehicle Left Pic"/>
+
+                        <ImageView
+                            android:id="@+id/vehicle_left_pic_add_vehicle_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/car_place_holder"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="Add Vehicle Right Pic"/>
+
+                        <ImageView
+                            android:id="@+id/vehicle_right_pic_add_vehicle_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:src="@drawable/car_place_holder"
+                            android:scaleType="fitXY"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <Button

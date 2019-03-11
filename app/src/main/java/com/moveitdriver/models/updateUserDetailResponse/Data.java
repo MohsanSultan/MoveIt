@@ -11,6 +11,9 @@ public class Data {
     @SerializedName("role")
     @Expose
     private String role;
+    @SerializedName("next_step")
+    @Expose
+    private String nextStep;
     @SerializedName("country")
     @Expose
     private String country;
@@ -56,18 +59,18 @@ public class Data {
     @SerializedName("driverLicenceState")
     @Expose
     private String driverLicenceState;
-    @SerializedName("licenceBackPic")
-    @Expose
-    private String licenceBackPic;
-    @SerializedName("licenceFrontPic")
-    @Expose
-    private String licenceFrontPic;
     @SerializedName("validLiscenseExpires")
     @Expose
     private String validLiscenseExpires;
     @SerializedName("validVehicleTypeLiscence")
     @Expose
     private String validVehicleTypeLiscence;
+    @SerializedName("driverLicenceFrom")
+    @Expose
+    private String driverLicenceFrom;
+    @SerializedName("driverLicenceTill")
+    @Expose
+    private String driverLicenceTill;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
@@ -122,6 +125,14 @@ public class Data {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getNextStep() {
+        return nextStep;
+    }
+
+    public void setNextStep(String nextStep) {
+        this.nextStep = nextStep;
     }
 
     public String getCountry() {
@@ -244,22 +255,6 @@ public class Data {
         this.driverLicenceState = driverLicenceState;
     }
 
-    public String getLicenceBackPic() {
-        return licenceBackPic;
-    }
-
-    public void setLicenceBackPic(String licenceBackPic) {
-        this.licenceBackPic = licenceBackPic;
-    }
-
-    public String getLicenceFrontPic() {
-        return licenceFrontPic;
-    }
-
-    public void setLicenceFrontPic(String licenceFrontPic) {
-        this.licenceFrontPic = licenceFrontPic;
-    }
-
     public String getValidLiscenseExpires() {
         return validLiscenseExpires;
     }
@@ -274,6 +269,22 @@ public class Data {
 
     public void setValidVehicleTypeLiscence(String validVehicleTypeLiscence) {
         this.validVehicleTypeLiscence = validVehicleTypeLiscence;
+    }
+
+    public String getDriverLicenceFrom() {
+        return driverLicenceFrom;
+    }
+
+    public void setDriverLicenceFrom(String driverLicenceFrom) {
+        this.driverLicenceFrom = driverLicenceFrom;
+    }
+
+    public String getDriverLicenceTill() {
+        return driverLicenceTill;
+    }
+
+    public void setDriverLicenceTill(String driverLicenceTill) {
+        this.driverLicenceTill = driverLicenceTill;
     }
 
     public String getTimestamp() {
@@ -379,5 +390,4 @@ public class Data {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

@@ -81,12 +81,15 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
                     @Override
                     public void run() {
                         if(obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
+                            Constants.NEXT_STEP = obj.getData().getNextStep();
                             startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                             finish();
                         } else if(!obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
+                            Constants.NEXT_STEP = obj.getData().getNextStep();
                             startActivity(new Intent(SplashScreenActivity.this, MessageActivity.class));
                             finish();
                         } else if(!obj.getData().getNextStep().equals("Complete")) {
+                            Constants.NEXT_STEP = obj.getData().getNextStep();
                             Intent intent = new Intent(SplashScreenActivity.this, UploadDocumentActivity.class);
                             intent.putExtra("path","newRegister");
                             intent.putExtra("step", obj.getData().getNextStep());

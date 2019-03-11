@@ -19,10 +19,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,16 +56,19 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static com.moveitdriver.R.layout.custom_spinner_item;
+
 public class VehicleInsuranceActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
-    private EditText insuranceCompanyNameEditText, insuranceTypeEditText, inspectionReportEditText;
-    private TextView insuranceCertificateExpiresTextView, insuranceEffectiveTextView;
+    private EditText insureNameEditText, insuranceCompanyNameEditText;
+    private TextView insuranceEffectiveFromTextView, insuranceEffectiveTillTextView;
+    private Spinner insuranceTypeSpinner;
     private Calendar myCalendar;
     private ImageView insuranceCertificateImageView;
     private Button submitBtn;
 
     private Uri insuranceCertificateImageUri = null;
-    private String insuranceCompanyNameStr, insuranceTypeStr, inspectionReportStr, insuranceCertificateExpiresStr, insuranceEffectiveStr;
+    private String insureNameStr, insuranceCompanyNameStr, insuranceTypeStr, insuranceEffectiveFromStr, insuranceEffectiveTillStr;
 
     private ProgressDialog pDialog;
     private RestHandler restHandler;
@@ -71,6 +76,7 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
     private AddVehicleModelResponse object;
     private GetAllVehicleModelResponse getAllVehicleModelResponse;
 
+    private String nextStep;
     private static final int REQUEST_READ_STORAGE = 3;
 
     @Override
@@ -83,6 +89,13 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
 
         getAllVehicleModelResponse = (GetAllVehicleModelResponse) getIntent().getSerializableExtra("vehicleDetail");
 
+        if(getAllVehicleModelResponse.getUser().getNextStep().equals("Complete"))
+            nextStep = "Complete";
+        else if(getAllVehicleModelResponse.getUser().getNextStep().equals("3"))
+            nextStep = "4";
+        else
+            nextStep = getAllVehicleModelResponse.getUser().getNextStep();
+
         // Declare RestHandler...
         restHandler = new RestHandler(this, this);
 
@@ -91,40 +104,46 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
 
+        insureNameEditText = findViewById(R.id.insure_name_vehicle_insurance_activity);
         insuranceCompanyNameEditText = findViewById(R.id.compnay_name_vehicle_insurance_activity);
-        insuranceTypeEditText = findViewById(R.id.insurance_type_vehicle_insurance_activity);
-        inspectionReportEditText = findViewById(R.id.inspection_report_vehicle_insurance_activity);
-        insuranceCertificateExpiresTextView = findViewById(R.id.certificate_expires_vehicle_insurance_activity);
-        insuranceEffectiveTextView = findViewById(R.id.effective_date_vehicle_insurance_activity);
+        insuranceTypeSpinner = findViewById(R.id.insurance_type_spinner_vehicle_insurance_activity);
+        insuranceEffectiveFromTextView = findViewById(R.id.insurance_certificate_effective_from_vehicle_insurance_activity);
+        insuranceEffectiveTillTextView = findViewById(R.id.insurance_certificate_effective_till_vehicle_insurance_activity);
         insuranceCertificateImageView = findViewById(R.id.certificate_image_vehicle_insurance_activity);
         submitBtn = findViewById(R.id.submit_btn_vehicle_insurance_activity);
 
         insuranceCertificateImageView.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
 
+        /* ***************   Vehicle Colors Spinner Adapter  *******************/
+        ArrayAdapter<CharSequence> carColorAdapter = ArrayAdapter.createFromResource(this,
+                R.array.insurance_type_array, android.R.layout.simple_spinner_item);
+        carColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        insuranceTypeSpinner.setAdapter(carColorAdapter);
+
         DatePickerIns();
 
-        try {
-            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName().equals("")) {
-                insuranceCompanyNameEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName());
-            }
-            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType().equals("")) {
-                insuranceTypeEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType());
-            }
-            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport().equals("")) {
-                inspectionReportEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport());
-            }
-            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires().equals("")) {
-                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires();
-                insuranceCertificateExpiresTextView.setText(date.substring(0, date.indexOf("T")));
-            }
-            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate().equals("")) {
-                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate();
-                insuranceEffectiveTextView.setText(date.substring(0, date.indexOf("T")));
-            }
-        } catch (Exception e){
-
-        }
+//        try {
+//            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName().equals("")) {
+//                insuranceCompanyNameEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCompanyName());
+//            }
+//            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType().equals("")) {
+////                insuranceTypeEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceType());
+//            }
+//            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport().equals("")) {
+////                inspectionReportEditText.setText(getAllVehicleModelResponse.getData().get(0).getVehicleInspectionReport());
+//            }
+//            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires().equals("")) {
+//                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceCertificateExpires();
+//                insuranceCertificateExpiresTextView.setText(date.substring(0, date.indexOf("T")));
+//            }
+//            if (!getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate().equals("")) {
+//                String date = getAllVehicleModelResponse.getData().get(0).getVehicleInsuranceEffectiveDate();
+//                insuranceEffectiveTextView.setText(date.substring(0, date.indexOf("T")));
+//            }
+//        } catch (Exception e){
+//
+//        }
     }
 
     // ------------------------------ Override Functions  --------------------------------------- //
@@ -149,7 +168,7 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 pDialog.dismiss();
                 object = (AddVehicleModelResponse) response.body();
 
-                Constants.NEXT_STEP = "4";
+                Constants.NEXT_STEP = nextStep;
 
                 String idStr = SharedPrefManager.getInstance(this).getDriverId();
                 String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
@@ -158,7 +177,7 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,"4");
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,nextStep);
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
@@ -262,30 +281,27 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
     }
 
     public void fieldInitialize() {
+        insureNameStr = insureNameEditText.getText().toString();
         insuranceCompanyNameStr = insuranceCompanyNameEditText.getText().toString();
-        insuranceTypeStr = insuranceTypeEditText.getText().toString();
-        inspectionReportStr = inspectionReportEditText.getText().toString();
-        insuranceCertificateExpiresStr = insuranceCertificateExpiresTextView.getText().toString();
-        insuranceEffectiveStr = insuranceEffectiveTextView.getText().toString();
+        insuranceTypeStr = insuranceTypeSpinner.getSelectedItem().toString();
+        insuranceEffectiveFromStr = insuranceEffectiveFromTextView.getText().toString();
+        insuranceEffectiveTillStr = insuranceEffectiveTillTextView.getText().toString();
     }
 
     public boolean fieldValidation() {
         boolean valid = true;
 
-        if (insuranceCompanyNameStr.isEmpty()) {
+        if (insureNameStr.isEmpty()) {
+            insureNameEditText.setError("Please enter valid data");
+            valid = false;
+        } else if (insuranceCompanyNameStr.isEmpty()) {
             insuranceCompanyNameEditText.setError("Please enter valid data");
             valid = false;
-        } else if (insuranceTypeStr.isEmpty()) {
-            insuranceTypeEditText.setError("Please enter valid data");
+        } else if (insuranceEffectiveFromStr.equals("-- SELECT DATE --")) {
+            insuranceEffectiveFromTextView.setError("Please select valid date");
             valid = false;
-        } else if (inspectionReportStr.isEmpty()) {
-            inspectionReportEditText.setError("Please enter valid data");
-            valid = false;
-        } else if (insuranceCertificateExpiresStr.equals("-- SELECT DATE --")) {
-            insuranceCertificateExpiresTextView.setError("Please select valid date");
-            valid = false;
-        } else if (insuranceEffectiveStr.equals("-- SELECT DATE --")) {
-            insuranceEffectiveTextView.setError("Please select valid date");
+        } else if (insuranceEffectiveTillStr.equals("-- SELECT DATE --")) {
+            insuranceEffectiveTillTextView.setError("Please select valid date");
             valid = false;
         }
 
@@ -304,12 +320,12 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).editInsuranceVehicleDetail(
                 RequestBody.create(MediaType.parse("text/plain"), getAllVehicleModelResponse.getData().get(0).getId()),
                 RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(this).getDriverId()),
+                RequestBody.create(MediaType.parse("text/plain"), insureNameStr),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceCompanyNameStr),
                 RequestBody.create(MediaType.parse("text/plain"), insuranceTypeStr),
-                RequestBody.create(MediaType.parse("text/plain"), inspectionReportStr),
-                RequestBody.create(MediaType.parse("text/plain"), insuranceCertificateExpiresStr),
-                RequestBody.create(MediaType.parse("text/plain"), insuranceEffectiveStr),
-                RequestBody.create(MediaType.parse("text/plain"), "4"),
+                RequestBody.create(MediaType.parse("text/plain"), insuranceEffectiveFromStr),
+                RequestBody.create(MediaType.parse("text/plain"), insuranceEffectiveTillStr),
+                RequestBody.create(MediaType.parse("text/plain"), nextStep),
                 cerImage),
                 "addDriverLicenceDetail");
     }
@@ -379,12 +395,11 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                insuranceCertificateExpiresTextView.setText("");
-                insuranceCertificateExpiresTextView.setText(sdf.format(myCalendar.getTime()));
+                insuranceEffectiveFromTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        insuranceCertificateExpiresTextView.setOnClickListener(new View.OnClickListener() {
+        insuranceEffectiveFromTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -405,11 +420,11 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                insuranceEffectiveTextView.setText(sdf.format(myCalendar.getTime()));
+                insuranceEffectiveTillTextView.setText(sdf.format(myCalendar.getTime()));
             }
         };
 
-        insuranceEffectiveTextView.setOnClickListener(new View.OnClickListener() {
+        insuranceEffectiveTillTextView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

@@ -5,11 +5,13 @@ import android.content.Context;
 import com.moveitdriver.R;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
 import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
+import com.moveitdriver.models.addCardDetailResponse.PaymentInfoResponse;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
 import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
+import com.moveitdriver.models.getCardDetailResponse.GetCardDetailModelResponse;
 import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.registerationResponse.RegisterResponse;
 import com.moveitdriver.models.updateUserDetailResponse.UpdateUserModelResponse;
@@ -108,7 +110,9 @@ public class RestHandler {
                                                        @Part("carColor") RequestBody color,
                                                        @Part("next_step") RequestBody nextStep,
                                                        @Part MultipartBody.Part fImage,
-                                                       @Part MultipartBody.Part bImage2);
+                                                       @Part MultipartBody.Part bImage,
+                                                       @Part MultipartBody.Part lImage,
+                                                       @Part MultipartBody.Part rImage);
 
         @POST("vehicle/edit")
         @Multipart
@@ -120,17 +124,19 @@ public class RestHandler {
                                                         @Part("carColor") RequestBody color,
                                                         @Part("next_step") RequestBody nextStep,
                                                         @Part MultipartBody.Part fImage,
-                                                        @Part MultipartBody.Part bImage2);
+                                                        @Part MultipartBody.Part bImage,
+                                                        @Part MultipartBody.Part lImage,
+                                                        @Part MultipartBody.Part rImage);
 
         @POST("vehicle/edit")
         @Multipart
         Call<AddVehicleModelResponse> editInsuranceVehicleDetail(@Part("id") RequestBody vehicleId,
                                                                  @Part("user_id") RequestBody userId,
+                                                                 @Part("vehicleInsureName") RequestBody insureName,
                                                                  @Part("vehicleInsuranceCompanyName") RequestBody companyName,
                                                                  @Part("vehicleInsuranceType") RequestBody type,
-                                                                 @Part("vehicleInspectionReport") RequestBody report,
-                                                                 @Part("vehicleInsuranceCertificateExpires") RequestBody certificateExpires,
-                                                                 @Part("vehicleInsuranceEffectiveDate") RequestBody effectiveDate,
+                                                                 @Part("vehicleInsuranceEffectiveFrom") RequestBody effectiveFromDate,
+                                                                 @Part("vehicleInsuranceEffectiveTill") RequestBody effectiveTillDate,
                                                                  @Part("next_step") RequestBody nextStep,
                                                                  @Part MultipartBody.Part vehicleInsuranceCertificateImage);
 
@@ -139,9 +145,8 @@ public class RestHandler {
         Call<AddVehicleModelResponse> editRegistrationVehicleDetail(@Part("id") RequestBody vehicleId,
                                                                     @Part("user_id") RequestBody userId,
                                                                     @Part("registrationNumber") RequestBody registrationNumber,
-                                                                    @Part("registrationDate") RequestBody type,
-                                                                    @Part("registrationExpiry") RequestBody report,
-                                                                    @Part("next_step") RequestBody nextStep);
+                                                                    @Part("next_step") RequestBody nextStep,
+                                                                    @Part MultipartBody.Part registerImage);
 
         @GET("allvehicle/{id}")
         Call<GetAllVehicleModelResponse> getAllVehicles(@Path("id") String userId);
@@ -150,10 +155,8 @@ public class RestHandler {
         @Multipart
         Call<UpdateUserModelResponse> updateUserDriverLicence(@Part("id") RequestBody userId,
                                                               @Part("driverLicenceNumber") RequestBody licenceNumber,
-                                                              @Part("driverLicenceExpires") RequestBody licenceExpires,
-                                                              @Part("driverLicenceState") RequestBody licenceState,
-                                                              @Part("validVehicleTypeLiscence") RequestBody licenceType,
-                                                              @Part("validLiscenseExpires") RequestBody validLicenceExpires,
+                                                              @Part("driverLicenceFrom") RequestBody driverLicenceFromDate,
+                                                              @Part("driverLicenceTill") RequestBody driverLicenceTillDate,
                                                               @Part("next_step") RequestBody nextStep,
                                                               @Part MultipartBody.Part licenceFrontPic,
                                                               @Part MultipartBody.Part licenceBackPic);
@@ -173,6 +176,34 @@ public class RestHandler {
         Call<UpdateUserModelResponse> changePassword(@Field("id") String userId,
                                                      @Field("password") String oldPassword,
                                                      @Field("new_password") String newPassword);
+
+        @POST("paymentInfo")
+        @FormUrlEncoded
+        Call<PaymentInfoResponse> addCardDetail(@Field("user_id") String id,
+                                                @Field("cardNumber") String cardNumber,
+                                                @Field("month") String month,
+                                                @Field("year") String year,
+                                                @Field("cvc") String cvc,
+                                                @Field("token") String token,
+                                                @Field("default") Boolean value,
+                                                @Field("paymentMethod") String paymentMethod,
+                                                @Field("next_step") String nextStep);
+
+        @POST("editPaymentInfo")
+        @FormUrlEncoded
+        Call<PaymentInfoResponse> editCardDetail(@Field("user_id") String id,
+                                                 @Field("id") String paymentId,
+                                                 @Field("cardNumber") String cardNumber,
+                                                 @Field("month") String month,
+                                                 @Field("year") String year,
+                                                 @Field("cvc") String cvc,
+                                                 @Field("token") String token,
+                                                 @Field("default") Boolean value,
+                                                 @Field("paymentMethod") String paymentMethod,
+                                                 @Field("next_step") String nextStep);
+
+        @GET("getPaymentById/{id}")
+        Call<GetCardDetailModelResponse> getCardDetail(@Path("id") String userId);
     }
 
     public void makeHttpRequest(Call call, String method) {

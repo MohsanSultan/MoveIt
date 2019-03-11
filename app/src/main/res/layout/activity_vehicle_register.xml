@@ -43,53 +43,27 @@
                         android:hint="REGISTRATION NUMBER" />
                 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:text="REGISTRATION DATE"
-                    android:textColor="#aaa"
-                    android:textSize="@dimen/_10ssp" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/registration_date_vehicle_register_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/_8sdp"
-                    android:text="-- SELECT DATE --"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_14ssp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:text="REGISTRATION IMAGE" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGray" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:text="REGISTRATION EXPIRY"
-                    android:textColor="#aaa"
-                    android:textSize="@dimen/_10ssp" />
-
-                <TextView
-                    android:id="@+id/registration_expiry_date_vehicle_register_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/_8sdp"
-                    android:text="-- SELECT DATE --"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_14ssp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGray" />
+                    <ImageView
+                        android:id="@+id/registration_document_image_vehicle_register_activity"
+                        android:layout_width="@dimen/_125sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/image_8" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
