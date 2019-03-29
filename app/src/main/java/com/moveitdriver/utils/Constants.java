@@ -1,23 +1,15 @@
 package com.moveitdriver.utils;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
-
-import com.moveitdriver.activities.SplashScreenActivity;
-import com.nabinbhandari.android.permissions.PermissionHandler;
-import com.nabinbhandari.android.permissions.Permissions;
-
-import java.util.ArrayList;
 
 public class Constants {
     public static String base_url = "http://3.17.240.63:1340/api/";
-    public static String socket_base_url = "http://192.168.0.110:1340";
+    public static String socket_base_url = "http://3.17.240.63:1340";
     public static String MAIN_IMAGE_URL = "http://3.17.240.63:1340/uploads/user/";
 
     private final Context con;

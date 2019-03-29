@@ -97,7 +97,7 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
                             finish();
                         }
                     }
-                }, 3000);
+                }, 5000);
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             try {

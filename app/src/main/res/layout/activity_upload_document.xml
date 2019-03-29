@@ -256,7 +256,7 @@
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
                     android:paddingTop="@dimen/_15sdp"
-                    android:text="Step 4: Payment Method"
+                    android:text="Step 4: Card Detail"
                     android:textColor="@color/colorLightBlack"
                     android:textSize="@dimen/_16ssp" />
 
