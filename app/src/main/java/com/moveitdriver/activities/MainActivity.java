@@ -22,6 +22,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,8 +68,9 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
 
@@ -76,12 +78,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private static LatLng mLocation = new LatLng(22.5763566, 88.4164734);
     private static LatLng pickLocation = new LatLng(0.0, 0.0);
     private static LatLng dropLocation = new LatLng(0.0, 0.0);
+    private static Location curLocation;
     private static String riderName = "";
 
     private View view;
     private Dialog dialog;
 
     private TextView editProfile, notiHeadingTextView, notiUserNameTextView, notiTextView1, notiTextView2;
+    private Button startRideButton, endRideButton;
     private ImageView profileImageDrawer;
     private String image;
     private String flag = "";
@@ -168,6 +172,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         notiUserNameTextView = findViewById(R.id.notification_name_text_view_home_activity);
         notiTextView1 = findViewById(R.id.notification_text_view1_home_activity);
         notiTextView2 = findViewById(R.id.notification_text_view2_home_activity);
+
+        startRideButton = findViewById(R.id.start_ride_button_main_activity);
+        endRideButton = findViewById(R.id.end_ride_button_main_activity);
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
         tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
@@ -312,6 +319,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.start_ride_button_main_activity:
+                StartTrip();
+                startRideButton.setVisibility(View.GONE);
+                endRideButton.setVisibility(View.VISIBLE);
+                break;
+            case R.id.end_ride_button_main_activity:
+                EndTrip();
+                endRideButton.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         if (flag == "") {
             mMap = googleMap;
@@ -410,6 +432,24 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     };
 
+    public Emitter.Listener onNotifications = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject obj = (JSONObject) args[0];
+
+                    try {
+                        Toast.makeText(MainActivity.this, obj.getString("Type")+" / "+obj.getString("Msg"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
     private void attemptSend() {
         JSONObject objectData = new JSONObject();
         JSONObject object = new JSONObject();
@@ -433,6 +473,24 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         mSocket.emit("info", objectData);
+    }
+
+    public void UpdateLatLong(Location location) {
+        JSONObject object = new JSONObject();
+
+        try {
+            if (getRequesterCall != null)
+                object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+            object.put("location", location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salman", object.toString());
+        mSocket.emit("Driver_UpLatLong", object);
     }
 
     public void AcceptRejectAttemptSend(String method) {
@@ -466,22 +524,38 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void UpdateLatLong(Location location) {
+    public void StartTrip() {
         JSONObject object = new JSONObject();
 
         try {
-            if (getRequesterCall != null)
-                object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("location", curLocation);
+            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
             object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
             object.put("latitude", Constants.mCurLat);
             object.put("longitude", Constants.mCurLong);
-            object.put("location", location);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.e("Salman", object.toString());
-        mSocket.emit("Driver_UpLatLong", object);
+        Log.e("Salman_StartTrip", object.toString());
+        mSocket.emit("Driver_StartTrip", object);
+    }
+
+    public void EndTrip() {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("location", curLocation);
+            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salman_EndTrip", object.toString());
+        mSocket.emit("Driver_EndTrip", object);
     }
 
     public void pickUpRequestDialog() {
@@ -515,12 +589,17 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 notiTextView1.setText("1.5 km");
                 notiTextView2.setText("Distance");
 
+                // Socket Listener For Start/End Trip Notification...
+                mSocket.on("Notification", onNotifications);
+
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(pickLocation)
                         .zoom(14)
                         .build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                startRideButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -596,6 +675,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                curLocation = location;
                 Constants.mCurLat = location.getLatitude();
                 Constants.mCurLong = location.getLongitude();
 
