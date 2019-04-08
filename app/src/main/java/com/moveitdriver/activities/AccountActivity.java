@@ -1,5 +1,7 @@
 package com.moveitdriver.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,10 +80,22 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.logout_btn_account_activity:
 
-                Constants.NEXT_STEP = "";
-                SharedPrefManager.getInstance(this).logout();
-                startActivity(new Intent(AccountActivity.this, CoverScreenActivity.class));
-                finishAffinity();
+                new AlertDialog.Builder(this)
+                        .setTitle("LOGOUT")
+                        .setMessage("Are you sure you want to LogOut?")
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Constants.NEXT_STEP = "";
+                                SharedPrefManager.getInstance(AccountActivity.this).logout();
+                                startActivity(new Intent(AccountActivity.this, CoverScreenActivity.class));
+                                finishAffinity();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
                 break;
         }
     }

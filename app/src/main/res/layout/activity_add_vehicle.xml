@@ -37,10 +37,10 @@
                     android:textSize="@dimen/_10ssp" />
 
                 <Spinner
-                    android:id="@+id/vehicle_make_spinner_add_vehicle_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:text="BRAND" />
+                android:id="@+id/vehicle_make_spinner_add_vehicle_activity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:text="BRAND" />
 
                 <View
                     android:layout_width="match_parent"

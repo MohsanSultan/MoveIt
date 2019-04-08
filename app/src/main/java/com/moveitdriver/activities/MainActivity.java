@@ -174,7 +174,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         notiTextView2 = findViewById(R.id.notification_text_view2_home_activity);
 
         startRideButton = findViewById(R.id.start_ride_button_main_activity);
+        startRideButton.setOnClickListener(this);
         endRideButton = findViewById(R.id.end_ride_button_main_activity);
+        endRideButton.setOnClickListener(this);
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
         tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
