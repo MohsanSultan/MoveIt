@@ -30,28 +30,31 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/average_rating_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        android:text="4.0"
+                        android:text="0.0"
                         android:textColor="@color/colorTextThird"
                         android:textSize="@dimen/_18sdp"
                         android:textStyle="bold" />
 
                     <RatingBar
+                        android:id="@+id/average_rating_bar"
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:numStars="5"
-                        android:rating="3.5"
+                        android:rating="0.0"
                         android:theme="@style/RatingBar" />
 
                     <TextView
+                        android:id="@+id/total_rating_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_5sdp"
-                        android:text="5258 Total" />
+                        android:text="0 Total" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,13 +95,14 @@
                                 android:theme="@style/RatingBar"
                                 android:max="5"
                                 android:min="0"
-                                android:progress="3" />
+                                android:progress="0" />
 
                             <TextView
+                                android:id="@+id/one_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:text="851"
+                                android:text="0"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -134,13 +138,14 @@
                                 android:theme="@style/RatingBar"
                                 android:max="5"
                                 android:min="0"
-                                android:progress="4" />
+                                android:progress="0" />
 
                             <TextView
+                                android:id="@+id/two_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:text="754"
+                                android:text="0"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -176,13 +181,14 @@
                                 android:theme="@style/RatingBar"
                                 android:max="5"
                                 android:min="0"
-                                android:progress="3" />
+                                android:progress="0" />
 
                             <TextView
+                                android:id="@+id/three_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:text="1754"
+                                android:text="0"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -218,13 +224,14 @@
                                 android:theme="@style/RatingBar"
                                 android:max="5"
                                 android:min="0"
-                                android:progress="2" />
+                                android:progress="0" />
 
                             <TextView
+                                android:id="@+id/four_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:text="231"
+                                android:text="0"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -260,13 +267,14 @@
                                 android:theme="@style/RatingBar"
                                 android:max="5"
                                 android:min="0"
-                                android:progress="1" />
+                                android:progress="0" />
 
                             <TextView
+                                android:id="@+id/five_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
-                                android:text="124"
+                                android:text="0"
                                 android:textSize="@dimen/_10sdp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -279,150 +287,12 @@
                 android:layout_height=".5dp"
                 android:background="@color/colorTextSec" />
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rating_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_5sdp">
+                android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5sdp"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:orientation="horizontal">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:src="@drawable/image_profile" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="David"
-                                android:textSize="@dimen/_16sdp"
-                                android:textStyle="bold" />
-
-                            <RatingBar
-                                style="?android:attr/ratingBarStyleSmall"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:numStars="5"
-                                android:rating="3.5"
-                                android:theme="@style/RatingBar" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:gravity="right"
-                        android:padding="@dimen/_5sdp"
-                        android:text="30 Sep 2016" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:background="@color/colorTextSec" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_5sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/_5sdp"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3.5"
-                        android:orientation="horizontal">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:src="@drawable/image_profile" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="David"
-                                android:textSize="@dimen/_16sdp"
-                                android:textStyle="bold" />
-
-                            <RatingBar
-                                style="?android:attr/ratingBarStyleSmall"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:numStars="5"
-                                android:rating="3.5"
-                                android:theme="@style/RatingBar" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:gravity="right"
-                        android:padding="@dimen/_5sdp"
-                        android:text="30 Sep 2016" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".5dp"
-                android:background="@color/colorTextSec" />
-
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

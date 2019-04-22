@@ -11,6 +11,8 @@
     <string name="no_internet">Internet Connection Is Not Available</string>
     <string name="timed_out">Connection Time Out</string>
 
+    <string name="google_map_key">AIzaSyDmJIDv7kpZ-YxVEPtFJB1lPjJoyH7nRME</string>
+
     <!-- String values of document info activity page -->
     <string name="info_string_1">Your account profile must include personal and vehicle documents, sush as photos of your driver\'s license and vehicle insurance.</string>
     <string name="info_string_2">If you\'ve been notified that one of your documents is rejectes or expired, this may be because:</string>

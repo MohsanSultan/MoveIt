@@ -2,15 +2,16 @@ package com.moveitdriver.activities;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -54,9 +55,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.moveitdriver.R;
+import com.moveitdriver.models.getInvoiceResponse.GetInvoiceResponse;
+import com.moveitdriver.models.loginResponse.LoginResponse;
+import com.moveitdriver.retrofit.RestHandler;
+import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
+import com.moveitdriver.utils.DataParser;
 import com.moveitdriver.utils.SharedPrefManager;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -65,12 +73,24 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.Time;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+
+public class MainActivity extends FragmentActivity implements View.OnClickListener, RetrofitListener, OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
 
@@ -79,23 +99,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static LatLng pickLocation = new LatLng(0.0, 0.0);
     private static LatLng dropLocation = new LatLng(0.0, 0.0);
     private static Location curLocation;
-    private static String riderName = "";
+    private static Location preLocation;
+    private static String bookedBy = "", riderName = "", vehicleId = "";
+    private static double baseFare = 0.0, distance = 0.0, time = 0.0;
 
     private View view;
     private Dialog dialog;
+    private RestHandler restHandler;
+    private ProgressDialog pDialog;
 
     private TextView editProfile, notiHeadingTextView, notiUserNameTextView, notiTextView1, notiTextView2;
     private Button startRideButton, endRideButton;
     private ImageView profileImageDrawer;
     private String image;
     private String flag = "";
+    private String statusFlag = "";
 
+    private GetInvoiceResponse invoiceObj;
     private JSONObject getRequesterCall;
 
     private GoogleApiClient googleApiClient;
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
     final static int REQUEST_LOCATION = 199;
+
+    private ArrayList<LatLng> points;
+    private List<HashMap<String, String>> path;
+    private Polyline polyline;
 
     private Socket mSocket;
 
@@ -150,7 +180,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         navigationView = findViewById(R.id.nav_view);
         view = navigationView.getHeaderView(0);
 
-        // ----------------------- Profile Image ---------------------------------------
+        // -------------------------------------------------------------------------------------
+
+        restHandler = new RestHandler(this, this);
+        pDialog = new ProgressDialog(this);
+        pDialog.setMessage("Please Wait...");
+        pDialog.setCancelable(false);
+
+        // ----------------------- Profile Image -----------------------------------------------
         profileImageDrawer = view.findViewById(R.id.profile_img_drawer);
 
         image = Constants.MAIN_IMAGE_URL + SharedPrefManager.getInstance(this).getDriverPic();
@@ -324,11 +361,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_ride_button_main_activity:
+                statusFlag = "startTrip";
+                notiHeadingTextView.setText("DROP OFF");
                 StartTrip();
+//                getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
                 startRideButton.setVisibility(View.GONE);
                 endRideButton.setVisibility(View.VISIBLE);
                 break;
             case R.id.end_ride_button_main_activity:
+                statusFlag = "";
+                notiHeadingTextView.setText("LAST TRIP");
                 EndTrip();
                 endRideButton.setVisibility(View.GONE);
                 break;
@@ -381,6 +423,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
             markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
 
+//            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
+
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (Marker marker : markers) {
                 builder.include(marker.getPosition());
@@ -401,6 +445,45 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onSuccess(Call call, Response response, String method) {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+        if (response != null && response.code() == 200) {
+            if (method.equalsIgnoreCase("getInvoice")) {
+                invoiceObj = (GetInvoiceResponse) response.body();
+
+                Toast.makeText(this, ""+invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, InvoiceActivity.class);
+                intent.putExtra("InvoiceObject", invoiceObj);
+                startActivity(intent);
+            }
+        } else if (response != null && (response.code() == 403 || response.code() == 500)) {
+            try {
+                ResponseBody body = response.errorBody();
+                JSONObject jObj = new JSONObject(body.string());
+                if (jObj.optString("status").equals("403"))
+                    Constants.showAlert(this, jObj.optString("message"));
+                else
+                    Constants.showAlert(this, jObj.optString("message"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                Constants.showAlert(this, "Oops! API returned invalid response. Try again later.");
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+        Constants.showAlert(this, errorMessage);
+    }
+
     // ------------ >> SOCKET FUNCTIONS
 
     public Emitter.Listener onNewMessage = new Emitter.Listener() {
@@ -410,12 +493,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 @Override
                 public void run() {
                     getRequesterCall = (JSONObject) args[0];
-                    JSONObject pObj, dObj;
-                    String userName, time, distance, pLatitude, pLongitude, dLatitude, dLongitude;
+                    JSONObject pObj, dObj, efare;
+                    String pLatitude, pLongitude, dLatitude, dLongitude;
+                    DecimalFormat oneDForm = new DecimalFormat("#.#");
                     try {
                         pObj = getRequesterCall.getJSONObject("pickup_address");
                         dObj = getRequesterCall.getJSONObject("drop_address");
-                        userName = pObj.getString("name");
+                        efare = getRequesterCall.getJSONObject("fare_estimate");
+                        riderName = pObj.getString("name");
+                        bookedBy = getRequesterCall.getString("bookedBy");
+                        vehicleId = efare.getString("vehicleId");
+                        baseFare = Double.parseDouble(oneDForm.format(efare.getDouble("baseFare")));
+                        distance = Double.parseDouble(oneDForm.format(efare.getDouble("distance")));
+                        time = Double.parseDouble(oneDForm.format(efare.getDouble("time")));
                         pLatitude = pObj.getString("latitude");
                         pLongitude = pObj.getString("longitude");
                         dLatitude = dObj.getString("latitude");
@@ -424,7 +514,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         return;
                     }
 
-                    riderName = userName;
                     pickLocation = new LatLng(Double.parseDouble(pLatitude), Double.parseDouble(pLongitude));
                     dropLocation = new LatLng(Double.parseDouble(dLatitude), Double.parseDouble(dLongitude));
                     pickUpRequestDialog();
@@ -443,7 +532,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     JSONObject obj = (JSONObject) args[0];
 
                     try {
+                        Constants.showNotification(MainActivity.this, ""+obj.getString("Type"), ""+obj.getString("Msg"));
                         Toast.makeText(MainActivity.this, obj.getString("Type")+" / "+obj.getString("Msg"), Toast.LENGTH_SHORT).show();
+
+                        if(obj.getString("Msg").equals("Trip Ended")) {
+                            getInvoice();
+                        }
                     } catch (JSONException e) {
                         return;
                     }
@@ -572,10 +666,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .findFragmentById(R.id.map_pickup_request_dialog);
         mapFrg.getMapAsync(this);
 
-        TextView acceptBtn, rejectBtn;
+        TextView estTimeTextView, estFareTextView, dropLocationTextView, acceptBtn, rejectBtn;
 
+        estTimeTextView = dialog.findViewById(R.id.est_time_text_view_pickup_request_dialog);
+        estFareTextView = dialog.findViewById(R.id.est_fare_text_view_pickup_request_dialog);
+        dropLocationTextView = dialog.findViewById(R.id.drop_location_address_text_view_pickup_request_dialog);
         acceptBtn = dialog.findViewById(R.id.accept_btn_pickup_request_dialog);
         rejectBtn = dialog.findViewById(R.id.reject_btn_pickup_request_dialog);
+
+        estFareTextView.setText(String.valueOf(baseFare)+"$");
+        estTimeTextView.setText(String.valueOf(time)+"min");
 
         flag = "1";
 
@@ -588,7 +688,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 notiHeadingTextView.setText("PICK UP");
                 notiUserNameTextView.setText(riderName);
-                notiTextView1.setText("1.5 km");
+                notiTextView1.setText(String.valueOf(distance)+" KM");
                 notiTextView2.setText("Distance");
 
                 // Socket Listener For Start/End Trip Notification...
@@ -602,6 +702,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
                 startRideButton.setVisibility(View.VISIBLE);
+                statusFlag = "acceptTrip";
             }
         });
 
@@ -665,7 +766,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //    }
 
     public void locationUpdate() {
-
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 //        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -677,29 +777,55 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                curLocation = location;
-                Constants.mCurLat = location.getLatitude();
-                Constants.mCurLong = location.getLongitude();
+//                curLocation = location;
+//                Constants.mCurLat = location.getLatitude();
+//                Constants.mCurLong = location.getLongitude();
 
-                mMap.clear();
-                try {
-                    mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
-                    CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(mLocation)
-                            .zoom(14)
-                            .build();
-                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                if (preLocation != null) {
+                    float results = location.distanceTo(preLocation);
+//                    float result2 = location.distanceTo(pickup_location);
 
-                    if (pickLocation.latitude != 0.0 && pickLocation.longitude != 0.0) {
+                    curLocation = location;
+                    Constants.mCurLat = location.getLatitude();
+                    Constants.mCurLong = location.getLongitude();
+
+//                    Toast.makeText(MainActivity.this, ""+results, Toast.LENGTH_SHORT).show();
+//                    onDriverMovement();
+
+                    mMap.clear();
+                    try {
+                        mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
+                        CameraPosition cameraPosition = new CameraPosition.Builder()
+                                .target(mLocation)
+                                .zoom(14)
+                                .build();
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                        Log.e("DropLocation", dropLocation.latitude +"/"+ dropLocation.longitude);
+                        if (statusFlag.equals("acceptTrip")) {
+                            getPolyLine(Constants.mCurLat, Constants.mCurLong, pickLocation.latitude, pickLocation.longitude);
+                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        } else if (statusFlag.equals("startTrip")) {
+                            Log.e("DropLocation", dropLocation.latitude +"/"+ dropLocation.longitude);
+//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        }
+                    } catch (Exception e) {
+
                     }
-                } catch (Exception e) {
 
+                    if (results >= 10) {
+                        UpdateLatLong(location);
+                        preLocation = location;
+                        Toast.makeText(MainActivity.this, "Send LatLong"+results, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    preLocation = location;
+                    Toast.makeText(MainActivity.this, "0.0", Toast.LENGTH_SHORT).show();
                 }
-
-                UpdateLatLong(location);
             }
 
             @Override
@@ -716,17 +842,187 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             public void onProviderDisabled(String provider) {
 
             }
-
         };
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
                 0, (LocationListener) mLocationListener);
 
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000,
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100,
                 0, (LocationListener) mLocationListener);
+    }
+
+    private void getInvoice() {
+        pDialog.show();
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice("5c6c04120a41d36bea73632a", bookedBy, time, distance,"5c6be619ba353965c83f6afa"), "getInvoice");
+    }
+
+    private void getPolyLine(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {
+
+        String url = getUrl(firsLat, firstLong, secondLat, secondLong);
+        //Log.d("onMapClick", url.toString());
+        FetchUrl fetchUrl = new FetchUrl();
+        // Start downloading json data from Google Directions API
+        fetchUrl.execute(url);
+    }
+
+    private String getUrl(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {
+        //routeBreakPointses=trackApplication.getBreakPointList();
+        String wayPoints = "";
+        //String str_origin = "origin=" + assignDriverData.getDriverDetails().getLatitude() + "," + assignDriverData.getDriverDetails().getLongitude();
+        String str_origin = "origin=" + firsLat + "," + firstLong;
+        //Toast.makeText(InitialStartNavigationActivity.this, "Origin of route!"+str_origin, Toast.LENGTH_LONG).show();
+        // Destination of route88.341865
+        //String str_dest = "destination=" + Constants.dblCurLat + "," + Constants.dblCurLong;
+        String str_dest = "destination=" + secondLat + "," + secondLong;
+        //Toast.makeText(InitialStartNavigationActivity.this, "Destination of route!"+str_dest, Toast.LENGTH_LONG).show();
+        // Sensor enabled
+        String sensor = "sensor=true";
+        String unit = "units=imperial";
+        // String region="region=us";
+        // Building the parameters to the web service
+        String mode = "mode=driving";
+        String pathes = "alternatives=true";
+        // String pathes = "alternatives=true";
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + pathes + "&key=" + getString(R.string.google_map_key);
+        // String parameters = str_origin + "&" + str_dest + "&" + sensor+"&"+unit+"&"+region+"&waypoints="+ wayPoints+"&key="+Constants.google_map_key;
+        // Output format
+        String output = "json";
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+        Log.d("url_to_call", url);
+
+        return url;
+    }
+
+    private class FetchUrl extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String[] url) {
+            // For storing data from web service
+            String data = "";
+            try {
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+                Log.d("Background_Task_data", data.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+
+        }
+    }
+
+    private static String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
+
+            // Creating an http connection to communicate with url
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            // Connecting to url
+            urlConnection.connect();
+
+            // Reading data from url
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            data = sb.toString();
+            Log.d("downloadUrl", data.toString());
+            br.close();
+
+        } catch (Exception e) {
+            Log.d("Exception", e.toString());
+        } finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+    ArrayList<HashMap<String, DataParser.DirectionData>> directions = null;
+
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                DataParser parser = new DataParser();
+                routes = parser.parse(jObject);
+                directions = parser.parseDirection(jObject);
+            } catch (Exception e) {
+                //Log.d("ParserTask",e.toString());
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
+            PolylineOptions lineOptions = null;
+            // Traversing through all the routes
+            if (result != null && result.size() > 0) {
+                for (int i = 0; i < result.size(); i++) {
+                    points = new ArrayList<>();
+                    lineOptions = new PolylineOptions();
+
+                    // Fetching i-th route
+                    path = new ArrayList<HashMap<String, String>>();
+                    path = result.get(i);
+                    // Fetching all the points in i-th route
+                    for (int j = 0; j < path.size(); j++) {
+                        HashMap<String, String> point = path.get(j);
+
+                        point.get("distance");
+                        point.get("duration");
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lng = Double.parseDouble(point.get("lng"));
+                        LatLng position = new LatLng(lat, lng);
+                        points.add(position);
+                    }
+                    // Adding all the points in the route to LineOptions
+
+                    lineOptions.addAll(points);
+                    lineOptions.width(10);
+                    lineOptions.color(Color.parseColor("#00A4F6"));
+                    lineOptions.geodesic(true);
+                    //Log.d("onPostExecute","onPostExecute lineoptions decoded");
+                }
+                polyline = mMap.addPolyline(lineOptions);
+            }
+        }
     }
 }

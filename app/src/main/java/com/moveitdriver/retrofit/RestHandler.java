@@ -7,13 +7,16 @@ import com.moveitdriver.models.OTPResponse.OTPResponse;
 import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
 import com.moveitdriver.models.addCardDetailResponse.PaymentInfoResponse;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
+import com.moveitdriver.models.allRatingResponse.DriverRatingResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
 import com.moveitdriver.models.getAllVehicleResponse.GetAllVehicleModelResponse;
 import com.moveitdriver.models.getCardDetailResponse.GetCardDetailModelResponse;
+import com.moveitdriver.models.getInvoiceResponse.GetInvoiceResponse;
 import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.registerationResponse.RegisterResponse;
+import com.moveitdriver.models.setRatingUserResponse.RatingResponse;
 import com.moveitdriver.models.updateUserDetailResponse.UpdateUserModelResponse;
 import com.moveitdriver.utils.Constants;
 
@@ -38,7 +41,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public class RestHandler {
 
@@ -204,6 +206,18 @@ public class RestHandler {
 
         @GET("getPaymentById/{id}")
         Call<GetCardDetailModelResponse> getCardDetail(@Path("id") String userId);
+
+        @FormUrlEncoded
+        @POST("rating/ratecount")
+        Call<DriverRatingResponse> getRating(@Field("rating_to") String driverId);
+
+        @FormUrlEncoded
+        @POST("rating/ratetrip")
+        Call<RatingResponse> setRatingToUser(@Field("rating_to") String to, @Field("rating_from") String from, @Field("comment") String comment, @Field("rating") Float rating);
+
+        @FormUrlEncoded
+        @POST("generateInvoice")
+        Call<GetInvoiceResponse> getInvoice(@Field("Booking_id") String bookingId, @Field("user_id") String userId, @Field("totalTime") double totalTime, @Field("distance") double distance, @Field("vehicle_id") String vehicleId);
     }
 
     public void makeHttpRequest(Call call, String method) {

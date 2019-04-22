@@ -14,7 +14,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -37,6 +36,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:support-compat:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     testImplementation 'junit:junit:4.12'

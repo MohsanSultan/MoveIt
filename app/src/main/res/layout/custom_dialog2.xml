@@ -42,6 +42,7 @@
                 android:src="@drawable/image_watch"/>
 
             <TextView
+                android:id="@+id/est_time_text_view_pickup_request_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5 min"
@@ -67,6 +68,7 @@
                 android:src="@drawable/image_doller"/>
 
             <TextView
+                android:id="@+id/est_fare_text_view_pickup_request_dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4.40$"
@@ -86,6 +88,7 @@
         android:background="@color/colorLightGray"/>
 
     <TextView
+        android:id="@+id/drop_location_address_text_view_pickup_request_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"

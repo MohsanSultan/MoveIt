@@ -27,6 +27,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/base_fare_text_view_invoice_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$12"
@@ -48,6 +49,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/distance_text_view_invoice_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.5 km"
@@ -140,6 +142,7 @@
                             android:text="Trip fare" />
 
                         <TextView
+                            android:id="@+id/trip_fare_text_view_invoice_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -163,7 +166,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="$ 1.00" />
+                            android:text="$ 0.00" />
 
                     </LinearLayout>
 
@@ -203,7 +206,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="$ 1.00" />
+                            android:text="$ 0.00" />
 
                     </LinearLayout>
 
@@ -221,6 +224,7 @@
                             android:textColor="@color/colorTextThird"/>
 
                         <TextView
+                            android:id="@+id/total_text_view_invoice_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
@@ -231,6 +235,7 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/cash_collect_btn_invoice_activity"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_margin="@dimen/_16sdp"
