@@ -64,7 +64,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
 
             case R.id.waybill_btn_account_activity:
-                startActivity(new Intent(AccountActivity.this, ReviewTripActivity.class));
+//                startActivity(new Intent(AccountActivity.this, ReviewTripActivity.class));
                 break;
 
             case R.id.documents_btn_account_activity:

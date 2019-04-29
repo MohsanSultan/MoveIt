@@ -27,6 +27,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/t_fare_text_view_collect_cash_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$12"
@@ -48,6 +49,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/t_distance_text_view_collect_cash_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.5 km"
@@ -93,6 +95,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/user_name_text_view_collect_cash_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -132,8 +135,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
+                        android:stepSize="1"
                         android:numStars="5"
-                        android:rating="3.5"
+                        android:rating="5"
                         android:theme="@style/RatingBar"/>
 
                     <EditText

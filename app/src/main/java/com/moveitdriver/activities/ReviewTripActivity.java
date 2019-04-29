@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
@@ -27,6 +28,7 @@ import retrofit2.Response;
 
 public class ReviewTripActivity extends AppCompatActivity implements RetrofitListener{
 
+    private TextView tFareTextView, tDistanceTextView, userNameTextView;
     private EditText commentEditText;
     private Button rateNowBtn;
     private RatingBar ratingBar;
@@ -43,9 +45,16 @@ public class ReviewTripActivity extends AppCompatActivity implements RetrofitLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        tFareTextView = findViewById(R.id.t_fare_text_view_collect_cash_activity);
+        tDistanceTextView = findViewById(R.id.t_distance_text_view_collect_cash_activity);
+        userNameTextView = findViewById(R.id.user_name_text_view_collect_cash_activity);
         ratingBar = findViewById(R.id.rating_bar);
         commentEditText = findViewById(R.id.comment_edit_text);
         rateNowBtn = findViewById(R.id.rate_now_btn);
+
+        tFareTextView.setText("$ "+getIntent().getStringExtra("tFare"));
+        tDistanceTextView.setText(getIntent().getStringExtra("tDistance")+" KM");
+        userNameTextView.setText(getIntent().getStringExtra("uName"));
 
         pDialog = new ProgressDialog(this);
         pDialog.setMessage("Please Wait...");
@@ -56,7 +65,8 @@ public class ReviewTripActivity extends AppCompatActivity implements RetrofitLis
         rateNowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).setRatingToUser("5c7e82c5f28ed41f7b202881", SharedPrefManager.getInstance(ReviewTripActivity.this).getDriverId(), commentEditText.getText().toString(), ratingBar.getRating()), "Rating");
+                pDialog.show();
+                restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).setRatingToUser(getIntent().getStringExtra("uId"), SharedPrefManager.getInstance(ReviewTripActivity.this).getDriverId(), commentEditText.getText().toString(), ratingBar.getRating()), "Rating");
             }
         });
     }

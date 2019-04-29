@@ -96,6 +96,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/pickup_address_text_view_invoice_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -109,6 +110,7 @@
                             android:background="@color/colorLightGray" />
 
                         <TextView
+                            android:id="@+id/drop_address_text_view_invoice_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"

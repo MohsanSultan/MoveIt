@@ -1,3 +1,4 @@
+
 package com.moveitdriver.models.loginResponse;
 
 import com.google.gson.annotations.Expose;
@@ -38,6 +39,24 @@ public class Datum {
     @SerializedName("__v")
     @Expose
     private Integer v;
+    @SerializedName("sms_otp")
+    @Expose
+    private String smsOtp;
+    @SerializedName("driverLicenceFrom")
+    @Expose
+    private String driverLicenceFrom;
+    @SerializedName("driverLicenceNumber")
+    @Expose
+    private String driverLicenceNumber;
+    @SerializedName("driverLicenceTill")
+    @Expose
+    private String driverLicenceTill;
+    @SerializedName("licenceBackPic")
+    @Expose
+    private String licenceBackPic;
+    @SerializedName("licenceFrontPic")
+    @Expose
+    private String licenceFrontPic;
     @SerializedName("device_token")
     @Expose
     private Object deviceToken;
@@ -173,6 +192,54 @@ public class Datum {
 
     public void setV(Integer v) {
         this.v = v;
+    }
+
+    public String getSmsOtp() {
+        return smsOtp;
+    }
+
+    public void setSmsOtp(String smsOtp) {
+        this.smsOtp = smsOtp;
+    }
+
+    public String getDriverLicenceFrom() {
+        return driverLicenceFrom;
+    }
+
+    public void setDriverLicenceFrom(String driverLicenceFrom) {
+        this.driverLicenceFrom = driverLicenceFrom;
+    }
+
+    public String getDriverLicenceNumber() {
+        return driverLicenceNumber;
+    }
+
+    public void setDriverLicenceNumber(String driverLicenceNumber) {
+        this.driverLicenceNumber = driverLicenceNumber;
+    }
+
+    public String getDriverLicenceTill() {
+        return driverLicenceTill;
+    }
+
+    public void setDriverLicenceTill(String driverLicenceTill) {
+        this.driverLicenceTill = driverLicenceTill;
+    }
+
+    public String getLicenceBackPic() {
+        return licenceBackPic;
+    }
+
+    public void setLicenceBackPic(String licenceBackPic) {
+        this.licenceBackPic = licenceBackPic;
+    }
+
+    public String getLicenceFrontPic() {
+        return licenceFrontPic;
+    }
+
+    public void setLicenceFrontPic(String licenceFrontPic) {
+        this.licenceFrontPic = licenceFrontPic;
     }
 
     public Object getDeviceToken() {

@@ -1,9 +1,10 @@
 
 package com.moveitdriver.models.loginResponse;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class LoginResponse {
 
@@ -16,6 +17,9 @@ public class LoginResponse {
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
+    @SerializedName("vehicleInfo")
+    @Expose
+    private VehicleInfo vehicleInfo;
     @SerializedName("message")
     @Expose
     private String message;
@@ -42,6 +46,14 @@ public class LoginResponse {
 
     public void setData(List<Datum> data) {
         this.data = data;
+    }
+
+    public VehicleInfo getVehicleInfo() {
+        return vehicleInfo;
+    }
+
+    public void setVehicleInfo(VehicleInfo vehicleInfo) {
+        this.vehicleInfo = vehicleInfo;
     }
 
     public String getMessage() {

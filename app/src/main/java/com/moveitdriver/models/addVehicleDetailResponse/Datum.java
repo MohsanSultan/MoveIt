@@ -1,3 +1,4 @@
+
 package com.moveitdriver.models.addVehicleDetailResponse;
 
 import com.google.gson.annotations.Expose;
@@ -8,36 +9,12 @@ public class Datum {
     @SerializedName("__v")
     @Expose
     private Integer v;
-    @SerializedName("vehicleInsuranceCertificatePic")
-    @Expose
-    private String vehicleInsuranceCertificatePic;
-    @SerializedName("carLeftPic")
-    @Expose
-    private String carLeftPic;
-    @SerializedName("carRightPic")
-    @Expose
-    private String carRightPic;
-    @SerializedName("carBackPic")
-    @Expose
-    private String carBackPic;
-    @SerializedName("carFrontPic")
-    @Expose
-    private String carFrontPic;
-    @SerializedName("vehicleInsuranceEffectiveTill")
-    @Expose
-    private String vehicleInsuranceEffectiveTill;
-    @SerializedName("vehicleInsuranceEffectiveFrom")
-    @Expose
-    private String vehicleInsuranceEffectiveFrom;
     @SerializedName("vehicleInspectionReport")
     @Expose
     private String vehicleInspectionReport;
     @SerializedName("vehicleInsuranceType")
     @Expose
     private String vehicleInsuranceType;
-    @SerializedName("vehicleInsureName")
-    @Expose
-    private String vehicleInsureName;
     @SerializedName("vehicleInsuranceCompanyName")
     @Expose
     private String vehicleInsuranceCompanyName;
@@ -62,6 +39,12 @@ public class Datum {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("carManufacturer")
+    @Expose
+    private String carManufacturer;
+    @SerializedName("carModel")
+    @Expose
+    private String carModel;
     @SerializedName("_id")
     @Expose
     private String id;
@@ -72,62 +55,6 @@ public class Datum {
 
     public void setV(Integer v) {
         this.v = v;
-    }
-
-    public String getVehicleInsuranceCertificatePic() {
-        return vehicleInsuranceCertificatePic;
-    }
-
-    public void setVehicleInsuranceCertificatePic(String vehicleInsuranceCertificatePic) {
-        this.vehicleInsuranceCertificatePic = vehicleInsuranceCertificatePic;
-    }
-
-    public String getCarLeftPic() {
-        return carLeftPic;
-    }
-
-    public void setCarLeftPic(String carLeftPic) {
-        this.carLeftPic = carLeftPic;
-    }
-
-    public String getCarRightPic() {
-        return carRightPic;
-    }
-
-    public void setCarRightPic(String carRightPic) {
-        this.carRightPic = carRightPic;
-    }
-
-    public String getCarBackPic() {
-        return carBackPic;
-    }
-
-    public void setCarBackPic(String carBackPic) {
-        this.carBackPic = carBackPic;
-    }
-
-    public String getCarFrontPic() {
-        return carFrontPic;
-    }
-
-    public void setCarFrontPic(String carFrontPic) {
-        this.carFrontPic = carFrontPic;
-    }
-
-    public String getVehicleInsuranceEffectiveTill() {
-        return vehicleInsuranceEffectiveTill;
-    }
-
-    public void setVehicleInsuranceEffectiveTill(String vehicleInsuranceEffectiveTill) {
-        this.vehicleInsuranceEffectiveTill = vehicleInsuranceEffectiveTill;
-    }
-
-    public String getVehicleInsuranceEffectiveFrom() {
-        return vehicleInsuranceEffectiveFrom;
-    }
-
-    public void setVehicleInsuranceEffectiveFrom(String vehicleInsuranceEffectiveFrom) {
-        this.vehicleInsuranceEffectiveFrom = vehicleInsuranceEffectiveFrom;
     }
 
     public String getVehicleInspectionReport() {
@@ -144,14 +71,6 @@ public class Datum {
 
     public void setVehicleInsuranceType(String vehicleInsuranceType) {
         this.vehicleInsuranceType = vehicleInsuranceType;
-    }
-
-    public String getVehicleInsureName() {
-        return vehicleInsureName;
-    }
-
-    public void setVehicleInsureName(String vehicleInsureName) {
-        this.vehicleInsureName = vehicleInsureName;
     }
 
     public String getVehicleInsuranceCompanyName() {
@@ -218,6 +137,22 @@ public class Datum {
         this.userId = userId;
     }
 
+    public String getCarManufacturer() {
+        return carManufacturer;
+    }
+
+    public void setCarManufacturer(String carManufacturer) {
+        this.carManufacturer = carManufacturer;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
     public String getId() {
         return id;
     }
@@ -225,5 +160,4 @@ public class Datum {
     public void setId(String id) {
         this.id = id;
     }
-
 }

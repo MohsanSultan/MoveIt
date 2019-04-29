@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
+import com.github.nkzawa.socketio.client.Ack;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
 import com.google.android.gms.common.ConnectionResult;
@@ -60,7 +61,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.moveitdriver.R;
 import com.moveitdriver.models.getInvoiceResponse.GetInvoiceResponse;
-import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
@@ -70,6 +70,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,7 +81,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +100,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static LatLng dropLocation = new LatLng(0.0, 0.0);
     private static Location curLocation;
     private static Location preLocation;
-    private static String bookedBy = "", riderName = "", vehicleId = "";
+    private static String bookingId = "", bookedBy = "", riderName = "", vehicleId = "";
     private static double baseFare = 0.0, distance = 0.0, time = 0.0;
 
     private View view;
@@ -117,6 +117,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private GetInvoiceResponse invoiceObj;
     private JSONObject getRequesterCall;
+    private JSONObject pObj, dObj, efare;
 
     private GoogleApiClient googleApiClient;
     private LocationManager mLocationManager;
@@ -454,9 +455,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (method.equalsIgnoreCase("getInvoice")) {
                 invoiceObj = (GetInvoiceResponse) response.body();
 
-                Toast.makeText(this, ""+invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "" + invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, InvoiceActivity.class);
                 intent.putExtra("InvoiceObject", invoiceObj);
+                intent.putExtra("userId", bookedBy);
+                intent.putExtra("userName", riderName);
                 startActivity(intent);
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
@@ -493,7 +496,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 @Override
                 public void run() {
                     getRequesterCall = (JSONObject) args[0];
-                    JSONObject pObj, dObj, efare;
+//                    JSONObject pObj, dObj, efare;
                     String pLatitude, pLongitude, dLatitude, dLongitude;
                     DecimalFormat oneDForm = new DecimalFormat("#.#");
                     try {
@@ -532,10 +535,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     JSONObject obj = (JSONObject) args[0];
 
                     try {
-                        Constants.showNotification(MainActivity.this, ""+obj.getString("Type"), ""+obj.getString("Msg"));
-                        Toast.makeText(MainActivity.this, obj.getString("Type")+" / "+obj.getString("Msg"), Toast.LENGTH_SHORT).show();
+                        Constants.showNotification(MainActivity.this, "" + obj.getString("Type"), "" + obj.getString("Msg"));
+                        Toast.makeText(MainActivity.this, obj.getString("Type") + " / " + obj.getString("Msg"), Toast.LENGTH_SHORT).show();
 
-                        if(obj.getString("Msg").equals("Trip Ended")) {
+                        if (obj.getString("Msg").equals("Trip Ended")) {
                             getInvoice();
                         }
                     } catch (JSONException e) {
@@ -600,13 +603,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             object.put("phone", SharedPrefManager.getInstance(this).getDriverContact());
             object.put("latitude", Constants.mCurLat);
             object.put("longitude", Constants.mCurLong);
+            object.put("pickup_address", pObj);
+            object.put("drop_address", dObj);
+            object.put("fare_estimate", efare);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         if (method == "Driver_Accept") {
             Log.e("Salman", object.toString());
-            mSocket.emit("Driver_Accept", object);
+            mSocket.emit("Driver_Accept", object, new Ack() {
+                        @Override
+                        public void call(Object... args) {
+                            bookingId = args[0].toString();
+                        }
+                    });
         } else if (method == "Driver_Reject") {
             Gson gson = new Gson();
             String s = gson.toJson(object);
@@ -625,6 +637,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         try {
             object.put("location", curLocation);
+            object.put("bookingId", bookingId);
             object.put("bookedBy", getRequesterCall.getString("bookedBy"));
             object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
             object.put("latitude", Constants.mCurLat);
@@ -642,6 +655,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         try {
             object.put("location", curLocation);
+            object.put("bookingId", bookingId);
             object.put("bookedBy", getRequesterCall.getString("bookedBy"));
             object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
             object.put("latitude", Constants.mCurLat);
@@ -655,9 +669,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     public void pickUpRequestDialog() {
-        dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog2);
-        dialog.setCancelable(false);
+        try {
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.custom_dialog2);
+            dialog.setCancelable(false);
+        } catch (Exception e){
+
+        }
+//        dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.custom_dialog2);
+//        dialog.setCancelable(false);
 
         final Context context = this;
 
@@ -674,8 +695,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         acceptBtn = dialog.findViewById(R.id.accept_btn_pickup_request_dialog);
         rejectBtn = dialog.findViewById(R.id.reject_btn_pickup_request_dialog);
 
-        estFareTextView.setText(String.valueOf(baseFare)+"$");
-        estTimeTextView.setText(String.valueOf(time)+"min");
+        estFareTextView.setText(String.valueOf(baseFare) + "$");
+        estTimeTextView.setText(String.valueOf(time) + "min");
 
         flag = "1";
 
@@ -688,7 +709,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 notiHeadingTextView.setText("PICK UP");
                 notiUserNameTextView.setText(riderName);
-                notiTextView1.setText(String.valueOf(distance)+" KM");
+                notiTextView1.setText(String.valueOf(distance) + " KM");
                 notiTextView2.setText("Distance");
 
                 // Socket Listener For Start/End Trip Notification...
@@ -719,7 +740,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         dialog.show();
 
-//        Handler handler = new Handler();
+//        final Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {
@@ -802,13 +823,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                         mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-                        Log.e("DropLocation", dropLocation.latitude +"/"+ dropLocation.longitude);
+                        Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
                         if (statusFlag.equals("acceptTrip")) {
                             getPolyLine(Constants.mCurLat, Constants.mCurLong, pickLocation.latitude, pickLocation.longitude);
                             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         } else if (statusFlag.equals("startTrip")) {
-                            Log.e("DropLocation", dropLocation.latitude +"/"+ dropLocation.longitude);
+                            Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
 //                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
                             mMap.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
@@ -820,11 +841,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     if (results >= 10) {
                         UpdateLatLong(location);
                         preLocation = location;
-                        Toast.makeText(MainActivity.this, "Send LatLong"+results, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Send LatLong" + results, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     preLocation = location;
-                    Toast.makeText(MainActivity.this, "0.0", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "0.0", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -857,7 +878,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void getInvoice() {
         pDialog.show();
-        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice("5c6c04120a41d36bea73632a", bookedBy, time, distance,"5c6be619ba353965c83f6afa"), "getInvoice");
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice(bookingId, bookedBy, time, distance, SharedPrefManager.getInstance(this).getVehicleId()), "getInvoice");
     }
 
     private void getPolyLine(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {
@@ -872,23 +893,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private String getUrl(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {
         //routeBreakPointses=trackApplication.getBreakPointList();
         String wayPoints = "";
-        //String str_origin = "origin=" + assignDriverData.getDriverDetails().getLatitude() + "," + assignDriverData.getDriverDetails().getLongitude();
         String str_origin = "origin=" + firsLat + "," + firstLong;
-        //Toast.makeText(InitialStartNavigationActivity.this, "Origin of route!"+str_origin, Toast.LENGTH_LONG).show();
         // Destination of route88.341865
-        //String str_dest = "destination=" + Constants.dblCurLat + "," + Constants.dblCurLong;
         String str_dest = "destination=" + secondLat + "," + secondLong;
-        //Toast.makeText(InitialStartNavigationActivity.this, "Destination of route!"+str_dest, Toast.LENGTH_LONG).show();
         // Sensor enabled
         String sensor = "sensor=true";
         String unit = "units=imperial";
-        // String region="region=us";
         // Building the parameters to the web service
         String mode = "mode=driving";
         String pathes = "alternatives=true";
-        // String pathes = "alternatives=true";
         String parameters = str_origin + "&" + str_dest + "&" + sensor + pathes + "&key=" + getString(R.string.google_map_key);
-        // String parameters = str_origin + "&" + str_dest + "&" + sensor+"&"+unit+"&"+region+"&waypoints="+ wayPoints+"&key="+Constants.google_map_key;
         // Output format
         String output = "json";
         // Building the url to the web service

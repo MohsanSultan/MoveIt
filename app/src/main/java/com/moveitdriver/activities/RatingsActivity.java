@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -106,35 +107,40 @@ public class RatingsActivity extends AppCompatActivity implements RetrofitListen
             if (method.equalsIgnoreCase("Rating")) {
                 obj = (DriverRatingResponse) response.body();
 
-                DecimalFormat oneDForm = new DecimalFormat("#.#");
-                double d =  Double.valueOf(oneDForm.format(obj.getRatings().get(0).getAvgRating()));
-                float f = (float)d;
+                if(obj.getReviews().size() != 0) {
 
-                averageRatingTextView.setText(String.valueOf(f));
-                averageRatingBar.setRating(f);
-                totalRatingTextView.setText(obj.getTotal().toString()+" Total");
+                    DecimalFormat oneDForm = new DecimalFormat("#.#");
+                    double d = Double.valueOf(oneDForm.format(obj.getRatings().get(0).getAvgRating()));
+                    float f = (float) d;
 
-                progressBarOne.setProgress(obj.getOne());
-                progressBarOne.setMax(obj.getTotal());
-                progressBarTwo.setProgress(obj.getTwo());
-                progressBarTwo.setMax(obj.getTotal());
-                progressBarThree.setProgress(obj.getThree());
-                progressBarThree.setMax(obj.getTotal());
-                progressBarFour.setProgress(obj.getFour());
-                progressBarFour.setMax(obj.getTotal());
-                progressBarFive.setProgress(obj.getFive());
-                progressBarFive.setMax(obj.getTotal());
+                    averageRatingTextView.setText(String.valueOf(f));
+                    averageRatingBar.setRating(f);
+                    totalRatingTextView.setText(obj.getTotal().toString() + " Total");
 
-                oneRatingTextView.setText(obj.getOne().toString());
-                twoRatingTextView.setText(obj.getTwo().toString());
-                threeRatingTextView.setText(obj.getThree().toString());
-                fourRatingTextView.setText(obj.getFour().toString());
-                fiveRatingTextView.setText(obj.getFive().toString());
+                    progressBarOne.setProgress(obj.getOne());
+                    progressBarOne.setMax(obj.getTotal());
+                    progressBarTwo.setProgress(obj.getTwo());
+                    progressBarTwo.setMax(obj.getTotal());
+                    progressBarThree.setProgress(obj.getThree());
+                    progressBarThree.setMax(obj.getTotal());
+                    progressBarFour.setProgress(obj.getFour());
+                    progressBarFour.setMax(obj.getTotal());
+                    progressBarFive.setProgress(obj.getFive());
+                    progressBarFive.setMax(obj.getTotal());
 
-                reviewList = obj.getReviews();
+                    oneRatingTextView.setText(obj.getOne().toString());
+                    twoRatingTextView.setText(obj.getTwo().toString());
+                    threeRatingTextView.setText(obj.getThree().toString());
+                    fourRatingTextView.setText(obj.getFour().toString());
+                    fiveRatingTextView.setText(obj.getFive().toString());
 
-                adapter = new GetAllRatingAdapter(this, reviewList);
-                recyclerView.setAdapter(adapter);
+                    reviewList = obj.getReviews();
+
+                    adapter = new GetAllRatingAdapter(this, reviewList);
+                    recyclerView.setAdapter(adapter);
+                } else{
+                    Constants.showAlert(this, "You Don't Have Rating Yet");
+                }
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
             if (pDialog != null && pDialog.isShowing()) {

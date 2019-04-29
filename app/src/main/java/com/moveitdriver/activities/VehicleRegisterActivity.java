@@ -1,7 +1,6 @@
 package com.moveitdriver.activities;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -20,10 +19,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
@@ -42,9 +39,6 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -141,9 +135,10 @@ public class VehicleRegisterActivity extends AppCompatActivity implements View.O
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleId();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, nextStep);
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();

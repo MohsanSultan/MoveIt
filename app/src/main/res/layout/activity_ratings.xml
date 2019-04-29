@@ -87,7 +87,7 @@
                             android:orientation="vertical">
 
                             <ProgressBar
-                                android:id="@+id/progressBar1"
+                                android:id="@+id/progressBar5"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                                 android:progress="0" />
 
                             <TextView
-                                android:id="@+id/one_rating_text_view"
+                                android:id="@+id/five_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
@@ -130,7 +130,7 @@
                             android:orientation="vertical">
 
                             <ProgressBar
-                                android:id="@+id/progressBar2"
+                                android:id="@+id/progressBar4"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                                 android:progress="0" />
 
                             <TextView
-                                android:id="@+id/two_rating_text_view"
+                                android:id="@+id/four_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
@@ -216,7 +216,7 @@
                             android:orientation="vertical">
 
                             <ProgressBar
-                                android:id="@+id/progressBar4"
+                                android:id="@+id/progressBar2"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                                 android:progress="0" />
 
                             <TextView
-                                android:id="@+id/four_rating_text_view"
+                                android:id="@+id/two_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
@@ -259,7 +259,7 @@
                             android:orientation="vertical">
 
                             <ProgressBar
-                                android:id="@+id/progressBar5"
+                                android:id="@+id/progressBar1"
                                 style="?android:attr/progressBarStyleHorizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                                 android:progress="0" />
 
                             <TextView
-                                android:id="@+id/five_rating_text_view"
+                                android:id="@+id/one_rating_text_view"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"

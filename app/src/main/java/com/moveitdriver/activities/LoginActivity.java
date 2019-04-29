@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -155,6 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 loginResponse = (LoginResponse) response.body();
 
                 if(loginResponse.getData().get(0).getSmsVerify() || loginResponse.getData().get(0).getMailVerify() || loginResponse.getData().get(0).getCallVerify()){
+
                     SharedPrefManager.getInstance(this).driverLogin(
                             loginResponse.getData().get(0).getId(),
                             loginResponse.getData().get(0).getFirstname(),
@@ -162,6 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             loginResponse.getData().get(0).getEmail(),
                             loginResponse.getData().get(0).getProfileImage(),
                             loginResponse.getData().get(0).getContact(),
+                            loginResponse.getVehicleInfo().getVehicleTypeid(),
                             loginResponse.getData().get(0).getNextStep()
                     );
 
@@ -191,6 +194,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("email", loginResponse.getData().get(0).getEmail());
                     intent.putExtra("profileImage", loginResponse.getData().get(0).getProfileImage());
                     intent.putExtra("contact", loginResponse.getData().get(0).getContact());
+                    intent.putExtra("vehicleTypeId", loginResponse.getVehicleInfo().getVehicleTypeid());
                     intent.putExtra("step", loginResponse.getData().get(0).getNextStep());
                     intent.putExtra("path", "Login");
                     startActivity(intent);

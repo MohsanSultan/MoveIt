@@ -14,6 +14,12 @@ public class Data implements Serializable {
     @SerializedName("totalAmount")
     @Expose
     private String totalAmount;
+    @SerializedName("discountedPercentage")
+    @Expose
+    private String discountedPercentage;
+    @SerializedName("discountedAmount")
+    @Expose
+    private String discountedAmount;
     @SerializedName("perKmFareCAlculation")
     @Expose
     private String perKmFareCAlculation;
@@ -50,6 +56,22 @@ public class Data implements Serializable {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getDiscountedPercentage() {
+        return discountedPercentage;
+    }
+
+    public void setDiscountedPercentage(String discountedPercentage) {
+        this.discountedPercentage = discountedPercentage;
+    }
+
+    public String getDiscountedAmount() {
+        return discountedAmount;
+    }
+
+    public void setDiscountedAmount(String discountedAmount) {
+        this.discountedAmount = discountedAmount;
     }
 
     public String getPerKmFareCAlculation() {

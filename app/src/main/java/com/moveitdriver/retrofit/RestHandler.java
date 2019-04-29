@@ -217,7 +217,7 @@ public class RestHandler {
 
         @FormUrlEncoded
         @POST("generateInvoice")
-        Call<GetInvoiceResponse> getInvoice(@Field("Booking_id") String bookingId, @Field("user_id") String userId, @Field("totalTime") double totalTime, @Field("distance") double distance, @Field("vehicle_id") String vehicleId);
+        Call<GetInvoiceResponse> getInvoice(@Field("bookingId") String bookingId, @Field("user_id") String userId, @Field("totalTime") double totalTime, @Field("distance") double distance, @Field("vehicle_id") String vehicleId);
     }
 
     public void makeHttpRequest(Call call, String method) {

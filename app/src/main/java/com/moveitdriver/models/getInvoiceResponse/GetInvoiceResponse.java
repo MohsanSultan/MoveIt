@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class GetInvoiceResponse implements Serializable {
+public class GetInvoiceResponse implements Serializable{
 
     @SerializedName("status")
     @Expose

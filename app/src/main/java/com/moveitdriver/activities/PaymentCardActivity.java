@@ -165,9 +165,10 @@ public class PaymentCardActivity extends AppCompatActivity implements View.OnCli
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleId();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, "Complete");
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, "Complete");
 
                 Toast.makeText(this, paymentInfoResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();

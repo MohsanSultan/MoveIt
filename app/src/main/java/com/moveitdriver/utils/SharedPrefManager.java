@@ -15,6 +15,7 @@ public class SharedPrefManager {
     private static final String KEY_DRIVER_EMAIL = "driverEmail";
     private static final String KEY_DRIVER_PIC = "driverPic";
     private static final String KEY_DRIVER_CONTACT = "driverContact";
+    private static final String KEY_VEHICLE_ID = "vehicleId";
     private static final String KEY_NEXT_STEP = "next_step";
 
     private SharedPrefManager(Context context) {
@@ -28,7 +29,7 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean driverLogin(String driver_id, String driver_first_name, String driver_last_name, String driver_email, String driver_pic, String driver_contact, String step){
+    public boolean driverLogin(String driver_id, String driver_first_name, String driver_last_name, String driver_email, String driver_pic, String driver_contact, String vehicleId, String step){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -38,6 +39,7 @@ public class SharedPrefManager {
         editor.putString(KEY_DRIVER_EMAIL, driver_email);
         editor.putString(KEY_DRIVER_PIC, driver_pic);
         editor.putString(KEY_DRIVER_CONTACT, driver_contact);
+        editor.putString(KEY_VEHICLE_ID, vehicleId);
         editor.putString(KEY_NEXT_STEP, step);
 
         editor.apply();
@@ -89,6 +91,12 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_DRIVER_CONTACT, null);
     }
+
+    public String getVehicleId(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_VEHICLE_ID, null);
+    }
+
 
     public String getNextStep(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

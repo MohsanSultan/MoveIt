@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -24,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.moveitdriver.R;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
 import com.moveitdriver.models.carMakesResponse.Datum;
@@ -242,15 +240,29 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vTypeIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleTypeid();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, nextStep);
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
             } else if (method.equalsIgnoreCase("editVehicleDetail")) {
                 addVehicleModelResponse = (AddVehicleModelResponse) response.body();
                 pDialog.dismiss();
+
+                Constants.NEXT_STEP = nextStep;
+
+                String idStr = SharedPrefManager.getInstance(this).getDriverId();
+                String fNameStr = SharedPrefManager.getInstance(this).getDriverFirstName();
+                String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
+                String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
+                String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vTypeIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleTypeid();
+                String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
+
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
+
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();

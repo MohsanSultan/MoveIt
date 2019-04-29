@@ -40,7 +40,6 @@ import com.moveitdriver.utils.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,8 +54,6 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static com.moveitdriver.R.layout.custom_spinner_item;
 
 public class VehicleInsuranceActivity extends AppCompatActivity implements View.OnClickListener, RetrofitListener {
 
@@ -175,9 +172,10 @@ public class VehicleInsuranceActivity extends AppCompatActivity implements View.
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleId();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr,nextStep);
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();
