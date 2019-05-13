@@ -1,17 +1,16 @@
-
-package com.moveitdriver.models.allRatingResponse;
+package com.moveitdriver.models.allEarningsResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Rating {
+public class Datum {
 
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("avgRating")
+    @SerializedName("totalAmount")
     @Expose
-    private Float avgRating;
+    private Integer totalAmount;
 
     public String getId() {
         return id;
@@ -21,12 +20,12 @@ public class Rating {
         this.id = id;
     }
 
-    public Float getAvgRating() {
-        return avgRating;
+    public Integer getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAvgRating(Float avgRating) {
-        this.avgRating = avgRating;
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
 }

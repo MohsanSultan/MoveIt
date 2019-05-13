@@ -20,6 +20,7 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -121,7 +122,21 @@
             android:name=".activities.PaymentCardActivity"
             android:label="Add Card Detail"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BookingHistoryActivity"
+            android:label="History"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.InvoiceHistoryActivity"
+            android:label="Invoice Detail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EarningActivity"
+            android:label="Earnings"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
+
     </application>
+
 </manifest>

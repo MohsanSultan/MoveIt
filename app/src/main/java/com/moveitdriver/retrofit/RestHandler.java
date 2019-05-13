@@ -7,7 +7,9 @@ import com.moveitdriver.models.OTPResponse.OTPResponse;
 import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
 import com.moveitdriver.models.addCardDetailResponse.PaymentInfoResponse;
 import com.moveitdriver.models.addVehicleDetailResponse.AddVehicleModelResponse;
+import com.moveitdriver.models.allEarningsResponse.EarningsModelResponse;
 import com.moveitdriver.models.allRatingResponse.DriverRatingResponse;
+import com.moveitdriver.models.bookingHistoryResponce.BookingHistoryModelResponse;
 import com.moveitdriver.models.carMakesResponse.MakesResponse;
 import com.moveitdriver.models.carModelsResponse.ModelResponse;
 import com.moveitdriver.models.forgotPasswordResponse.ForgotPassword;
@@ -217,7 +219,19 @@ public class RestHandler {
 
         @FormUrlEncoded
         @POST("generateInvoice")
-        Call<GetInvoiceResponse> getInvoice(@Field("bookingId") String bookingId, @Field("user_id") String userId, @Field("totalTime") double totalTime, @Field("distance") double distance, @Field("vehicle_id") String vehicleId);
+        Call<GetInvoiceResponse> getInvoice(@Field("driver_id") String driverId, @Field("bookingId") String bookingId, @Field("user_id") String userId, @Field("totalTime") double totalTime, @Field("distance") double distance, @Field("vehicleTypeId") String vehicleTypeId);
+
+        @FormUrlEncoded
+        @POST("bookingHistory")
+        Call<BookingHistoryModelResponse> getBookingHistory(@Field("user_id") String userId, @Field("role") String userRole);
+
+        @FormUrlEncoded
+        @POST("getInvoice")
+        Call<GetInvoiceResponse> getInvoiceDetail(@Field("bookingId") String bId);
+
+        @FormUrlEncoded
+        @POST("getEarnings")
+        Call<EarningsModelResponse> getEarnings(@Field("from") String fromDate, @Field("till") String tillDate, @Field("user_id") String userId);
     }
 
     public void makeHttpRequest(Call call, String method) {

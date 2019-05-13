@@ -185,9 +185,10 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 if (updateUserModelResponse.getMessage().equalsIgnoreCase("UpdatedSuccessfully")) {
                     pDialog.dismiss();
 
-                    String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleId();
+                    String vIdStr = SharedPrefManager.getInstance(this).getVehicleId();
+                    String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleTypeId();
 
-                    SharedPrefManager.getInstance(this).driverLogin(updateUserModelResponse.getData().getId(), updateUserModelResponse.getData().getFirstname(), updateUserModelResponse.getData().getLastname(), updateUserModelResponse.getData().getEmail(), updateUserModelResponse.getData().getProfileImage(), updateUserModelResponse.getData().getContact(), vTypeIdStr, "Complete");
+                    SharedPrefManager.getInstance(this).driverLogin(updateUserModelResponse.getData().getId(), updateUserModelResponse.getData().getFirstname(), updateUserModelResponse.getData().getLastname(), updateUserModelResponse.getData().getEmail(), updateUserModelResponse.getData().getProfileImage(), updateUserModelResponse.getData().getContact(), vIdStr, vTypeIdStr, "Complete");
                     Toast.makeText(this, "Profile Saved Successfully ", Toast.LENGTH_LONG).show();
                     finish();
                 }

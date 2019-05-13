@@ -165,10 +165,11 @@ public class UploadDriverLicenseActivity extends AppCompatActivity implements Vi
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
-                String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleId();
+                String vIdStr = SharedPrefManager.getInstance(this).getVehicleId();
+                String vTypeIdStr = SharedPrefManager.getInstance(this).getVehicleTypeId();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, object.getData().getNextStep());
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vIdStr, vTypeIdStr, object.getData().getNextStep());
 
                 Toast.makeText(this, object.getMessage(), Toast.LENGTH_LONG).show();
                 finish();

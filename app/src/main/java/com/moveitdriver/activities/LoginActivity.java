@@ -164,6 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             loginResponse.getData().get(0).getEmail(),
                             loginResponse.getData().get(0).getProfileImage(),
                             loginResponse.getData().get(0).getContact(),
+                            loginResponse.getVehicleInfo().getVehicleId(),
                             loginResponse.getVehicleInfo().getVehicleTypeid(),
                             loginResponse.getData().get(0).getNextStep()
                     );
@@ -194,6 +195,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("email", loginResponse.getData().get(0).getEmail());
                     intent.putExtra("profileImage", loginResponse.getData().get(0).getProfileImage());
                     intent.putExtra("contact", loginResponse.getData().get(0).getContact());
+                    intent.putExtra("vehicleId", loginResponse.getVehicleInfo().getVehicleId());
                     intent.putExtra("vehicleTypeId", loginResponse.getVehicleInfo().getVehicleTypeid());
                     intent.putExtra("step", loginResponse.getData().get(0).getNextStep());
                     intent.putExtra("path", "Login");

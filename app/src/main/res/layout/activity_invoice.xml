@@ -101,6 +101,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:padding="@dimen/_10sdp"
+                            android:singleLine="true"
                             android:text="243 Joanie Pine"
                             android:textSize="@dimen/_15sdp" />
 
@@ -115,6 +116,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:padding="@dimen/_10sdp"
+                            android:singleLine="true"
                             android:text="8753 Mauricio Walks"
                             android:textSize="@dimen/_15sdp" />
                     </LinearLayout>

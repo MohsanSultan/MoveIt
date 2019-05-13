@@ -240,10 +240,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleId();
                 String vTypeIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleTypeid();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vIdStr, vTypeIdStr, nextStep);
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();
@@ -258,11 +259,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 String lNameStr = SharedPrefManager.getInstance(this).getDriverLastName();
                 String emailStr = SharedPrefManager.getInstance(this).getDriverEmail();
                 String picStr = SharedPrefManager.getInstance(this).getDriverPic();
+                String vIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleId();
                 String vTypeIdStr = addVehicleModelResponse.getVehicleInfo().getVehicleTypeid();
                 String contactStr = SharedPrefManager.getInstance(this).getDriverContact();
 
-                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vTypeIdStr, nextStep);
-
+                SharedPrefManager.getInstance(this).driverLogin(idStr, fNameStr, lNameStr, emailStr, picStr, contactStr, vIdStr, vTypeIdStr, nextStep);
 
                 Toast.makeText(this, "" + addVehicleModelResponse.getMessage(), Toast.LENGTH_SHORT).show();
                 finish();

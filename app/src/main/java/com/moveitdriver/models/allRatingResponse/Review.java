@@ -29,7 +29,7 @@ public class Review {
     private String createdAt;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private Float rating;
 
     public String getId() {
         return id;
@@ -87,11 +87,11 @@ public class Review {
         this.createdAt = createdAt;
     }
 
-    public Integer getRating() {
+    public Float getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
     }
 

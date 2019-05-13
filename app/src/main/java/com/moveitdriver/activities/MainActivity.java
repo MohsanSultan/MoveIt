@@ -196,6 +196,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         Picasso.with(MainActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(profileImageDrawer, new Callback() {
             @Override
             public void onSuccess() {
+
             }
 
             @Override
@@ -345,8 +346,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+        } else if (id == R.id.nav_booing_history) {
+            startActivity(new Intent(this, BookingHistoryActivity.class));
         } else if (id == R.id.nav_earnings) {
-
+            startActivity(new Intent(this, EarningActivity.class));
         } else if (id == R.id.nav_ratings) {
             startActivity(new Intent(this, RatingsActivity.class));
         } else if (id == R.id.nav_account) {
@@ -396,7 +399,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             mMap.setMyLocationEnabled(true);
 
-            if (Constants.mCurLat != 0.0 && Constants.mCurLong != 0.0) {
+//            if (Constants.mCurLat != 0.0 && Constants.mCurLong != 0.0) {
 
                 mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
                 CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -405,7 +408,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         .build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-            }
+//            }
         } else if (flag == "1") {
             mMap2 = googleMap;
 
@@ -460,6 +463,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 intent.putExtra("InvoiceObject", invoiceObj);
                 intent.putExtra("userId", bookedBy);
                 intent.putExtra("userName", riderName);
+                try {
+                    intent.putExtra("pickupAddress", pObj.getString("address"));
+                    intent.putExtra("dropAddress", dObj.getString("address"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
             }
         } else if (response != null && (response.code() == 403 || response.code() == 500)) {
@@ -603,6 +612,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             object.put("phone", SharedPrefManager.getInstance(this).getDriverContact());
             object.put("latitude", Constants.mCurLat);
             object.put("longitude", Constants.mCurLong);
+            object.put("vehicleId", SharedPrefManager.getInstance(this).getVehicleId());
+            object.put("vehicleTypeId", SharedPrefManager.getInstance(this).getVehicleTypeId());
             object.put("pickup_address", pObj);
             object.put("drop_address", dObj);
             object.put("fare_estimate", efare);
@@ -614,11 +625,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (method == "Driver_Accept") {
             Log.e("Salman", object.toString());
             mSocket.emit("Driver_Accept", object, new Ack() {
-                        @Override
-                        public void call(Object... args) {
-                            bookingId = args[0].toString();
-                        }
-                    });
+                @Override
+                public void call(Object... args) {
+                    bookingId = args[0].toString();
+                }
+            });
         } else if (method == "Driver_Reject") {
             Gson gson = new Gson();
             String s = gson.toJson(object);
@@ -673,14 +684,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             dialog = new Dialog(this);
             dialog.setContentView(R.layout.custom_dialog2);
             dialog.setCancelable(false);
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
-//        dialog = new Dialog(this);
-//        dialog.setContentView(R.layout.custom_dialog2);
-//        dialog.setCancelable(false);
-
-        final Context context = this;
 
         // Map Fragment Code For Custom Dialog...
         final SupportMapFragment mapFrg = (SupportMapFragment) getSupportFragmentManager()
@@ -697,6 +703,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         estFareTextView.setText(String.valueOf(baseFare) + "$");
         estTimeTextView.setText(String.valueOf(time) + "min");
+        try {
+            dropLocationTextView.setText(dObj.getString("address"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         flag = "1";
 
@@ -816,17 +827,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     mMap.clear();
                     try {
                         mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
-                        CameraPosition cameraPosition = new CameraPosition.Builder()
-                                .target(mLocation)
-                                .zoom(14)
-                                .build();
-                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        CameraPosition cameraPosition = new CameraPosition.Builder()
+//                                .target(mLocation)
+//                                .zoom(14)
+//                                .build();
+//                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                         mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
                         Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
                         if (statusFlag.equals("acceptTrip")) {
                             getPolyLine(Constants.mCurLat, Constants.mCurLong, pickLocation.latitude, pickLocation.longitude);
-                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
                         } else if (statusFlag.equals("startTrip")) {
                             Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
@@ -878,7 +889,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void getInvoice() {
         pDialog.show();
-        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice(bookingId, bookedBy, time, distance, SharedPrefManager.getInstance(this).getVehicleId()), "getInvoice");
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice(SharedPrefManager.getInstance(this).getDriverId(), bookingId, bookedBy, time, distance, SharedPrefManager.getInstance(this).getVehicleTypeId()), "getInvoice");
     }
 
     private void getPolyLine(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {

@@ -38,8 +38,8 @@ public class InvoiceActivity extends AppCompatActivity implements View.OnClickLi
         collectCashBtn = findViewById(R.id.cash_collect_btn_invoice_activity);
         collectCashBtn.setOnClickListener(this);
 
-//        pickUpAddressTextView.setText("Saddiqe Trande Center, Sjahdskj, ahsdkja amdsjh");
-//        dropAddressTextView.setText("Lahore...");
+        pickUpAddressTextView.setText(getIntent().getStringExtra("pickupAddress"));
+        dropAddressTextView.setText(getIntent().getStringExtra("dropAddress"));
 
         baseFareTextView.setText("$ "+invoiceObject.getData().getTotalAmount());
         distanceTextView.setText(invoiceObject.getData().getTotalDistance()+" KM");
