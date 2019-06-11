@@ -1,36 +1,30 @@
 package com.moveitdriver.activities;
 
-import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.SparseLongArray;
-import android.view.View;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
 import com.moveitdriver.R;
 import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
-import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
+import com.moveitdriver.utils.BackgroundService;
 import com.moveitdriver.utils.Constants;
 import com.moveitdriver.utils.LocationService;
 import com.moveitdriver.utils.SharedPrefManager;
-import com.nabinbhandari.android.permissions.PermissionHandler;
-import com.nabinbhandari.android.permissions.Permissions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
@@ -41,6 +35,8 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
 
     private RestHandler restHandler;
     private UserDetailModelResponse obj;
+
+    private BackgroundService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +50,21 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
 
         // Start service to get current location
         startService(new Intent(this, LocationService.class));
+//        service = new BackgroundService();
+
+//        if(!isMyServiceRunning(service.getClass())) {
+//            startService(new Intent(this, BackgroundService.class));
+//        }
+//        startService(new Intent(this, BackgroundService.class));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            BackgroundService.startForeground(new Intent(this, BackgroundService.class));
+//        } else {
+//            startService(new Intent(this, BackgroundService.class));
+//        }
 
         restHandler = new RestHandler(this, this);
 
-        if(SharedPrefManager.getInstance(SplashScreenActivity.this).isLoggedIn()){
+        if (SharedPrefManager.getInstance(SplashScreenActivity.this).isLoggedIn()) {
             checkStatus();
         } else {
             Handler handler = new Handler();
@@ -80,18 +87,22 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
+                        if (obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
                             Constants.NEXT_STEP = obj.getData().getNextStep();
-                            startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                            Gson gson = new Gson();
+                            Intent intent =  new Intent(SplashScreenActivity.this, MainActivity.class);
+                            intent.putExtra("status", obj.getActiveBooking().getStatus());
+                            intent.putExtra("data", gson.toJson(obj.getActiveBooking().getBooking()));
+                            startActivity(intent);
                             finish();
-                        } else if(!obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
+                        } else if (!obj.getData().getIsActive() && obj.getData().getNextStep().equals("Complete")) {
                             Constants.NEXT_STEP = obj.getData().getNextStep();
                             startActivity(new Intent(SplashScreenActivity.this, MessageActivity.class));
                             finish();
-                        } else if(!obj.getData().getNextStep().equals("Complete")) {
+                        } else if (!obj.getData().getNextStep().equals("Complete")) {
                             Constants.NEXT_STEP = obj.getData().getNextStep();
                             Intent intent = new Intent(SplashScreenActivity.this, UploadDocumentActivity.class);
-                            intent.putExtra("path","newRegister");
+                            intent.putExtra("path", "newRegister");
                             intent.putExtra("step", obj.getData().getNextStep());
                             startActivity(intent);
                             finish();
@@ -123,5 +134,17 @@ public class SplashScreenActivity extends AppCompatActivity implements RetrofitL
 
     private void checkStatus() {
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getUserStatus(SharedPrefManager.getInstance(this).getDriverId()), "status");
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i("isMyServiceRunning?", true + "");
+                return true;
+            }
+        }
+        Log.i("isMyServiceRunning?", false + "");
+        return false;
     }
 }

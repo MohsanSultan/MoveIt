@@ -136,6 +136,7 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".utils.LocationService" />
+        <service android:name=".utils.BackgroundService" />
 
     </application>
 

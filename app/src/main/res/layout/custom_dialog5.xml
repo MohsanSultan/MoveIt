@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="ExtraText">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="Reason for cancellation"
+        android:textColor="@color/colorLightBlack"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="@color/colorLightGray"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_cancel_reason_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>                                                                                                                                                                                                                                                                         vity" />
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="@dimen/_2sdp"-->
+        <!--android:gravity="right"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/cancel_btn_cancel_reason_dialog"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/_10sdp"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:text="CANCEL"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/done_btn_cancel_reason_dialog"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/_10sdp"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:text="DONE"-->
+            <!--android:textColor="@color/colorLightBlack"-->
+            <!--android:textStyle="bold" />-->
+    <!--</LinearLayout>-->
+</LinearLayout>

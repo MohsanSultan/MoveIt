@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.moveitdriver.R;
-import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.updateUserDetailResponse.UpdateUserModelResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;

@@ -3,6 +3,7 @@ package com.moveitdriver.retrofit;
 import android.content.Context;
 
 import com.moveitdriver.R;
+import com.moveitdriver.models.CancelReasonResponce.CancelationReasonModelResponse;
 import com.moveitdriver.models.OTPResponse.OTPResponse;
 import com.moveitdriver.models.UserDetailResponse.UserDetailModelResponse;
 import com.moveitdriver.models.addCardDetailResponse.PaymentInfoResponse;
@@ -223,7 +224,7 @@ public class RestHandler {
 
         @FormUrlEncoded
         @POST("bookingHistory")
-        Call<BookingHistoryModelResponse> getBookingHistory(@Field("user_id") String userId, @Field("role") String userRole);
+        Call<BookingHistoryModelResponse> getBookingHistory(@Field("user_id") String userId, @Field("role") String userRole, @Field("type") String type);
 
         @FormUrlEncoded
         @POST("getInvoice")
@@ -232,6 +233,9 @@ public class RestHandler {
         @FormUrlEncoded
         @POST("getEarnings")
         Call<EarningsModelResponse> getEarnings(@Field("from") String fromDate, @Field("till") String tillDate, @Field("user_id") String userId);
+
+        @GET("cancelationReason/{role}")
+        Call<CancelationReasonModelResponse> getReasons(@Path("role") String role);
     }
 
     public void makeHttpRequest(Call call, String method) {

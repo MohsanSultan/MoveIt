@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="ExtraText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextThird"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:padding="@dimen/_5sdp"
+            android:text="Schedule Request"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/counter_time_text_view_schedule_request_dialog"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight=".3"-->
+            <!--android:layout_marginRight="@dimen/_10sdp"-->
+            <!--android:gravity="right|center"-->
+            <!--android:text="Time left: 4 Sec"-->
+            <!--android:textColor="#900"/>-->
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="@color/colorLightGray"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:background="@color/colorTextThird"
+        android:text="Pickup Date &amp; Time"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_15sdp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/schedule_date_text_view_schedule_request_dialog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_8sdp"
+            android:background="@color/colorLightGray"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/schedule_time_text_view_schedule_request_dialog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/_8sdp"
+            android:background="@color/colorLightGray"
+            android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/image_watch"/>
+
+            <TextView
+                android:id="@+id/est_time_text_view_schedule_request_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 min"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="min. Time"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/image_doller"/>
+
+            <TextView
+                android:id="@+id/est_fare_text_view_schedule_request_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.40$"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esti. Earn"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="@color/colorLightGray"/>
+
+    <TextView
+        android:id="@+id/drop_location_address_text_view_schedule_request_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:singleLine="true"
+        android:text="77 Cole Extension Apt. 690 "
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold" />
+
+    <fragment
+        android:id="@+id/map_schedule_request_dialog"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_125sdp" />                                                                                                                                                                                                                                                                          vity" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_2sdp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/reject_btn_schedule_request_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
+            android:text="REJECT"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/accept_btn_schedule_request_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
+            android:text="ACCEPT"
+            android:textColor="@color/colorLightBlack"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -14,12 +14,10 @@ import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
 import com.moveitdriver.R;
-import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.models.registerationResponse.RegisterResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
 import com.moveitdriver.utils.Constants;
-import com.moveitdriver.utils.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

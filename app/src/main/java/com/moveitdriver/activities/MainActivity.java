@@ -12,9 +12,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -40,6 +43,7 @@ import com.google.android.gms.common.api.Status;
 
 import android.location.LocationListener;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -60,6 +64,8 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.moveitdriver.R;
+import com.moveitdriver.adapters.GetAllReasonsAdapter;
+import com.moveitdriver.models.CancelReasonResponce.CancellationReasonModelResponse;
 import com.moveitdriver.models.getInvoiceResponse.GetInvoiceResponse;
 import com.moveitdriver.retrofit.RestHandler;
 import com.moveitdriver.retrofit.RetrofitListener;
@@ -70,7 +76,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -104,18 +109,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private static double baseFare = 0.0, distance = 0.0, time = 0.0;
 
     private View view;
-    private Dialog dialog;
+    private Dialog dialog, dialog1, dialog2, dialog3, dialog4;
     private RestHandler restHandler;
     private ProgressDialog pDialog;
 
     private TextView editProfile, notiHeadingTextView, notiUserNameTextView, notiTextView1, notiTextView2;
-    private Button startRideButton, endRideButton;
+    private Button cancelRideButton, startRideButton, endRideButton;
     private ImageView profileImageDrawer;
     private String image;
     private String flag = "";
-    private String statusFlag = "";
+    private String secFlag = "";
+    private static String statusFlag = "";
 
     private GetInvoiceResponse invoiceObj;
+    private CancellationReasonModelResponse reasonsObj;
     private JSONObject getRequesterCall;
     private JSONObject pObj, dObj, efare;
 
@@ -127,6 +134,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ArrayList<LatLng> points;
     private List<HashMap<String, String>> path;
     private Polyline polyline;
+
+    public static final String RECEIVER_INTENT = "RECEIVER_INTENT";
 
     private Socket mSocket;
 
@@ -161,7 +170,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 @Override
                 public void run() {
                     // Socket functions...
-                    attemptSend();
+                    SendInfo();
                     mSocket.on("Rider_Req", onNewMessage);
 
                     // Location Updation method
@@ -170,7 +179,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }, 5000);
         } else {
             // Socket functions...
-            attemptSend();
+            SendInfo();
             mSocket.on("Rider_Req", onNewMessage);
 
             // Location Updation method
@@ -180,6 +189,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         // Navigation View Code
         navigationView = findViewById(R.id.nav_view);
         view = navigationView.getHeaderView(0);
+
+        // Socket Listener For Start/End Trip Notification...
+        mSocket.on("Notification", onNotifications);
+        mSocket.on("Rider_Cancel", onRideCancel);
 
         // -------------------------------------------------------------------------------------
 
@@ -212,6 +225,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         notiTextView1 = findViewById(R.id.notification_text_view1_home_activity);
         notiTextView2 = findViewById(R.id.notification_text_view2_home_activity);
 
+        cancelRideButton = findViewById(R.id.cancel_ride_button_main_activity);
+        cancelRideButton.setOnClickListener(this);
         startRideButton = findViewById(R.id.start_ride_button_main_activity);
         startRideButton.setOnClickListener(this);
         endRideButton = findViewById(R.id.end_ride_button_main_activity);
@@ -219,6 +234,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
         tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
+
+        getOldState();
 
         editProfile = view.findViewById(R.id.edit_profile_txt_btn_drawer);
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -237,6 +254,818 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
+        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            // Handle the camera action
+        } else if (id == R.id.nav_booing_history) {
+            startActivity(new Intent(this, BookingHistoryActivity.class));
+        } else if (id == R.id.nav_earnings) {
+            startActivity(new Intent(this, EarningActivity.class));
+        } else if (id == R.id.nav_ratings) {
+            startActivity(new Intent(this, RatingsActivity.class));
+        } else if (id == R.id.nav_account) {
+            startActivity(new Intent(this, AccountActivity.class));
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cancel_ride_button_main_activity:
+                cancelRideAlertDialog();
+                break;
+            case R.id.start_ride_button_main_activity:
+                statusFlag = "StartTrip";
+                notiHeadingTextView.setText("DROP OFF");
+                StartTrip();
+//                getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
+                cancelRideButton.setVisibility(View.GONE);
+                startRideButton.setVisibility(View.GONE);
+                endRideButton.setVisibility(View.VISIBLE);
+                break;
+            case R.id.end_ride_button_main_activity:
+                statusFlag = "";
+                notiHeadingTextView.setText("LAST TRIP");
+                getInvoice();
+                endRideButton.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (flag.equals("")) {
+            mMap = googleMap;
+
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+            mMap.setMyLocationEnabled(true);
+            locationUpdate();
+
+            if (Constants.mCurLat != 0.0 && Constants.mCurLong != 0.0) {
+                mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(mLocation)
+                        .zoom(14)
+                        .build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            }
+        } else if (flag == "1") {
+            mMap2 = googleMap;
+
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+            List<Marker> markers = new ArrayList<>();
+            markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
+            markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
+
+//            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Marker marker : markers) {
+                builder.include(marker.getPosition());
+            }
+
+            LatLngBounds bounds = builder.build();
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 100, 100, 5);
+            mMap2.animateCamera(cu);
+
+            mMap2.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap2.getUiSettings().setScrollGesturesEnabled(false);
+            mMap2.getUiSettings().setRotateGesturesEnabled(false);
+            mMap2.getUiSettings().setZoomGesturesEnabled(false);
+            mMap2.getUiSettings().setAllGesturesEnabled(false);
+            mMap2.getUiSettings().setCompassEnabled(false);
+            mMap2.getUiSettings().setZoomControlsEnabled(false);
+        }
+    }
+
+    @Override
+    public void onSuccess(Call call, Response response, String method) {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+        if (response != null && response.code() == 200) {
+            if (method.equalsIgnoreCase("getInvoice")) {
+                invoiceObj = (GetInvoiceResponse) response.body();
+
+                EndTrip();
+
+                Toast.makeText(this, "" + invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, InvoiceActivity.class);
+                intent.putExtra("InvoiceObject", invoiceObj);
+                intent.putExtra("userId", bookedBy);
+                intent.putExtra("userName", riderName);
+                try {
+                    intent.putExtra("pickupAddress", pObj.getString("address"));
+                    intent.putExtra("dropAddress", dObj.getString("address"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+            } else if (method.equalsIgnoreCase("getReasons")) {
+                reasonsObj = (CancellationReasonModelResponse) response.body();
+
+                cancelRideReasonAlertDialog();
+//                Toast.makeText(this, "" + invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (response != null && (response.code() == 403 || response.code() == 500)) {
+            try {
+                ResponseBody body = response.errorBody();
+                JSONObject jObj = new JSONObject(body.string());
+                if (jObj.optString("status").equals("403"))
+                    Constants.showAlert(this, jObj.optString("message"));
+                else
+                    Constants.showAlert(this, jObj.optString("message"));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                Constants.showAlert(this, "Oops! API returned invalid response. Try again later.");
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+        Constants.showAlert(this, errorMessage);
+    }
+
+    // ----------------------------- >> SOCKET FUNCTIONS << ------------------------------------- //
+
+    public Emitter.Listener onNewMessage = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getRequesterCall = (JSONObject) args[0];
+
+                    Log.e("StringSalman", args[0].toString());
+
+                    String pLatitude, pLongitude, dLatitude, dLongitude, bookingType, pickupDateTime;
+                    DecimalFormat oneDForm = new DecimalFormat("#.#");
+                    try {
+                        pObj = getRequesterCall.getJSONObject("pickup_address");
+                        dObj = getRequesterCall.getJSONObject("drop_address");
+                        efare = getRequesterCall.getJSONObject("fare_estimate");
+                        riderName = pObj.getString("name");
+                        bookedBy = getRequesterCall.getString("bookedBy");
+                        bookingType = getRequesterCall.getString("bookingType");
+                        pickupDateTime = getRequesterCall.getString("pickupDateTime");
+                        vehicleId = efare.getString("vehicleId");
+                        baseFare = Double.parseDouble(oneDForm.format(efare.getDouble("totalAmount")));
+                        distance = Double.parseDouble(oneDForm.format(efare.getDouble("distance")));
+                        time = Double.parseDouble(oneDForm.format(efare.getDouble("time")));
+                        pLatitude = pObj.getString("latitude");
+                        pLongitude = pObj.getString("longitude");
+                        dLatitude = dObj.getString("latitude");
+                        dLongitude = dObj.getString("longitude");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                    pickLocation = new LatLng(Double.parseDouble(pLatitude), Double.parseDouble(pLongitude));
+                    dropLocation = new LatLng(Double.parseDouble(dLatitude), Double.parseDouble(dLongitude));
+
+                    if(bookingType.equals("Now")) {
+                        pickUpRideRequestDialog();
+                    } else {
+                        scheduleRideRequestDialog();
+                    }
+                }
+            });
+        }
+    };
+
+    public Emitter.Listener onNotifications = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject obj = (JSONObject) args[0];
+
+                    try {
+                        Constants.showNotification(MainActivity.this, "" + obj.getString("Type"), "" + obj.getString("Msg"));
+                        Toast.makeText(MainActivity.this, obj.getString("Type") + " / " + obj.getString("Msg"), Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        return;
+                    }
+                }
+            });
+        }
+    };
+
+    public Emitter.Listener onRideCancel = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Constants.showNotification(MainActivity.this, "Ride Cancel", "Rider Cancel The Ride...");
+                    statusFlag = "";
+                    notiHeadingTextView.setText("LAST TRIP");
+                    cancelRideButton.setVisibility(View.GONE);
+                    startRideButton.setVisibility(View.GONE);
+                }
+            });
+        }
+    };
+
+    // ========================================================================================== //
+
+    private void SendInfo() {
+        JSONObject objectData = new JSONObject();
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("userid", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("firstname", SharedPrefManager.getInstance(this).getDriverFirstName());
+            object.put("lastname", SharedPrefManager.getInstance(this).getDriverLastName());
+            object.put("email", SharedPrefManager.getInstance(this).getDriverEmail());
+            object.put("status", 0);
+            object.put("role", "Driver");
+            object.put("contact", SharedPrefManager.getInstance(this).getDriverContact());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+            object.put("longitude", Constants.mCurLong);
+
+            Log.e("Salman", Constants.mCurLat + " / " + Constants.mCurLong);
+
+            objectData.put("data", object);
+            if(!getIntent().getStringExtra("status").equals("")) {
+                JSONObject o = new JSONObject(getIntent().getStringExtra("data"));
+                objectData.put("bookingStatus", getIntent().getStringExtra("status"));
+                objectData.put("activeBooking", o);
+            } else {
+                objectData.put("activeBooking", null);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mSocket.emit("info", objectData);
+    }
+
+    public void UpdateLatLong(Location location) {
+        JSONObject object = new JSONObject();
+
+        try {
+            if (getRequesterCall != null)
+                object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            if (!bookingId.equals(""))
+                object.put("bookingId", bookingId);
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+            object.put("location", location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salman", object.toString());
+        mSocket.emit("Driver_UpLatLong", object);
+    }
+
+    public void AcceptRejectAttemptSend(String method) {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("name", SharedPrefManager.getInstance(this).getDriverFirstName());
+            object.put("email", SharedPrefManager.getInstance(this).getDriverEmail());
+            object.put("phone", SharedPrefManager.getInstance(this).getDriverContact());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+            object.put("vehicleId", SharedPrefManager.getInstance(this).getVehicleId());
+            object.put("vehicleTypeId", SharedPrefManager.getInstance(this).getVehicleTypeId());
+            object.put("bookingType", getRequesterCall.getString("bookingType"));
+            object.put("pickupDateTime", getRequesterCall.getString("pickupDateTime"));
+            object.put("pickup_address", pObj);
+            object.put("drop_address", dObj);
+            object.put("fare_estimate", efare);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (method == "Driver_Accept") {
+            Log.e("Salman", object.toString());
+            mSocket.emit("Driver_Accept", object, new Ack() {
+                @Override
+                public void call(Object... args) {
+                    bookingId = args[0].toString();
+                }
+            });
+        } else if (method == "Driver_Reject") {
+            Gson gson = new Gson();
+            String s = gson.toJson(object);
+            Log.e("Salman", s);
+            mSocket.emit("Driver_Reject", object);
+        } else if (method == "Driver_NoAccept") {
+            Gson gson = new Gson();
+            String s = gson.toJson(object);
+            Log.e("Salman", s);
+            Toast.makeText(this, "You Not Accept The Ride", Toast.LENGTH_SHORT).show();
+            mSocket.emit("Driver_NoAccept", object);
+        }
+    }
+
+    public void StartTrip() {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("location", curLocation);
+            object.put("bookingId", bookingId);
+            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salman_StartTrip", object.toString());
+        mSocket.emit("Driver_StartTrip", object);
+    }
+
+    public void EndTrip() {
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("location", curLocation);
+            object.put("bookingId", bookingId);
+            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salman_EndTrip", object.toString());
+        mSocket.emit("Driver_EndTrip", object);
+    }
+
+    public void CancelBooking(String reasonId) {
+        dialog3.dismiss();
+        statusFlag = "";
+        Toast.makeText(this, "Ride Cancelled...", Toast.LENGTH_SHORT).show();
+        notiHeadingTextView.setText("LAST TRIP");
+        cancelRideButton.setVisibility(View.GONE);
+        startRideButton.setVisibility(View.GONE);
+
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("userId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("vehicleTypeId", SharedPrefManager.getInstance(this).getVehicleTypeId());
+            object.put("distance", distance);
+            object.put("totalTime", time);
+            object.put("role", "driver");
+            object.put("reasonId", reasonId);
+            object.put("bookingId", bookingId);
+            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
+            object.put("bookedBy", bookedBy);
+            object.put("latitude", Constants.mCurLat);
+            object.put("longitude", Constants.mCurLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("Salmanaaab", object.toString());
+        mSocket.emit("Driver_Cancel", object, new Ack() {
+            @Override
+            public void call(Object... args) {
+                JSONObject obj = (JSONObject) args[0];
+                JSONObject objj;
+
+                try {
+                    objj = obj.getJSONObject("detail");
+                    cancelRideFineAlertDialog(objj.getString("fine"));
+                } catch (JSONException e) {
+                    return;
+                }
+                Log.e("Salmanaaac", args[0].toString());
+            }
+        });
+    }
+
+    // ========================================================================================== //
+
+    public void pickUpRideRequestDialog() {
+        try {
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.custom_dialog2);
+            dialog.setCancelable(false);
+        } catch (Exception e) {
+            Log.e("Salmansas", e.toString());
+        }
+
+        // Map Fragment Code For Custom Dialog...
+        final SupportMapFragment mapFrg = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_pickup_request_dialog);
+        mapFrg.getMapAsync(this);
+
+        TextView timeCounterTextView, estTimeTextView, estFareTextView, dropLocationTextView, acceptBtn, rejectBtn;
+
+        timeCounterTextView = dialog.findViewById(R.id.counter_time_text_view_pickup_request_dialog);
+        estFareTextView = dialog.findViewById(R.id.est_fare_text_view_pickup_request_dialog);
+        estTimeTextView = dialog.findViewById(R.id.est_time_text_view_pickup_request_dialog);
+        dropLocationTextView = dialog.findViewById(R.id.drop_location_address_text_view_pickup_request_dialog);
+        acceptBtn = dialog.findViewById(R.id.accept_btn_pickup_request_dialog);
+        rejectBtn = dialog.findViewById(R.id.reject_btn_pickup_request_dialog);
+
+        estFareTextView.setText(String.valueOf(baseFare) + "$");
+        estTimeTextView.setText(String.valueOf(time) + "min");
+        try {
+            dropLocationTextView.setText(dObj.getString("address"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        timeCounter(timeCounterTextView);
+
+        flag = "1";
+
+        acceptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                secFlag = "Book";
+                AcceptRejectAttemptSend("Driver_Accept");
+                dialog.dismiss();
+                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_pickup_request_dialog)).commit();
+
+                notiHeadingTextView.setText("PICK UP");
+                notiUserNameTextView.setText(riderName);
+                notiTextView1.setText(String.valueOf(distance) + " KM");
+                notiTextView2.setText("Distance");
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(pickLocation)
+                        .zoom(14)
+                        .build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                cancelRideButton.setVisibility(View.VISIBLE);
+                startRideButton.setVisibility(View.VISIBLE);
+                statusFlag = "Accepted";
+
+                UpdateLatLong(curLocation);
+            }
+        });
+
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                secFlag = "Book";
+                AcceptRejectAttemptSend("Driver_Reject");
+                dialog.dismiss();
+                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_pickup_request_dialog)).commit();
+
+                Toast.makeText(MainActivity.this, "You Reject The Request...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public void scheduleRideRequestDialog() {
+        try {
+            dialog1 = new Dialog(this);
+            dialog1.setContentView(R.layout.custom_dialog6);
+            dialog1.setCancelable(false);
+        } catch (Exception e) {
+
+        }
+
+        // Map Fragment Code For Custom Dialog...
+        final SupportMapFragment mapFrg = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_schedule_request_dialog);
+        mapFrg.getMapAsync(this);
+
+        TextView timeCounterTextView, dateTextView, timeTextView, estTimeTextView, estFareTextView, dropLocationTextView, acceptBtn, rejectBtn;
+
+//        timeCounterTextView = dialog1.findViewById(R.id.counter_time_text_view_schedule_request_dialog);
+        dateTextView = dialog1.findViewById(R.id.schedule_date_text_view_schedule_request_dialog);
+        timeTextView = dialog1.findViewById(R.id.schedule_time_text_view_schedule_request_dialog);
+        estTimeTextView = dialog1.findViewById(R.id.est_time_text_view_schedule_request_dialog);
+        estFareTextView = dialog1.findViewById(R.id.est_fare_text_view_schedule_request_dialog);
+        dropLocationTextView = dialog1.findViewById(R.id.drop_location_address_text_view_schedule_request_dialog);
+        acceptBtn = dialog1.findViewById(R.id.accept_btn_schedule_request_dialog);
+        rejectBtn = dialog1.findViewById(R.id.reject_btn_schedule_request_dialog);
+
+        estFareTextView.setText(String.valueOf(baseFare) + "$");
+        estTimeTextView.setText(String.valueOf(time) + "min");
+        try {
+            String dateTime = getRequesterCall.getString("pickupDateTime");
+            final int index = dateTime.indexOf('T');
+
+            dateTextView.setText("Date: "+dateTime.substring(0, index));
+            timeTextView.setText("Time: "+dateTime.substring(1, index));
+            dropLocationTextView.setText(dObj.getString("address"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        timeCounter(timeCounterTextView);
+
+        flag = "1";
+
+        acceptBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                secFlag = "Book";
+                AcceptRejectAttemptSend("Driver_Accept");
+                dialog1.dismiss();
+                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_schedule_request_dialog)).commit();
+
+                Constants.showAlert(MainActivity.this, "Ride Add In Your Later Schedule...");
+            }
+        });
+
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                secFlag = "Book";
+                AcceptRejectAttemptSend("Driver_Reject");
+                dialog1.dismiss();
+                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_schedule_request_dialog)).commit();
+
+                Toast.makeText(MainActivity.this, "You Reject The Request...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog1.show();
+    }
+
+    public void cancelRideAlertDialog() {
+        try {
+            dialog2 = new Dialog(this);
+            dialog2.setContentView(R.layout.custom_dialog4);
+            dialog2.setCancelable(false);
+        } catch (Exception e) {
+
+        }
+
+        TextView yesBtn, noBtn;
+
+        yesBtn = dialog2.findViewById(R.id.yes_btn_cancel_booking_alert_dialog);
+        noBtn = dialog2.findViewById(R.id.no_btn_cancel_booking_alert_dialog);
+
+        yesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+                getReasons();
+//                cancelRideReasonAlertDialog();
+            }
+        });
+
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog2.dismiss();
+            }
+        });
+
+        dialog2.show();
+    }
+
+    public void cancelRideReasonAlertDialog() {
+        try {
+            dialog3 = new Dialog(this);
+            dialog3.setContentView(R.layout.custom_dialog5);
+            dialog3.setCancelable(false);
+        } catch (Exception e) {
+
+        }
+
+        TextView doneBtn, cancelBtn;
+        RecyclerView recyclerView;
+        RecyclerView.LayoutManager layoutManager;
+        GetAllReasonsAdapter adapter;
+
+//        doneBtn = dialog3.findViewById(R.id.done_btn_cancel_reason_dialog);
+//        cancelBtn = dialog3.findViewById(R.id.cancel_btn_cancel_reason_dialog);
+        recyclerView = dialog3.findViewById(R.id.recycler_view_cancel_reason_dialog);
+        layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new GetAllReasonsAdapter(this, reasonsObj.getData());
+        recyclerView.setAdapter(adapter);
+
+//        doneBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(MainActivity.this, "You Cancel The Ride Successfully...", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        cancelBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog3.dismiss();
+//            }
+//        });
+
+        dialog3.show();
+    }
+
+    public void cancelRideFineAlertDialog(String fine) {
+        try {
+            dialog4 = new Dialog(this);
+            dialog4.setContentView(R.layout.custom_dialog7);
+            dialog4.setCancelable(false);
+        } catch (Exception e) {
+
+        }
+
+        TextView fineTextView, okBtn;
+
+        fineTextView = dialog3.findViewById(R.id.fine_text_view_cancel_fine_dialog);
+        okBtn = dialog3.findViewById(R.id.ok_btn_cancel_fine_dialog);
+
+        fineTextView.setText("You Cancel The Ride. Your Fine Is "+ fine +" $");
+
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog4.dismiss();
+            }
+        });
+
+        dialog4.show();
+    }
+
+    // ========================================================================================== //
+
+    public void timeCounter(final TextView textView) {
+        CountDownTimer myCountDownTimer = new CountDownTimer(
+                10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                int time = (int) millisUntilFinished;
+                int seconds = time / 1000 % 60;
+                int minutes = (time / (1000 * 60)) % 60;
+                textView.setText("Counter: " + twoDigitString(seconds));
+            }
+
+            private String twoDigitString(long number) {
+                if (number == 0) {
+                    return "0";
+                } else if (number / 10 == 0) {
+                    return String.valueOf(number);
+                }
+                return String.valueOf(number);
+            }
+
+            @Override
+            public void onFinish() {
+                if (secFlag.equals("")) {
+                    AcceptRejectAttemptSend("Driver_NoAccept");
+                    getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_pickup_request_dialog)).commit();
+                    dialog.dismiss();
+                } else {
+                    secFlag = "";
+                }
+            }
+        };
+
+        myCountDownTimer.start();
+    }
+
+    public void locationUpdate() {
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+//        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
+//        } else {
+//            showGPSDisabledAlertToUser();
+//        }
+
+        mLocationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+//                curLocation = location;
+//                Constants.mCurLat = location.getLatitude();
+//                Constants.mCurLong = location.getLongitude();
+
+                if (preLocation != null) {
+                    float results = location.distanceTo(preLocation);
+//                    float result2 = location.distanceTo(pickup_location);
+
+                    curLocation = location;
+                    Constants.mCurLat = location.getLatitude();
+                    Constants.mCurLong = location.getLongitude();
+
+//                    Toast.makeText(MainActivity.this, ""+results, Toast.LENGTH_SHORT).show();
+//                    onDriverMovement();
+
+                    mMap.clear();
+                    try {
+                        mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
+//                        CameraPosition cameraPosition = new CameraPosition.Builder()
+//                                .target(mLocation)
+//                                .zoom(14)
+//                                .build();
+//                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                        Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
+                        if (statusFlag.equals("Accepted")) {
+                            getPolyLine(Constants.mCurLat, Constants.mCurLong, pickLocation.latitude, pickLocation.longitude);
+//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                        } else if (statusFlag.equals("StartTrip")) {
+                            Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
+//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                    if (results >= 10) {
+                        UpdateLatLong(location);
+                        preLocation = location;
+                        Toast.makeText(MainActivity.this, "Send LatLong" + results, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    preLocation = location;
+//                    Toast.makeText(MainActivity.this, "0.0", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
+                0, (LocationListener) mLocationListener);
+
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100,
+                0, (LocationListener) mLocationListener);
     }
 
     private void checkLocation() {
@@ -320,577 +1149,72 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        TextView tv = view.findViewById(R.id.driver_name_text_view_nav_bar);
-        tv.setText(SharedPrefManager.getInstance(this).getDriverFirstName() + " " + (SharedPrefManager.getInstance(this).getDriverLastName()));
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_booing_history) {
-            startActivity(new Intent(this, BookingHistoryActivity.class));
-        } else if (id == R.id.nav_earnings) {
-            startActivity(new Intent(this, EarningActivity.class));
-        } else if (id == R.id.nav_ratings) {
-            startActivity(new Intent(this, RatingsActivity.class));
-        } else if (id == R.id.nav_account) {
-            startActivity(new Intent(this, AccountActivity.class));
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.start_ride_button_main_activity:
-                statusFlag = "startTrip";
-                notiHeadingTextView.setText("DROP OFF");
-                StartTrip();
-//                getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
-                startRideButton.setVisibility(View.GONE);
-                endRideButton.setVisibility(View.VISIBLE);
-                break;
-            case R.id.end_ride_button_main_activity:
-                statusFlag = "";
-                notiHeadingTextView.setText("LAST TRIP");
-                EndTrip();
-                endRideButton.setVisibility(View.GONE);
-                break;
-        }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        if (flag == "") {
-            mMap = googleMap;
-
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-
-            mMap.setMyLocationEnabled(true);
-
-//            if (Constants.mCurLat != 0.0 && Constants.mCurLong != 0.0) {
-
-                mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(mLocation)
-                        .zoom(14)
-                        .build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-//            }
-        } else if (flag == "1") {
-            mMap2 = googleMap;
-
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-
-            List<Marker> markers = new ArrayList<>();
-            markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))));
-            markers.add(mMap2.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))));
-
-//            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
-
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (Marker marker : markers) {
-                builder.include(marker.getPosition());
-            }
-
-            LatLngBounds bounds = builder.build();
-
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 100, 100, 5);
-            mMap2.animateCamera(cu);
-
-            mMap2.getUiSettings().setMyLocationButtonEnabled(false);
-            mMap2.getUiSettings().setScrollGesturesEnabled(false);
-            mMap2.getUiSettings().setRotateGesturesEnabled(false);
-            mMap2.getUiSettings().setZoomGesturesEnabled(false);
-            mMap2.getUiSettings().setAllGesturesEnabled(false);
-            mMap2.getUiSettings().setCompassEnabled(false);
-            mMap2.getUiSettings().setZoomControlsEnabled(false);
-        }
-    }
-
-    @Override
-    public void onSuccess(Call call, Response response, String method) {
-        if (pDialog != null && pDialog.isShowing()) {
-            pDialog.dismiss();
-        }
-        if (response != null && response.code() == 200) {
-            if (method.equalsIgnoreCase("getInvoice")) {
-                invoiceObj = (GetInvoiceResponse) response.body();
-
-                Toast.makeText(this, "" + invoiceObj.getMessage(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, InvoiceActivity.class);
-                intent.putExtra("InvoiceObject", invoiceObj);
-                intent.putExtra("userId", bookedBy);
-                intent.putExtra("userName", riderName);
-                try {
-                    intent.putExtra("pickupAddress", pObj.getString("address"));
-                    intent.putExtra("dropAddress", dObj.getString("address"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                startActivity(intent);
-            }
-        } else if (response != null && (response.code() == 403 || response.code() == 500)) {
-            try {
-                ResponseBody body = response.errorBody();
-                JSONObject jObj = new JSONObject(body.string());
-                if (jObj.optString("status").equals("403"))
-                    Constants.showAlert(this, jObj.optString("message"));
-                else
-                    Constants.showAlert(this, jObj.optString("message"));
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (JSONException e1) {
-                Constants.showAlert(this, "Oops! API returned invalid response. Try again later.");
-                e1.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-        if (pDialog != null && pDialog.isShowing()) {
-            pDialog.dismiss();
-        }
-        Constants.showAlert(this, errorMessage);
-    }
-
-    // ------------ >> SOCKET FUNCTIONS
-
-    public Emitter.Listener onNewMessage = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getRequesterCall = (JSONObject) args[0];
-//                    JSONObject pObj, dObj, efare;
-                    String pLatitude, pLongitude, dLatitude, dLongitude;
-                    DecimalFormat oneDForm = new DecimalFormat("#.#");
-                    try {
-                        pObj = getRequesterCall.getJSONObject("pickup_address");
-                        dObj = getRequesterCall.getJSONObject("drop_address");
-                        efare = getRequesterCall.getJSONObject("fare_estimate");
-                        riderName = pObj.getString("name");
-                        bookedBy = getRequesterCall.getString("bookedBy");
-                        vehicleId = efare.getString("vehicleId");
-                        baseFare = Double.parseDouble(oneDForm.format(efare.getDouble("baseFare")));
-                        distance = Double.parseDouble(oneDForm.format(efare.getDouble("distance")));
-                        time = Double.parseDouble(oneDForm.format(efare.getDouble("time")));
-                        pLatitude = pObj.getString("latitude");
-                        pLongitude = pObj.getString("longitude");
-                        dLatitude = dObj.getString("latitude");
-                        dLongitude = dObj.getString("longitude");
-                    } catch (JSONException e) {
-                        return;
-                    }
-
-                    pickLocation = new LatLng(Double.parseDouble(pLatitude), Double.parseDouble(pLongitude));
-                    dropLocation = new LatLng(Double.parseDouble(dLatitude), Double.parseDouble(dLongitude));
-                    pickUpRequestDialog();
-                    Log.e("StringSalman", args[0].toString());
-                }
-            });
-        }
-    };
-
-    public Emitter.Listener onNotifications = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject obj = (JSONObject) args[0];
-
-                    try {
-                        Constants.showNotification(MainActivity.this, "" + obj.getString("Type"), "" + obj.getString("Msg"));
-                        Toast.makeText(MainActivity.this, obj.getString("Type") + " / " + obj.getString("Msg"), Toast.LENGTH_SHORT).show();
-
-                        if (obj.getString("Msg").equals("Trip Ended")) {
-                            getInvoice();
-                        }
-                    } catch (JSONException e) {
-                        return;
-                    }
-                }
-            });
-        }
-    };
-
-    private void attemptSend() {
-        JSONObject objectData = new JSONObject();
-        JSONObject object = new JSONObject();
-
-        try {
-            object.put("userid", SharedPrefManager.getInstance(this).getDriverId());
-            object.put("firstname", SharedPrefManager.getInstance(this).getDriverFirstName());
-            object.put("lastname", SharedPrefManager.getInstance(this).getDriverLastName());
-            object.put("email", SharedPrefManager.getInstance(this).getDriverEmail());
-            object.put("status", 0);
-            object.put("role", "Driver");
-            object.put("contact", SharedPrefManager.getInstance(this).getDriverContact());
-            object.put("latitude", Constants.mCurLat);
-            object.put("longitude", Constants.mCurLong);
-
-            Log.e("Salman", Constants.mCurLat + " / " + Constants.mCurLong);
-
-            objectData.put("data", object);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        mSocket.emit("info", objectData);
-    }
-
-    public void UpdateLatLong(Location location) {
-        JSONObject object = new JSONObject();
-
-        try {
-            if (getRequesterCall != null)
-                object.put("bookedBy", getRequesterCall.getString("bookedBy"));
-            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
-            object.put("latitude", Constants.mCurLat);
-            object.put("longitude", Constants.mCurLong);
-            object.put("location", location);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.e("Salman", object.toString());
-        mSocket.emit("Driver_UpLatLong", object);
-    }
-
-    public void AcceptRejectAttemptSend(String method) {
-        JSONObject object = new JSONObject();
-
-        try {
-            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
-            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
-            object.put("name", SharedPrefManager.getInstance(this).getDriverFirstName());
-            object.put("email", SharedPrefManager.getInstance(this).getDriverEmail());
-            object.put("phone", SharedPrefManager.getInstance(this).getDriverContact());
-            object.put("latitude", Constants.mCurLat);
-            object.put("longitude", Constants.mCurLong);
-            object.put("vehicleId", SharedPrefManager.getInstance(this).getVehicleId());
-            object.put("vehicleTypeId", SharedPrefManager.getInstance(this).getVehicleTypeId());
-            object.put("pickup_address", pObj);
-            object.put("drop_address", dObj);
-            object.put("fare_estimate", efare);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (method == "Driver_Accept") {
-            Log.e("Salman", object.toString());
-            mSocket.emit("Driver_Accept", object, new Ack() {
-                @Override
-                public void call(Object... args) {
-                    bookingId = args[0].toString();
-                }
-            });
-        } else if (method == "Driver_Reject") {
-            Gson gson = new Gson();
-            String s = gson.toJson(object);
-            Log.e("Salman", s);
-            mSocket.emit("Driver_Reject", object);
-        } else if (method == "Driver_NoAccept") {
-            Gson gson = new Gson();
-            String s = gson.toJson(object);
-            Log.e("Salman", s);
-            mSocket.emit("Driver_NoAccept", object);
-        }
-    }
-
-    public void StartTrip() {
-        JSONObject object = new JSONObject();
-
-        try {
-            object.put("location", curLocation);
-            object.put("bookingId", bookingId);
-            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
-            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
-            object.put("latitude", Constants.mCurLat);
-            object.put("longitude", Constants.mCurLong);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.e("Salman_StartTrip", object.toString());
-        mSocket.emit("Driver_StartTrip", object);
-    }
-
-    public void EndTrip() {
-        JSONObject object = new JSONObject();
-
-        try {
-            object.put("location", curLocation);
-            object.put("bookingId", bookingId);
-            object.put("bookedBy", getRequesterCall.getString("bookedBy"));
-            object.put("driverId", SharedPrefManager.getInstance(this).getDriverId());
-            object.put("latitude", Constants.mCurLat);
-            object.put("longitude", Constants.mCurLong);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.e("Salman_EndTrip", object.toString());
-        mSocket.emit("Driver_EndTrip", object);
-    }
-
-    public void pickUpRequestDialog() {
-        try {
-            dialog = new Dialog(this);
-            dialog.setContentView(R.layout.custom_dialog2);
-            dialog.setCancelable(false);
-        } catch (Exception e) {
-
-        }
-
-        // Map Fragment Code For Custom Dialog...
-        final SupportMapFragment mapFrg = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_pickup_request_dialog);
-        mapFrg.getMapAsync(this);
-
-        TextView estTimeTextView, estFareTextView, dropLocationTextView, acceptBtn, rejectBtn;
-
-        estTimeTextView = dialog.findViewById(R.id.est_time_text_view_pickup_request_dialog);
-        estFareTextView = dialog.findViewById(R.id.est_fare_text_view_pickup_request_dialog);
-        dropLocationTextView = dialog.findViewById(R.id.drop_location_address_text_view_pickup_request_dialog);
-        acceptBtn = dialog.findViewById(R.id.accept_btn_pickup_request_dialog);
-        rejectBtn = dialog.findViewById(R.id.reject_btn_pickup_request_dialog);
-
-        estFareTextView.setText(String.valueOf(baseFare) + "$");
-        estTimeTextView.setText(String.valueOf(time) + "min");
-        try {
-            dropLocationTextView.setText(dObj.getString("address"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        flag = "1";
-
-        acceptBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AcceptRejectAttemptSend("Driver_Accept");
-                dialog.dismiss();
-                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_pickup_request_dialog)).commit();
-
-                notiHeadingTextView.setText("PICK UP");
-                notiUserNameTextView.setText(riderName);
-                notiTextView1.setText(String.valueOf(distance) + " KM");
-                notiTextView2.setText("Distance");
-
-                // Socket Listener For Start/End Trip Notification...
-                mSocket.on("Notification", onNotifications);
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(pickLocation)
-                        .zoom(14)
-                        .build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pickup Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                startRideButton.setVisibility(View.VISIBLE);
-                statusFlag = "acceptTrip";
-            }
-        });
-
-        rejectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AcceptRejectAttemptSend("Driver_Reject");
-                dialog.dismiss();
-                getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.map_pickup_request_dialog)).commit();
-
-                Toast.makeText(MainActivity.this, "You Reject The Request...", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        dialog.show();
-
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                dialog.dismiss();
-//                AcceptRejectAttemptSend("Driver_NoAccept");
-//                Toast.makeText(MainActivity.this, "You Reject The Request...", Toast.LENGTH_SHORT).show();
-//            }
-//        }, 10000);
-    }
-
-//    public void timeCounter() {
-//        CountDownTimer myCountDownTimer = new CountDownTimer(
-//                10000, 1000) {
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//
-//                int time = (int) millisUntilFinished;
-//                int seconds = time / 1000 % 60;
-//                int minutes = (time / (1000 * 60)) % 60;
-//                timeText.setText(twoDigitString(seconds));
-//            }
-//
-//            private String twoDigitString(long number) {
-//                if (number == 0) {
-//                    return "00";
-//                } else if (number / 10 == 0) {
-//                    return String.valueOf(number);
-//                }
-//                return String.valueOf(number);
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                timeText.setText("Time Finish");
-//                finish();
-//
-//                Intent intent = new Intent(MainActivity.this, SplashScreenActivity.class);
-//                intent.putExtra("counter", String.valueOf(Counter));
-//                startActivity(intent);
-//            }
-//        };
-//
-//        myCountDownTimer.start();
-//    }
-
-    public void locationUpdate() {
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-//        if (mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//            Toast.makeText(this, "GPS is Enabled in your devide", Toast.LENGTH_SHORT).show();
-//        } else {
-//            showGPSDisabledAlertToUser();
-//        }
-
-        mLocationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-//                curLocation = location;
-//                Constants.mCurLat = location.getLatitude();
-//                Constants.mCurLong = location.getLongitude();
-
-                if (preLocation != null) {
-                    float results = location.distanceTo(preLocation);
-//                    float result2 = location.distanceTo(pickup_location);
-
-                    curLocation = location;
-                    Constants.mCurLat = location.getLatitude();
-                    Constants.mCurLong = location.getLongitude();
-
-//                    Toast.makeText(MainActivity.this, ""+results, Toast.LENGTH_SHORT).show();
-//                    onDriverMovement();
-
-                    mMap.clear();
-                    try {
-                        mLocation = new LatLng(Constants.mCurLat, Constants.mCurLong);
-//                        CameraPosition cameraPosition = new CameraPosition.Builder()
-//                                .target(mLocation)
-//                                .zoom(14)
-//                                .build();
-//                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                        mMap.addMarker(new MarkerOptions().position(new LatLng(Constants.mCurLat, Constants.mCurLong)).title("I'm here").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-                        Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
-                        if (statusFlag.equals("acceptTrip")) {
-                            getPolyLine(Constants.mCurLat, Constants.mCurLong, pickLocation.latitude, pickLocation.longitude);
-//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(pickLocation.latitude, pickLocation.longitude)).title("Pick up location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                        } else if (statusFlag.equals("startTrip")) {
-                            Log.e("DropLocation", dropLocation.latitude + "/" + dropLocation.longitude);
-//                            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                            getPolyLine(Constants.mCurLat, Constants.mCurLong, dropLocation.latitude, dropLocation.longitude);
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(dropLocation.latitude, dropLocation.longitude)).title("Drop location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                        }
-                    } catch (Exception e) {
-
-                    }
-
-                    if (results >= 10) {
-                        UpdateLatLong(location);
-                        preLocation = location;
-                        Toast.makeText(MainActivity.this, "Send LatLong" + results, Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    preLocation = location;
-//                    Toast.makeText(MainActivity.this, "0.0", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100,
-                0, (LocationListener) mLocationListener);
-
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100,
-                0, (LocationListener) mLocationListener);
-    }
+    // ========================================================================================== //
 
     private void getInvoice() {
         pDialog.show();
         restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getInvoice(SharedPrefManager.getInstance(this).getDriverId(), bookingId, bookedBy, time, distance, SharedPrefManager.getInstance(this).getVehicleTypeId()), "getInvoice");
     }
+
+    private void getReasons() {
+        pDialog.show();
+        restHandler.makeHttpRequest(restHandler.retrofit.create(RestHandler.RestInterface.class).getReasons("driver"), "getReasons");
+    }
+
+    private void getOldState() {
+        //
+        if(!getIntent().getStringExtra("status").equals("")) {
+            statusFlag = getIntent().getStringExtra("status");
+            try {
+                getRequesterCall = new JSONObject(getIntent().getStringExtra("data"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("Salmanaa", e.toString());
+            }
+
+            String pLatitude, pLongitude, dLatitude, dLongitude, bookingType;
+            DecimalFormat oneDForm = new DecimalFormat("#.#");
+            try {
+                pObj = getRequesterCall.getJSONObject("pickup_address");
+                dObj = getRequesterCall.getJSONObject("drop_address");
+                efare = getRequesterCall.getJSONObject("fareEstimate");
+                riderName = pObj.getString("name");
+                bookingId = getRequesterCall.getString("id");
+                bookedBy = getRequesterCall.getString("bookedBy");
+                vehicleId = getRequesterCall.getString("vehicleId");
+                baseFare = Double.parseDouble(oneDForm.format(efare.getDouble("totalAmount")));
+                distance = Double.parseDouble(oneDForm.format(efare.getDouble("distance")));
+                time = Double.parseDouble(oneDForm.format(efare.getDouble("time")));
+                pLatitude = pObj.getString("latitude");
+                pLongitude = pObj.getString("longitude");
+                dLatitude = dObj.getString("latitude");
+                dLongitude = dObj.getString("longitude");
+            } catch (JSONException e) {
+                Log.e("Salmanaa", e.toString());
+                return;
+            }
+
+            pickLocation = new LatLng(Double.parseDouble(pLatitude), Double.parseDouble(pLongitude));
+            dropLocation = new LatLng(Double.parseDouble(dLatitude), Double.parseDouble(dLongitude));
+
+            if(statusFlag.equals("Accepted")) {
+                notiHeadingTextView.setText("PICK UP");
+                notiUserNameTextView.setText(riderName);
+                notiTextView1.setText(String.valueOf(distance) + " KM");
+                notiTextView2.setText("Distance");
+                cancelRideButton.setVisibility(View.VISIBLE);
+                startRideButton.setVisibility(View.VISIBLE);
+            } else if(statusFlag.equals("StartTrip")) {
+                notiHeadingTextView.setText("DROP OFF");
+                notiUserNameTextView.setText(riderName);
+                notiTextView1.setText(String.valueOf(distance) + " KM");
+                notiTextView2.setText("Distance");
+                endRideButton.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    // ========================================================================================== //
 
     private void getPolyLine(Double firsLat, Double firstLong, Double secondLat, Double secondLong) {
 

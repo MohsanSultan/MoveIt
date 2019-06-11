@@ -1,16 +1,17 @@
+
 package com.moveitdriver.models.UserDetailResponse;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
+public class Data {
 
     @SerializedName("_id")
     @Expose
     private String id;
     @SerializedName("role")
     @Expose
-    private String role;
+    private Role role;
     @SerializedName("next_step")
     @Expose
     private String nextStep;
@@ -41,6 +42,21 @@ public class Datum {
     @SerializedName("sms_otp")
     @Expose
     private String smsOtp;
+    @SerializedName("driverLicenceFrom")
+    @Expose
+    private String driverLicenceFrom;
+    @SerializedName("driverLicenceNumber")
+    @Expose
+    private String driverLicenceNumber;
+    @SerializedName("driverLicenceTill")
+    @Expose
+    private String driverLicenceTill;
+    @SerializedName("licenceBackPic")
+    @Expose
+    private String licenceBackPic;
+    @SerializedName("licenceFrontPic")
+    @Expose
+    private String licenceFrontPic;
     @SerializedName("device_token")
     @Expose
     private Object deviceToken;
@@ -50,21 +66,6 @@ public class Datum {
     @SerializedName("longitude")
     @Expose
     private String longitude;
-    @SerializedName("driverLicenceExpires")
-    @Expose
-    private String driverLicenceExpires;
-    @SerializedName("driverLicenceNumber")
-    @Expose
-    private String driverLicenceNumber;
-    @SerializedName("driverLicenceState")
-    @Expose
-    private String driverLicenceState;
-    @SerializedName("validLiscenseExpires")
-    @Expose
-    private String validLiscenseExpires;
-    @SerializedName("validVehicleTypeLiscence")
-    @Expose
-    private String validVehicleTypeLiscence;
     @SerializedName("timestamp")
     @Expose
     private String timestamp;
@@ -113,11 +114,11 @@ public class Datum {
         this.id = id;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -201,6 +202,46 @@ public class Datum {
         this.smsOtp = smsOtp;
     }
 
+    public String getDriverLicenceFrom() {
+        return driverLicenceFrom;
+    }
+
+    public void setDriverLicenceFrom(String driverLicenceFrom) {
+        this.driverLicenceFrom = driverLicenceFrom;
+    }
+
+    public String getDriverLicenceNumber() {
+        return driverLicenceNumber;
+    }
+
+    public void setDriverLicenceNumber(String driverLicenceNumber) {
+        this.driverLicenceNumber = driverLicenceNumber;
+    }
+
+    public String getDriverLicenceTill() {
+        return driverLicenceTill;
+    }
+
+    public void setDriverLicenceTill(String driverLicenceTill) {
+        this.driverLicenceTill = driverLicenceTill;
+    }
+
+    public String getLicenceBackPic() {
+        return licenceBackPic;
+    }
+
+    public void setLicenceBackPic(String licenceBackPic) {
+        this.licenceBackPic = licenceBackPic;
+    }
+
+    public String getLicenceFrontPic() {
+        return licenceFrontPic;
+    }
+
+    public void setLicenceFrontPic(String licenceFrontPic) {
+        this.licenceFrontPic = licenceFrontPic;
+    }
+
     public Object getDeviceToken() {
         return deviceToken;
     }
@@ -223,46 +264,6 @@ public class Datum {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
-    }
-
-    public String getDriverLicenceExpires() {
-        return driverLicenceExpires;
-    }
-
-    public void setDriverLicenceExpires(String driverLicenceExpires) {
-        this.driverLicenceExpires = driverLicenceExpires;
-    }
-
-    public String getDriverLicenceNumber() {
-        return driverLicenceNumber;
-    }
-
-    public void setDriverLicenceNumber(String driverLicenceNumber) {
-        this.driverLicenceNumber = driverLicenceNumber;
-    }
-
-    public String getDriverLicenceState() {
-        return driverLicenceState;
-    }
-
-    public void setDriverLicenceState(String driverLicenceState) {
-        this.driverLicenceState = driverLicenceState;
-    }
-
-    public String getValidLiscenseExpires() {
-        return validLiscenseExpires;
-    }
-
-    public void setValidLiscenseExpires(String validLiscenseExpires) {
-        this.validLiscenseExpires = validLiscenseExpires;
-    }
-
-    public String getValidVehicleTypeLiscence() {
-        return validVehicleTypeLiscence;
-    }
-
-    public void setValidVehicleTypeLiscence(String validVehicleTypeLiscence) {
-        this.validVehicleTypeLiscence = validVehicleTypeLiscence;
     }
 
     public String getTimestamp() {
@@ -368,4 +369,5 @@ public class Datum {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

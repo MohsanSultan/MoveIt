@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="ExtraText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorTextThird"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:src="@mipmap/ic_alert" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:text="Cancle Ride Alert"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/counter_time_text_view_schedule_request_dialog"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight=".3"-->
+            <!--android:layout_marginRight="@dimen/_10sdp"-->
+            <!--android:gravity="right|center"-->
+            <!--android:text="Time left: 4 Sec"-->
+            <!--android:textColor="#900"/>-->
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="@color/colorLightGray"/>
+
+    <TextView
+        android:id="@+id/fine_text_view_cancel_fine_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16sdp"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_22sdp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_2sdp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ok_btn_cancel_fine_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
+            android:text="OK"
+            android:textColor="@color/colorLightBlack"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

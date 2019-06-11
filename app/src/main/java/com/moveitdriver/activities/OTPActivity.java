@@ -122,7 +122,7 @@ public class OTPActivity extends AppCompatActivity implements View.OnClickListen
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OTPActivity.this, "Working On It...", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
         });
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -29,28 +30,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class EarningActivity extends AppCompatActivity implements RetrofitListener{
+public class EarningActivity extends AppCompatActivity implements RetrofitListener {
 
     private LinearLayout formLayout, graphLayout;
-    private TextView fromDateTextView, tillDateTextView;
+    private TextView fromDateTextView, tillDateTextView, totalEarningTextView;
     private Calendar myCalendar;
     private BarChart chart;
     private Button submitBtn;
 
     private String fromDateStr, tillDateStr;
 
-    private ArrayList NoOfEmp;
-    private ArrayList year;
+    private ArrayList EarningList;
+    private ArrayList DateList;
+    private List<String> allDates;
 
     private ProgressDialog pDialog;
     private RestHandler restHandler;
@@ -68,6 +74,7 @@ public class EarningActivity extends AppCompatActivity implements RetrofitListen
         graphLayout = findViewById(R.id.graph_layout_earning_activity);
         fromDateTextView = findViewById(R.id.from_date_earning_activity);
         tillDateTextView = findViewById(R.id.till_date_earning_activity);
+        totalEarningTextView = findViewById(R.id.total_earning_text_view_earning_activity);
         chart = findViewById(R.id.barchart);
         submitBtn = findViewById(R.id.submit_btn_earning_activity);
 
@@ -85,7 +92,9 @@ public class EarningActivity extends AppCompatActivity implements RetrofitListen
                 fromDateStr = fromDateTextView.getText().toString().trim();
                 tillDateStr = tillDateTextView.getText().toString().trim();
 
-                if(fieldValidation()){
+                if (fieldValidation()) {
+                    allDates = getDates(fromDateStr, tillDateStr);
+
                     formLayout.setVisibility(View.GONE);
                     graphLayout.setVisibility(View.VISIBLE);
 
@@ -129,19 +138,34 @@ public class EarningActivity extends AppCompatActivity implements RetrofitListen
 
                 Toast.makeText(this, "" + obj.getMessage(), Toast.LENGTH_SHORT).show();
 
-                NoOfEmp = new ArrayList();
-                year = new ArrayList();
+                EarningList = new ArrayList();
+                DateList = new ArrayList();
+                int total = 0;
 
-                for(int x = 0; x < obj.getData().size(); x++) {
-
-                    NoOfEmp.add(new BarEntry(obj.getData().get(x).getTotalAmount(), x));
-
-                    year.add(obj.getData().get(x).getId());
+                for (int i = 0; i < obj.getData().size(); i++) {
+                    total = total + obj.getData().get(i).getTotalAmount();
                 }
 
-                BarDataSet bardataset = new BarDataSet(NoOfEmp, "Earning of this week");
+                totalEarningTextView.setText("Total Earning: $ "+ total);
+
+                for (int x = 0; x < allDates.size(); x++) {
+                    for (int y = 0; y < obj.getData().size(); y++) {
+                        if(obj.getData().get(y).getId().equals(allDates.get(x))){
+                            EarningList.add(new BarEntry(obj.getData().get(y).getTotalAmount(), x));
+                        } else {
+                            EarningList.add(new BarEntry(0f, x));
+                        }
+                    }
+
+                    DateList.add(allDates.get(x).toString());
+                }
+
+                Log.e("Salmannnn", String.valueOf(DateList.size()));
+                Log.e("Salmannnn", String.valueOf(EarningList.size()));
+
+                BarDataSet bardataset = new BarDataSet(EarningList, "Earning from "+ fromDateStr +" to till "+ tillDateStr);
                 chart.animateY(2000);
-                BarData data = new BarData(year, bardataset);
+                BarData data = new BarData(DateList, bardataset);
                 bardataset.setColors(Collections.singletonList(Color.parseColor("#013618")));
                 chart.setData(data);
             }
@@ -172,7 +196,7 @@ public class EarningActivity extends AppCompatActivity implements RetrofitListen
 
     @Override
     public void onBackPressed() {
-        if(formLayout.getVisibility() == View.VISIBLE){
+        if (formLayout.getVisibility() == View.VISIBLE) {
             super.onBackPressed();
         } else {
             formLayout.setVisibility(View.VISIBLE);
@@ -246,5 +270,33 @@ public class EarningActivity extends AppCompatActivity implements RetrofitListen
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+    }
+
+    private static List<String> getDates(String fromDate, String tillDate) {
+        ArrayList<String> dates = new ArrayList<String>();
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        Date date1 = null;
+        Date date2 = null;
+
+        try {
+            date1 = df1.parse(fromDate);
+            date2 = df1.parse(tillDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        while (!cal1.after(cal2)) {
+            dates.add(df1.format(cal1.getTime()));
+            cal1.add(Calendar.DATE, 1);
+        }
+        return dates;
     }
 }

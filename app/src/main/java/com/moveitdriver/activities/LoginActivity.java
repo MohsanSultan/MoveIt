@@ -3,17 +3,16 @@ package com.moveitdriver.activities;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.moveitdriver.R;
 import com.moveitdriver.models.loginResponse.LoginResponse;
 import com.moveitdriver.retrofit.RestHandler;
@@ -171,7 +170,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     pDialog.dismiss();
                     if(loginResponse.getData().get(0).getIsActive() && loginResponse.getData().get(0).getNextStep().equals("Complete")) {
-                        startActivity(new Intent(this, MainActivity.class));
+                        Gson gson = new Gson();
+                        Intent intent = new Intent(this, MainActivity.class);
+                        intent.putExtra("status", loginResponse.getActiveBooking().getStatus());
+                        intent.putExtra("data", gson.toJson(loginResponse.getActiveBooking().getBooking()));
+                        startActivity(intent);
                         finishAffinity();
                         Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_LONG).show();
                     } else if(!loginResponse.getData().get(0).getIsActive() && loginResponse.getData().get(0).getNextStep().equals("Complete")) {

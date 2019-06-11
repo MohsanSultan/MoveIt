@@ -1,6 +1,7 @@
 package com.moveitdriver.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,6 +19,9 @@ import android.support.v7.app.AlertDialog;
 import com.moveitdriver.R;
 import com.moveitdriver.activities.MainActivity;
 
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND;
+import static android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
+
 public class Constants {
     public static String base_url = "http://3.17.240.63:1340/api/";
     public static String socket_base_url = "http://3.17.240.63:1340";
@@ -29,6 +33,7 @@ public class Constants {
     public static double mCurLat = 0.0;
     public static double mCurLong = 0.0;
     public static String country;
+    public static String bookingId;
 
     public static String NEXT_STEP = "";
 
@@ -121,5 +126,11 @@ public class Constants {
 
             notificationManager.notify(NOTIFICATION_ID, builder.build());
         }
+    }
+
+    public static boolean foregrounded() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return (appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE);
     }
 }

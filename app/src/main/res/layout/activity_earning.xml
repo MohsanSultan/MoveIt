@@ -82,6 +82,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/total_earning_text_view_earning_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Total Earning: $ 5000"
@@ -92,6 +93,6 @@
             android:id="@+id/barchart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_5sdp" />
+            android:layout_marginTop="@dimen/_10sdp" />
     </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,9 @@
-
 package com.moveitdriver.models.UserDetailResponse;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class UserDetailModelResponse {
 
@@ -12,7 +12,10 @@ public class UserDetailModelResponse {
     private Integer status;
     @SerializedName("data")
     @Expose
-    private Datum data = null;
+    private Data data;
+    @SerializedName("activeBooking")
+    @Expose
+    private ActiveBooking activeBooking;
     @SerializedName("message")
     @Expose
     private String message;
@@ -25,12 +28,20 @@ public class UserDetailModelResponse {
         this.status = status;
     }
 
-    public Datum getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(Datum data) {
+    public void setData(Data data) {
         this.data = data;
+    }
+
+    public ActiveBooking getActiveBooking() {
+        return activeBooking;
+    }
+
+    public void setActiveBooking(ActiveBooking activeBooking) {
+        this.activeBooking = activeBooking;
     }
 
     public String getMessage() {
